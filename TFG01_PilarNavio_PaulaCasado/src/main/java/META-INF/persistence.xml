@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="TFG01_PilarNavio_PaulaCasado">
+		<class>com.proyecto.modelo.bean.Categoria</class>
+		<class>com.proyecto.modelo.bean.IngredienteEnReceta</class>
+		<class>com.proyecto.modelo.bean.Ingrediente</class>
+		<class>com.proyecto.modelo.bean.LineasCompra</class>
+		<class>com.proyecto.modelo.bean.ListasCompra</class>
+		<class>com.proyecto.modelo.bean.NivelCocina</class>
+		<class>com.proyecto.modelo.bean.Perfile</class>
+		<class>com.proyecto.modelo.bean.RecetaEnUsuario</class>
+		<class>com.proyecto.modelo.bean.Receta</class>
+		<class>com.proyecto.modelo.bean.TiposDieta</class>
+		<class>com.proyecto.modelo.bean.Usuario</class>
+	</persistence-unit>
+</persistence>
