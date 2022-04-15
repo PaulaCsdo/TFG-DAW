@@ -18,4 +18,33 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.findAll();
 	}
 
+	@Override
+	public int eliminarReceta(int idReceta) {
+		int filas=0;
+		try {
+			rrepo.deleteById(idReceta);
+			filas=1;
+		}catch (Exception e) {
+			e.printStackTrace();
+	
+		}
+		return filas;
+	}
+
+	@Override
+	public int altaReceta(Receta receta) {
+		if(findById(receta.getIdReceta())==null) {
+			rrepo.save(receta);
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+
+	@Override
+	public Receta findById(int idReceta) {
+		return rrepo.findById(idReceta).orElse(null);
+	}
+
 }
