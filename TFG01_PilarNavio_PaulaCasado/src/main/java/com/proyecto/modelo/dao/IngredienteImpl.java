@@ -12,6 +12,7 @@ import com.proyecto.modelo.repository.IngredienteRepo;
 public class IngredienteImpl implements IngredienteInt{
 	@Autowired
 	private IngredienteRepo irepo;
+	
 	@Override
 	public List<Ingrediente> findAll() {
 		// TODO Auto-generated method stub
@@ -29,23 +30,15 @@ public class IngredienteImpl implements IngredienteInt{
 		}
 	}
 
-	@Override
-	public int eliminar(int idIngrediente) {
-		int filas=0;
-		try {
-			irepo.deleteById(idIngrediente);
-			filas=1;
-		}catch (Exception e) {
-			e.printStackTrace();
-	
-		}
-		return filas;
-	}
 
 	@Override
 	public Ingrediente findById(int idIngrediente) {
-		// TODO Auto-generated method stub
 		return irepo.findById(idIngrediente).orElse(null);
+	}
+
+	@Override
+	public List<Ingrediente> buscarPorDescripcion(String descripcion) {
+		return irepo.buscarPorDescripcion(descripcion);
 	}
 
 }
