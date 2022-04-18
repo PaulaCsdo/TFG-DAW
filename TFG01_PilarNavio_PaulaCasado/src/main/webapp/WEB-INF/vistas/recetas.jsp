@@ -23,7 +23,7 @@
 			<c:forEach var="ele" items="${listaRecetas}">
 				<tr>
 					<td>${ele.titulo}</td>
-					<td>${ele.autor}</td>
+					<td>${ele.usuario.username}</td>
 					<td>${ele.imagen}</td>
 					<td>${ele.kcal}</td>
 					<td>${ele.tiempo}</td>
