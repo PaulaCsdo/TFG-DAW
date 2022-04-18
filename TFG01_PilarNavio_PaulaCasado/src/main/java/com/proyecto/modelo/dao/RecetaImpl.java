@@ -57,4 +57,9 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.buscarXNombre(titulo);
 	}
 
+	@Override
+	public List<Receta> buscarXCategoria(int idCategoria) {
+		return rrepo.buscarXCategoria(idCategoria);
+	}
+
 }

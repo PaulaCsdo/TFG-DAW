@@ -14,4 +14,7 @@ public interface RecetaRepo extends JpaRepository<Receta, Integer>{
 	
 	@Query("select r from Receta r where r.titulo like %?1%")
 	public List<Receta> buscarXNombre(String titulo);
+	
+	@Query("select r from Receta r where r.categoria.idCategoria=?1")
+	public List<Receta> buscarXCategoria(int idCategoria);
 }
