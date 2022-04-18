@@ -63,7 +63,7 @@ public class HomeController {
 				
 			return "redirect:/presentacion";
 		}else {
-			rattr.addFlashAttribute("mensaje", "Usuario o contraseña incorrectos");
+			//rattr.addFlashAttribute("mensaje", "Usuario o contraseña incorrectos");
 			return "redirect:/login";
 		}
 	}
