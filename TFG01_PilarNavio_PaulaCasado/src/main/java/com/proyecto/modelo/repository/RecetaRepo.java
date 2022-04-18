@@ -9,8 +9,8 @@ import com.proyecto.modelo.bean.Receta;
 
 public interface RecetaRepo extends JpaRepository<Receta, Integer>{
 
-	@Query("select r from Receta r where r.ingredienteEnReceta.idIngrediente=?1") //DUDA: es correcto o hay que crear un join?
-	public List<Receta> buscarXIngrediente(int idIngrediente);
+//	@Query("select r from Receta r where r.ingredienteEnReceta.idIngrediente=?1") //DUDA: es correcto o hay que crear un join?
+//	public List<Receta> buscarXIngrediente(int idIngrediente);
 	
 	@Query("select r from Receta r where r.titulo like %?1%")
 	public List<Receta> buscarXNombre(String titulo);
@@ -24,8 +24,6 @@ public interface RecetaRepo extends JpaRepository<Receta, Integer>{
 	@Query("select r from Receta r where r.usuario.username=?1")
 	public List<Receta> verMisRecetas(String username);
 	
-	@Query(value = "select * from Recetas r " +
-					"inner join Receta_en_usuario ru on r.id_Receta = ru.id_Receta"
-					+ "where ru.guardada ='G'", nativeQuery = true)
+	@Query("select ru from RecetaEnUsuario ru where ru.guardada ='G' AND ru.usuario='username'")
 	public List<Receta> verRecetasGuardadas();
 }

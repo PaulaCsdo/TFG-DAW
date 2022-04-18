@@ -9,7 +9,7 @@
 <body>
 	<p> ${mensaje} </p>
 	
-	<h3>Nuestras novedades</h3>
+	<h3>Nuestras Recetas</h3>
 		<table border="1">
 						
 			<tr>					
@@ -19,7 +19,7 @@
 				<th colspan="3">Detalles</th>	
 			</tr>
 			
-			<c:forEach var="ele" items="${listaNovedades}">
+			<c:forEach var="ele" items="${listaRecetas}">
 				<tr>
 					<td>${ele.titulo}</td>
 					<td>${ele.autor}</td>

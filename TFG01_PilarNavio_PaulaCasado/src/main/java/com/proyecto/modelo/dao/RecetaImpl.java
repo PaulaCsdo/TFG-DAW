@@ -51,10 +51,10 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.findById(idReceta).orElse(null);
 	}
 
-	@Override
-	public List<Receta> buscarXIngrediente(int idIngrediente) {
-		return rrepo.buscarXIngrediente(idIngrediente);
-	}
+//	@Override
+//	public List<Receta> buscarXIngrediente(int idIngrediente) {
+//		return rrepo.buscarXIngrediente(idIngrediente);
+//	}
 
 	@Override
 	public List<Receta> buscarXNombre(String titulo) {
