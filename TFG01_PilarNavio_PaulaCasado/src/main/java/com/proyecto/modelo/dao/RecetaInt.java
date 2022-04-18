@@ -10,4 +10,5 @@ public interface RecetaInt {
 	int altaReceta (Receta receta);
 	Receta findById (int idReceta);
 	List<Receta> buscarXIngrediente(int idIngrediente);
+	List<Receta> buscarXNombre(String titulo);
 }

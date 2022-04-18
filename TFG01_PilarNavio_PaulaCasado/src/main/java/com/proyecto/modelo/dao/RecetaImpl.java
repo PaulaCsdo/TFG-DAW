@@ -52,4 +52,9 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.buscarXIngrediente(idIngrediente);
 	}
 
+	@Override
+	public List<Receta> buscarXNombre(String titulo) {
+		return rrepo.buscarXNombre(titulo);
+	}
+
 }
