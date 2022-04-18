@@ -15,4 +15,5 @@ public interface RecetaInt {
 	List<Receta> buscarXMomento(String momento);
 	List<Receta> verMisRecetas(String username);
 	List<Receta> verRecetasGuardadas();
+	int guardarReceta(Receta receta);
 }

@@ -77,4 +77,14 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.verRecetasGuardadas();
 	}
 
+	@Override
+	public int guardarReceta(Receta receta) {
+		if(findById(receta.getIdReceta())==null) {
+			List<Receta> guardadas = rrepo.verRecetasGuardadas();
+			guardadas.add(receta);
+			return 1;
+		}
+		return 0;
+	}
+
 }
