@@ -1,5 +1,6 @@
 package com.proyecto.modelo.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.proyecto.modelo.bean.Receta;
@@ -16,4 +17,5 @@ public interface RecetaInt {
 	List<Receta> verMisRecetas(String username);
 	List<Receta> verRecetasGuardadas();
 	int guardarReceta(Receta receta);
+	int valorarReceta(Receta receta, BigDecimal valoracion);
 }
