@@ -1,5 +1,7 @@
 package com.proyecto.modelo.dao;
 
-public interface PerfilInt {
+import com.proyecto.modelo.bean.Perfile;
 
+public interface PerfilInt {
+	Perfile findById(int idPerfil);
 }
