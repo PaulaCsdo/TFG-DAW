@@ -72,4 +72,9 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.verMisRecetas(username);
 	}
 
+	@Override
+	public List<Receta> verRecetasGuardadas() {
+		return rrepo.verRecetasGuardadas();
+	}
+
 }

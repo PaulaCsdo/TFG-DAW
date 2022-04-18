@@ -14,4 +14,5 @@ public interface RecetaInt {
 	List<Receta> buscarXCategoria(int idCategoria);
 	List<Receta> buscarXMomento(String momento);
 	List<Receta> verMisRecetas(String username);
+	List<Receta> verRecetasGuardadas();
 }
