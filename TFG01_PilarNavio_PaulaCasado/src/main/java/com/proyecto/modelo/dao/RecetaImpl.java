@@ -62,4 +62,14 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.buscarXCategoria(idCategoria);
 	}
 
+	@Override
+	public List<Receta> buscarXMomento(String momento) {
+		return rrepo.buscarXMomento(momento);
+	}
+
+	@Override
+	public List<Receta> verMisRecetas(String username) {
+		return rrepo.verMisRecetas(username);
+	}
+
 }

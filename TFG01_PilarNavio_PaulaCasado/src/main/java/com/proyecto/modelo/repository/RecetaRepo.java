@@ -17,4 +17,10 @@ public interface RecetaRepo extends JpaRepository<Receta, Integer>{
 	
 	@Query("select r from Receta r where r.categoria.idCategoria=?1")
 	public List<Receta> buscarXCategoria(int idCategoria);
+	
+	@Query("select r from Receta r where r.momento=?1")
+	public List<Receta> buscarXMomento(String momento);
+	
+	@Query("select r from Receta r where r.usuario.username=?1")
+	public List<Receta> verMisRecetas(String username);
 }
