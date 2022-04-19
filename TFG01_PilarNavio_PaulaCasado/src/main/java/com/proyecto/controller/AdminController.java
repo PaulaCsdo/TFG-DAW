@@ -71,7 +71,9 @@ public class AdminController {
 		return "PruebasPaula";
 	}	
 	
-	//Barra de navegación para buscar: ingredientes, recetas
+	/*Barra de navegación para buscar: ingredientes, recetas
+	 * El resultado de la búsqueda aparecerá en la misma vista (index)
+	 */
 	@PostMapping("/buscadorIngrediente")
 	public String buscarIngrediente(@RequestParam("descripcion") String descripcion, RedirectAttributes attr) {
 		List <Ingrediente> ingredienteBuscado=idao.buscarPorDescripcion(descripcion);
@@ -86,24 +88,37 @@ public class AdminController {
 		return "redirect:/administrador/index";
 	}
 	
-	/*Boton que lleva a un formulario para dar de alta una receta,
+	/*Boton que lleva a un formulario para dar de alta una receta COMPLETA (Ingrediente_Receta),
 	 * incluyendo ingredientes, cantidades, etc...
 	 */
 	@GetMapping("/altaRecetaCompleta")
-	public String crearRecetaCompleta(Model model) {
+	public String crearRecetaCompleta() {
 		return "PruebasPaula";
 	}
 	
 //	@PostMapping
 //	public String formRecetaCompleta()
 	
-	//Boton que lleva a un formulario para dar de alta un ingrediente
+	/*Boton que lleva a un formulario para dar de alta un ingrediente.
+	 *Solo puede dar de alta un nuevo ingrediente el rol de administrador.
+	 */
 	@GetMapping("/altaIngrediente")
-	public String crearIngrediente(Model model) {
+	public String crearIngrediente() {
 		return "PruebasPaula";
 	}
 	
-	//@PostMapping
+	@PostMapping
+	public String formIngrediente (Ingrediente ingrediente, RedirectAttributes attr, HttpSession session) {
+		if (ingrediente == null) {
+			attr.addFlashAttribute("mensaje", "Error en el alta");
+			return "redirect:/altaIngrediente ";
+
+		}else {
+			idao.altaIngrediente(ingrediente);
+			attr.addFlashAttribute("mensaje", "Nuevo usuario creado");
+			return "redirect:/administrador/verIngredientes";
+		}
+	}
 	
 
 }
