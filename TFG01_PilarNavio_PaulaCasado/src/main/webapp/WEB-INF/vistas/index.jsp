@@ -9,15 +9,15 @@
 </head>
 
 <body>
-<td><a href="/logout">Salir</td>
+<a href="/logout">Salir
 	
 	<h1>¿Qué quieres hacer?</h1>
 	<h3>Pulsa sobre la opción</h3>
 	
-	<a href="#">Ver todas las recetas
-	<a href="#">Ver las recetas que me gustan
-	<a href="#">Ver mis propias recetas
-	<a href="#">Crear receta
+	<a href="/usuario/verTodas">Ver todas las recetas
+	<a href="/usuario/guardadas">Ver las recetas que me gustan
+	<a href="/usuario/misRecetas">Ver mis propias recetas
+	<a href="/usuario/altaReceta">Crear receta
 	<a href="#">Preferencias
 	<a href="#">Ver mi perfil
 	
