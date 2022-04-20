@@ -23,13 +23,8 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 	
 	@Override
 	public int nuevaReceta(IngredienteEnReceta inrec) {
-		if(findById(inrec.getIdIngredientereceta())==null) {
-			irepo.save(inrec);
-			return 1;
-		}
-		else {
-			return 0;
-		}
+		irepo.save(inrec);
+		return 1;
 	}
 
 	@Override
