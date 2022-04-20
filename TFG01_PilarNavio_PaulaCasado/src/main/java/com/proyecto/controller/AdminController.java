@@ -124,7 +124,7 @@ public class AdminController {
 
 		}else {
 			idao.altaIngrediente(ingrediente);
-			attr.addFlashAttribute("mensaje", "Nuevo usuario creado");
+			attr.addFlashAttribute("mensaje", "Nuevo ingrediente creado");
 			return "redirect:/administrador/verIngredientes";
 		}
 	}
