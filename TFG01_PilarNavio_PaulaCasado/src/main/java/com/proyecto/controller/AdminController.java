@@ -116,11 +116,11 @@ public class AdminController {
 		return "PruebasPaula";
 	}
 	
-	@PostMapping
+	@PostMapping("/altaIngrediente")
 	public String formIngrediente (Ingrediente ingrediente, RedirectAttributes attr, HttpSession session) {
 		if (ingrediente == null) {
 			attr.addFlashAttribute("mensaje", "Error en el alta");
-			return "redirect:/altaIngrediente ";
+			return "redirect:/administrador/altaIngrediente ";
 
 		}else {
 			idao.altaIngrediente(ingrediente);
@@ -130,10 +130,7 @@ public class AdminController {
 	}
 	
 	
-	/*Boton que lleva a un formulario para dar de alta una receta COMPLETA (Ingrediente_Receta):
-	 * 1. elige la receta a completar, el metodo recibe un objeto receta
-	 * 2. añade los ingredientes, el metodo recibe varios objetos ingredientes (hay que trabajar con un arraylist)
-	 * 3. añade cantidad y unidad
+	/*Boton que lleva a un formulario para dar de alta una receta COMPLETA (Ingrediente_Receta)
 	 *  !!!: Para los usuarios, es necesario que el formulario tenga un campo PUNTUACIÓN
 	 */
 	@GetMapping("/altaRecetaCompleta")
@@ -147,16 +144,16 @@ public class AdminController {
 		return "PruebasPaula";
 	}
 	
-	@PostMapping
+	@PostMapping("/altaRecetaCompleta")
 	public String formRecetaCompleta(IngredienteEnReceta inreceta, RedirectAttributes attr, HttpSession session) {
 		
-		/* 1. Recuperamos la receta del objeto IngredienteEnReceta. 
+		/* 1. Recuperamos la receta del objeto IngredienteEnReceta.
 		 * 2. Después, obtenemos el usuario de la sesión y lo establecemos como autor de la receta.
 		 * 3. Damos de alta un nuevo objeto Receta
 		 * 4. Damos de alta la receta completa (objeto IngredienteEnReceta)
 		 */
 		
-		Receta rec=inreceta.getReceta();
+		Receta rec= inreceta.getReceta();
 		Usuario usu=(Usuario)session.getAttribute("usuario");
 		rec.setUsuario(usu);
 		rdao.altaReceta(rec);
