@@ -30,10 +30,12 @@
 		  <fieldset>
 		    <legend>Ingredientes:</legend>
 		    <input type="text" name="ingrediente1" placeholder="escribir ingrediente">
+		    <input type="text" name="unidad_ingrediente1" placeholder="escribir cantidad"> <div>unidad</div>
+		    
 		    <button class="addIngr" type="button">Añadir otro ingrediente</button> <!-- Sacaremos con JS otro input si hace clic en el. Aparecerá entre el ultimo input y el boton -->
 		    
-		    <p>Nombre del ingrediente 1 que se sacará con JS </p><br>
-		    <input type="submit" value="Añadir estos ingredientes">
+		    <p>Nombre del ingrediente 1 y su cantidad que se sacará con JS. ¿Daremos posibilidad de eliminarlo???</p><br>
+<!-- 		    <input type="submit" value="Añadir estos ingredientes"> -->
 		  </fieldset>
 		</form>
   		<!-- DUDA: Tenemos diferentes opciones para sacar los ingredientes:
