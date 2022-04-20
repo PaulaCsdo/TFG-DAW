@@ -56,12 +56,12 @@ public class HomeController {
 	
 	@GetMapping ("/")
 	public String verPresentacion() {
-		return "Presentacion";
+		return "PruebasPaula";
 	}
 	
 	@GetMapping ("/login")
 	public String iniciarSesion () {
-		return "InicioSesion";
+		return "PruebasPaula";
 	}
 	
 	@PostMapping ("/login")
