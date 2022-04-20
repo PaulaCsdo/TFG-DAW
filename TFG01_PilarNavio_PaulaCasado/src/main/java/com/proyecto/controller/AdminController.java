@@ -120,7 +120,7 @@ public class AdminController {
 	public String formIngrediente (Ingrediente ingrediente, RedirectAttributes attr, HttpSession session) {
 		if (ingrediente == null) {
 			attr.addFlashAttribute("mensaje", "Error en el alta");
-			return "redirect:/altaIngrediente ";
+			return "redirect:/administrador/altaIngrediente ";
 
 		}else {
 			idao.altaIngrediente(ingrediente);
@@ -144,7 +144,7 @@ public class AdminController {
 		return "PruebasPaula";
 	}
 	
-	@PostMapping("/altaIngrediente")
+	@PostMapping("/altaRecetaCompleta")
 	public String formRecetaCompleta(IngredienteEnReceta inreceta, RedirectAttributes attr, HttpSession session) {
 		
 		/* 1. Recuperamos la receta del objeto IngredienteEnReceta.
