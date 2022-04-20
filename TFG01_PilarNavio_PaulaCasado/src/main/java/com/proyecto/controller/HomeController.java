@@ -28,11 +28,11 @@ import com.proyecto.modelo.dao.UsuarioInt;
 
 
 @Controller
-@RequestMapping("/")
 public class HomeController {
 
 	/*Cuando implementemos security, el login redirige a:
-	 * 		- /vistaPresentacion si el perfil es USUARIO/USUARIO PREM
+	 * 		- /usuario/index/verTodas si el perfil es USUARIO
+	 * 		- /usuarioPremium si es USUARIO PREMIUM
 	 * 		- /admin/index si el perfil es ADMINISTRADOR
 	 */
 	
@@ -48,6 +48,15 @@ public class HomeController {
 		sdf.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));
 		
+	}
+	
+	/*Esta vista consiste en la presentación de la aplicación. Incluye un botón
+	 * que redirige a la página de login.
+	 */
+	
+	@GetMapping ("/")
+	public String verPresentacion() {
+		return "Presentacion";
 	}
 	
 	@GetMapping ("/login")
@@ -68,10 +77,6 @@ public class HomeController {
 		}
 	}
 	
-	@GetMapping ("/presentacion")
-	public String verPresentacion() {
-		return "Presentacion";
-	}
 	
 	@GetMapping("/alta")
 	public String formRegistro() {
