@@ -37,13 +37,14 @@ public class RecetaImpl implements RecetaInt{
 
 	@Override
 	public int altaReceta(Receta receta) {
-		if(findById(receta.getIdReceta())==null) {
+		int filas = 0;
+		try {
 			rrepo.save(receta);
-			return 1;
+			filas = 1;
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		else {
-			return 0;
-		}
+		return filas;
 	}
 
 	@Override

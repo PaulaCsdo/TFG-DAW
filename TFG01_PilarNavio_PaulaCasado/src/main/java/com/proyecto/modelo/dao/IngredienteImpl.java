@@ -15,19 +15,19 @@ public class IngredienteImpl implements IngredienteInt{
 	
 	@Override
 	public List<Ingrediente> findAll() {
-		// TODO Auto-generated method stub
 		return irepo.findAll();
 	}
 
 	@Override
 	public int altaIngrediente(Ingrediente ingrediente) {
-		if(findById(ingrediente.getIdIngrediente())==null) {
+		int filas = 0;
+		try {
 			irepo.save(ingrediente);
-			return 1;
+			filas = 1;
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		else {
-			return 0;
-		}
+		return filas;
 	}
 
 
