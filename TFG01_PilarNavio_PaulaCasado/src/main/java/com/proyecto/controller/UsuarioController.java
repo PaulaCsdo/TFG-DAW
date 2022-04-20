@@ -1,5 +1,6 @@
 package com.proyecto.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -59,14 +60,23 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/altaReceta")
-	public String procesarAltaReceta(Receta receta, RedirectAttributes attr) {
-		if(recint.altaReceta(receta)==1) {
-			attr.addFlashAttribute("mensaje", "La receta ha sido dada de alta");
-			return "redirect:/";
-		} else {
-			attr.addFlashAttribute("mensaje", "La receta NO ha sido dada de alta");
-			return "";
+	public String procesarAltaReceta(Receta receta, RedirectAttributes attr, HttpSession session) {
+		if(receta==null) {
+			attr.addFlashAttribute("mensaje", "Error en el alta");
+			return "redirect:/usuario/altaReceta";
+		}else {
+			receta.setPuntuacion(new BigDecimal(0));
+			receta.setUsuario((Usuario) session.getAttribute("username"));
+			recint.altaReceta(receta);
+			if(recint.altaReceta(receta)==1) {
+				attr.addFlashAttribute("mensaje", "La receta ha sido dada de alta");
+				return "redirect:/";
+			} else {
+				attr.addFlashAttribute("mensaje", "La receta NO ha sido dada de alta");
+				return "redirect:/usuario/altaReceta";
+			}
 		}
+		
 	}
 
 }
