@@ -2,6 +2,8 @@ package com.proyecto.modelo.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -123,5 +125,14 @@ public class Ingrediente implements Serializable {
 			return false;
 		return true;
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Ingrediente [idIngrediente=" + idIngrediente + ", descripcion=" + descripcion + ", imagen="
+//				+ Arrays.toString(imagen) + ", ingredienteEnRecetas=" + ingredienteEnRecetas + ", lineasCompras="
+//				+ lineasCompras + "]";
+//	}
+	
+	
 
 }

@@ -9,14 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.modelo.bean.Categoria;
+import com.proyecto.modelo.bean.IngredienteEnReceta;
 import com.proyecto.modelo.bean.Receta;
 import com.proyecto.modelo.bean.Usuario;
 import com.proyecto.modelo.dao.CategoriaInt;
+import com.proyecto.modelo.dao.IngredienteRecetaInt;
 import com.proyecto.modelo.dao.RecetaInt;
 
 @Controller
@@ -28,6 +31,14 @@ public class UsuarioController {
 	
 	@Autowired
 	private CategoriaInt catint;
+	
+	@Autowired
+	private IngredienteRecetaInt irint;
+	
+	@GetMapping("/inicio")
+	public String index() {
+		return "index";
+	}
 	
 	
 	@GetMapping("/verTodas")
@@ -58,6 +69,39 @@ public class UsuarioController {
 		session.setAttribute("listaCategorias", listaCategorias);
 		return "formAltaReceta";
 	}
+	
+	
+	//PTE DE TERMINAR: nO CONSIGO SACAR EL NOMBRE DEL INGREDIENTE CON EL IDINGREDIENTERECETA
+	@GetMapping("/receta/{idReceta}")
+	public String verReceta(Model model, @PathVariable ("idReceta") int idReceta) {
+		Receta receta = recint.findById(idReceta);
+		
+		int num_ingredientes = (receta.getIngredienteEnRecetas()).size();
+		
+		List<IngredienteEnReceta> ingredienteEnReceta = receta.getIngredienteEnRecetas();
+		//System.out.println("Ingredientes: "+ ingredienteEnReceta);
+		for (int i = 0; i < ingredienteEnReceta.size(); i++){
+			int idIngredientereceta = ingredienteEnReceta.get(i).getIdIngredientereceta();
+			IngredienteEnReceta nombreIngrediente = irint.findById(idIngredientereceta);
+			System.out.println(nombreIngrediente);
+		}
+		
+		
+		String pasos= receta.getPasos();
+		String[] pasosSegmentados= pasos.split("- ");
+//		for (int i = 1; i < pasosSegmentados.length; i++){
+//			System.out.println("paso de la receta segmentados: " + pasosSegmentados[i]);
+//		}
+		
+		
+		model.addAttribute("pasosSegmentados", pasosSegmentados);
+		model.addAttribute("num_ingredientes", num_ingredientes);
+		model.addAttribute("receta", receta);
+		
+		return "receta";
+	}
+	
+	
 	
 	@PostMapping("/altaReceta")
 	public String procesarAltaReceta(Receta receta, RedirectAttributes attr, HttpSession session) {

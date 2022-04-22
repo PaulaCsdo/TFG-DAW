@@ -17,7 +17,7 @@
 				<th>Titulo</th>
 				<th>Autor</th>
 				<th>Imagen</th>
-				<th colspan="3">Detalles</th>	
+				<th colspan="4">Detalles</th>	
 			</tr>
 			
 			<c:forEach var="ele" items="${listaRecetas}">
@@ -25,9 +25,10 @@
 					<td>${ele.titulo}</td>
 					<td>${ele.usuario.username}</td>
 					<td>${ele.imagen}</td>
-					<td>${ele.kcal}</td>
-					<td>${ele.tiempo}</td>
+					<td>${ele.kcal} kcal</td>
+					<td>${ele.tiempo} minutos</td>
 					<td>${ele.puntuacion}</td>
+					<td><a href="/usuario/receta/${ele.idReceta}">Ver receta</a></td>
 				</tr>			
 			</c:forEach>
 		

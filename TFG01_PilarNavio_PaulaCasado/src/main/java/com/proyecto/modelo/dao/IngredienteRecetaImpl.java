@@ -32,4 +32,5 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 		return irepo.findById(idIngredientereceta).orElse(null);
 	}
 
+
 }

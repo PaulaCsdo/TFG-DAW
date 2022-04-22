@@ -7,4 +7,5 @@ public interface IngredienteRecetaInt {
 	List <IngredienteEnReceta> findAll();
 	int nuevaReceta (IngredienteEnReceta inrec);
 	IngredienteEnReceta findById(int idIngredientereceta);
+
 }
