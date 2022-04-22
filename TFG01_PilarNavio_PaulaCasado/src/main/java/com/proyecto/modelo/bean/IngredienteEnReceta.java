@@ -96,4 +96,16 @@ public class IngredienteEnReceta implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "IngredienteEnReceta [idIngredientereceta=" + idIngredientereceta + ", cantidad=" + cantidad
+				+ ", unidad=" + unidad + ", ingrediente=" + ingrediente + ", receta=" + receta + "]";
+	}
+
+
+
+
+	
+	
+
 }
