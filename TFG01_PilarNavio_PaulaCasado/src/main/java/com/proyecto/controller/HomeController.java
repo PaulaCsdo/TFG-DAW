@@ -54,7 +54,7 @@ public class HomeController {
 	 * que redirige a la página de login.
 	 */
 	
-	@GetMapping ("/")
+	@GetMapping ("/presentacion")
 	public String verPresentacion() {
 		return "PruebasPaula";
 	}
@@ -70,7 +70,7 @@ public class HomeController {
 		if (usu!=null) {
 			session.setAttribute("usuario", usu);
 				
-			return "redirect:/presentacion";
+			return "redirect:/alta";
 		}else {
 			//rattr.addFlashAttribute("mensaje", "Usuario o contraseña incorrectos");
 			return "redirect:/login";
@@ -80,7 +80,7 @@ public class HomeController {
 	
 	@GetMapping("/alta")
 	public String formRegistro() {
-		return "AltaCliente";
+		return "formAltaReceta";
 	}
 
 	@PostMapping("/alta")

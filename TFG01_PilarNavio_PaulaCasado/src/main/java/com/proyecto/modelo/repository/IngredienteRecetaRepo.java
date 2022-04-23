@@ -10,6 +10,7 @@ import com.proyecto.modelo.bean.IngredienteEnReceta;
 
 public interface IngredienteRecetaRepo extends JpaRepository<IngredienteEnReceta, Integer>{
 	
-
+	@Query("select r from IngredienteEnReceta r where r.ingrediente.descripcion like %?1%") 
+	public List<IngredienteEnReceta> buscarXIngrediente(String descripcion);
 
 }

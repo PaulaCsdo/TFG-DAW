@@ -77,20 +77,20 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.verMisRecetas(username);
 	}
 
-	@Override
-	public List<Receta> verRecetasGuardadas() {
-		return rrepo.verRecetasGuardadas();
-	}
-
-	@Override
-	public int guardarReceta(Receta receta) {
-		if(findById(receta.getIdReceta())!=null) {
-			List<Receta> guardadas = rrepo.verRecetasGuardadas();
-			guardadas.add(receta);
-			return 1;
-		}
-		return 0;
-	}
+//	@Override
+//	public List<Receta> verRecetasGuardadas() {
+//		return rrepo.verRecetasGuardadas();
+//	}
+//
+//	@Override
+//	public int guardarReceta(Receta receta) {
+//		if(findById(receta.getIdReceta())!=null) {
+//			List<Receta> guardadas = rrepo.verRecetasGuardadas();
+//			guardadas.add(receta);
+//			return 1;
+//		}
+//		return 0;
+//	}
 
 	//DUDA: ¿Creamos una tabla renacida con las puntuaciones de cada receta para recuperar el arraylist?
 	@Override

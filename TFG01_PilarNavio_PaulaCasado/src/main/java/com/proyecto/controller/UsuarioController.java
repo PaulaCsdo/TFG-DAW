@@ -17,10 +17,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.proyecto.modelo.bean.Categoria;
 import com.proyecto.modelo.bean.IngredienteEnReceta;
 import com.proyecto.modelo.bean.Receta;
+import com.proyecto.modelo.bean.RecetaEnUsuario;
 import com.proyecto.modelo.bean.Usuario;
 import com.proyecto.modelo.dao.CategoriaInt;
 import com.proyecto.modelo.dao.IngredienteRecetaInt;
 import com.proyecto.modelo.dao.RecetaInt;
+import com.proyecto.modelo.dao.RecetaUsuarioInt;
 
 @Controller
 @RequestMapping("/usuario")
@@ -34,6 +36,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private IngredienteRecetaInt irint;
+	
+	@Autowired
+	private RecetaUsuarioInt rudao;
 	
 	@GetMapping("/inicio")
 	public String index() {
@@ -50,7 +55,7 @@ public class UsuarioController {
 	
 	@GetMapping("/guardadas")
 	public String meGustan(Model model) {
-		List<Receta> recetas = recint.verRecetasGuardadas();
+		List<RecetaEnUsuario> recetas = rudao.verRecetasGuardadas();
 		model.addAttribute("listaRecetas", recetas);
 		return "recetas";
 	}
