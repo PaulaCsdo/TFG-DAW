@@ -32,5 +32,10 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 		return irepo.findById(idIngredientereceta).orElse(null);
 	}
 
+	@Override
+	public List<IngredienteEnReceta> buscarXIngrediente(String descripcion) {
+		return irepo.buscarXIngrediente(descripcion);
+	}
+
 
 }

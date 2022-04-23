@@ -19,8 +19,29 @@ public class RecetaUsuarioImpl implements RecetaUsuarioInt{
 	}
 	@Override
 	public RecetaEnUsuario findById(int idRecetausuario) {
-		// TODO Auto-generated method stub
-		return null;
+		return rrepo.findById(idRecetausuario).orElse(null);
+	}
+	
+	/*Para guardar una receta, en el Controller: 
+	 * 	- setUsuario(session.getUsername)
+	 * 	- setReceta
+	 */
+	@Override
+	public int guardarReceta(RecetaEnUsuario recusu) {
+		int filas = 0;
+		try {
+			recusu.setGuardada("G");
+			rrepo.save(recusu);
+			filas = 1;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return filas;
+	}
+	
+	@Override
+	public List<RecetaEnUsuario> verRecetasGuardadas() {
+		return rrepo.verRecetasGuardadas();
 	}
 	
 

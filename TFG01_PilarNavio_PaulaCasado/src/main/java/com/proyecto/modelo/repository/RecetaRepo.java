@@ -24,6 +24,6 @@ public interface RecetaRepo extends JpaRepository<Receta, Integer>{
 	@Query("select r from Receta r where r.usuario.username=?1")
 	public List<Receta> verMisRecetas(String username);
 	
-	@Query("select ru from RecetaEnUsuario ru where ru.guardada ='G' AND ru.usuario='username'")
-	public List<Receta> verRecetasGuardadas();
+//	@Query("select ru from RecetaEnUsuario ru where ru.guardada ='G' AND ru.usuario='username'")
+//	public List<Receta> verRecetasGuardadas();
 }

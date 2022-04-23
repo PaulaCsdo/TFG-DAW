@@ -10,5 +10,22 @@
 </head>
 <body>
 <p>Hola</p>
+
+<h1>Inicio de sesión</h1>
+<form action="/login" method="post">
+	<table>
+		<tr>
+			<td><input type="text" name="username" placeholder="nombre"></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="password" placeholder="contr"></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Login"></td>
+		</tr>
+	</table>
+</form>
+<p>${mensaje}</p>
+
 </body>
 </html>
