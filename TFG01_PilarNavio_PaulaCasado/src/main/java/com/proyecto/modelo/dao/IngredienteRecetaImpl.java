@@ -38,10 +38,10 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 		return irepo.buscarXIngrediente(descripcion);
 	}
 
-	@Override
-	public String buscarNombreIngrediente(int IdIngredientereceta) {
-		return irepo.buscarNombreIngrediente(IdIngredientereceta);
-	}
+//	@Override
+//	public String buscarNombreIngrediente(int IdIngredientereceta) {
+//		return irepo.buscarNombreIngrediente(IdIngredientereceta);
+//	}
 
 
 	

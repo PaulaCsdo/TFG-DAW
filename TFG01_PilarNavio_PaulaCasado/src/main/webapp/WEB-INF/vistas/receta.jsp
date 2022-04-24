@@ -20,6 +20,9 @@
 
 <p>Se hace en ${receta.tiempo} minutos</p>
 
+<h4>¿Para cuántos quieres cocinar</h4>
+<button id="restar">-</button> ${receta.numPorciones} personas <button id="sumar">+</button>
+
 <h3>Ingredientes</h3>
 
 <table>
