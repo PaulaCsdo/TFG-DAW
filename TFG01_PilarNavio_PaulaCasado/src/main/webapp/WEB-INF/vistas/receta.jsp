@@ -22,15 +22,15 @@
 
 <h3>Ingredientes</h3>
 
-
+<table>
 	<c:forEach var="ele" items="${receta.ingredienteEnRecetas}">
 		<tr>
-			<td> ${ele.idIngredientereceta}</td>
+			<td> ${ele.ingrediente.descripcion}</td>
 			<td> ${ele.cantidad}</td>
 			<td> ${ele.unidad}</td>
 		</tr>	
 	</c:forEach>
-
+</table>
 
 <h3>Pasos</h3>
 <c:forEach var="ele" items="${pasosSegmentados}" begin="1">
