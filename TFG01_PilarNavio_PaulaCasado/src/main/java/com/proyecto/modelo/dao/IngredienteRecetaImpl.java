@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.proyecto.modelo.bean.Ingrediente;
 import com.proyecto.modelo.bean.IngredienteEnReceta;
 import com.proyecto.modelo.repository.IngredienteRecetaRepo;
 
@@ -36,6 +37,15 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 	public List<IngredienteEnReceta> buscarXIngrediente(String descripcion) {
 		return irepo.buscarXIngrediente(descripcion);
 	}
+
+//	@Override
+//	public String buscarNombreIngrediente(int IdIngredientereceta) {
+//		return irepo.buscarNombreIngrediente(IdIngredientereceta);
+//	}
+
+
+	
+
 
 
 }
