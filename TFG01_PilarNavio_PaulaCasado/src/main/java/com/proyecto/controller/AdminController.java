@@ -152,14 +152,17 @@ public class AdminController {
 		 * 3. Damos de alta un nuevo objeto Receta
 		 * 4. Damos de alta la receta completa (objeto IngredienteEnReceta)
 		 */
+		if(inreceta!=null) {
+			Receta rec= inreceta.getReceta();
+			Usuario usu=(Usuario)session.getAttribute("usuario");
+			rec.setUsuario(usu);
+			rdao.altaReceta(rec);
 		
-		Receta rec= inreceta.getReceta();
-		Usuario usu=(Usuario)session.getAttribute("usuario");
-		rec.setUsuario(usu);
-		rdao.altaReceta(rec);
-		
-		irdao.nuevaReceta(inreceta);
-		return "redirect:/administrador/verRecetasCompletas";
+			irdao.nuevaReceta(inreceta);
+			return "redirect:/administrador/verRecetasCompletas";
+		}else {
+			return "redirect:/administrador/altaRecetaCompleta";
+		}
 	}
 	
 	
