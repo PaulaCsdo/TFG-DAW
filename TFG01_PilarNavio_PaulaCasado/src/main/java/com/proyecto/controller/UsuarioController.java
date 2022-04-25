@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.modelo.bean.Categoria;
+import com.proyecto.modelo.bean.Ingrediente;
 import com.proyecto.modelo.bean.IngredienteEnReceta;
 import com.proyecto.modelo.bean.Receta;
 import com.proyecto.modelo.bean.RecetaEnUsuario;
 import com.proyecto.modelo.bean.Usuario;
 import com.proyecto.modelo.dao.CategoriaInt;
+import com.proyecto.modelo.dao.IngredienteInt;
 import com.proyecto.modelo.dao.IngredienteRecetaInt;
 import com.proyecto.modelo.dao.RecetaInt;
 import com.proyecto.modelo.dao.RecetaUsuarioInt;
@@ -33,6 +35,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private CategoriaInt catint;
+	
+	@Autowired
+	private IngredienteInt ingint;
 	
 	@Autowired
 	private IngredienteRecetaInt irint;
@@ -76,20 +81,19 @@ public class UsuarioController {
 	}
 	
 	
-	//PTE DE TERMINAR: nO CONSIGO SACAR EL NOMBRE DEL INGREDIENTE CON EL IDINGREDIENTERECETA
 	@GetMapping("/receta/{idReceta}")
 	public String verReceta(Model model, @PathVariable ("idReceta") int idReceta) {
 		Receta receta = recint.findById(idReceta);
 		
 		int num_ingredientes = (receta.getIngredienteEnRecetas()).size();
 		
-		List<IngredienteEnReceta> ingredienteEnReceta = receta.getIngredienteEnRecetas();
-		//System.out.println("Ingredientes: "+ ingredienteEnReceta);
-		for (int i = 0; i < ingredienteEnReceta.size(); i++){
-			int idIngredientereceta = ingredienteEnReceta.get(i).getIdIngredientereceta();
-			IngredienteEnReceta nombreIngrediente = irint.findById(idIngredientereceta);
-			System.out.println(nombreIngrediente);
-		}
+		//NO LO UTILIZO pq saco los datos con los atributos en la jsp
+//		List<IngredienteEnReceta> ingredienteEnReceta = receta.getIngredienteEnRecetas();
+//		for (int i = 0; i < ingredienteEnReceta.size(); i++){
+//			//String nombreIngrediente= ingredienteEnReceta.get(i).getIngrediente().getDescripcion();
+//			String nombreIngr = irint.buscarNombreIngrediente(ingredienteEnReceta.get(i).getIdIngredientereceta());
+//			System.out.println(nombreIngr);
+//		}
 		
 		
 		String pasos= receta.getPasos();
