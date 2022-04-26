@@ -6,12 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.modelo.bean.Categoria;
@@ -29,7 +30,7 @@ import com.proyecto.modelo.dao.RecetaInt;
 import com.proyecto.modelo.dao.TipoDietaInt;
 import com.proyecto.modelo.dao.UsuarioInt;
 
-@Controller
+@RestController
 @RequestMapping("/administrador")
 public class AdminController {
 
@@ -61,98 +62,66 @@ public class AdminController {
 	
 	//Boton que lleva a vista con la lista de usuarios
 	@GetMapping("/verUsuarios")
-	public String listarUsuarios(Model model) {
-		List <Usuario> lista=udao.findAll();
-		model.addAttribute("listaUsuarios", lista);
-		return "PruebasPaula";
+	public List <Usuario> verUsuarios() {
+		return udao.findAll();
 	}
 	
 	//Boton que lleva a vista con la lista de ingredientes
 	@GetMapping("/verIngredientes")
-	public String listarIngredientes(Model model) {
-		List<Ingrediente> listaIngredientes=idao.findAll();
-		model.addAttribute("listaIngredientes", listaIngredientes);
-		return "PruebasPaula";
+	public List<Ingrediente> listarIngredientes(){
+		return idao.findAll();
 	}	
 	
-	//Boton que lleva a vista con la lista de recetas
+	//Boton que lleva a vista con la lista de recetas: incluye ingredientes + unidad/cantidades
 	@GetMapping("/verRecetas")
-	public String listarRecetas(Model model) {
-		List<Receta> listaRecetas=rdao.verRecetas();
-		model.addAttribute("listarecetas", listaRecetas);
-		return "PruebasPaula";
+	public List<Receta> listarRecetas(){
+		return rdao.verRecetas();
 	}
 	
-	//Boton que lleva a vista con la lista de recetas completas: incluye ingredientes + cantidades
-	@GetMapping("/verRecetasCompletas")
-	public String listarRecetasCompletas(Model model) {
-		List<Receta> listaRecetas=rdao.verRecetas();
-		model.addAttribute("listarecetas", listaRecetas);
-		return "PruebasPaula";
-	}	
 	
 	/*Barra de navegación para buscar: ingredientes, recetas
 	 * El resultado de la búsqueda aparecerá en la misma vista (index)
 	 */
-	@PostMapping("/buscadorIngrediente")
-	public String buscarIngrediente(@RequestParam("descripcion") String descripcion, RedirectAttributes attr) {
-		List <Ingrediente> ingredienteBuscado=idao.buscarPorDescripcion(descripcion);
-		attr.addFlashAttribute("ingredienteBuscado", ingredienteBuscado);
-		return "redirect:/administrador/index";
+	@PostMapping("/buscadorIngrediente/{descripcion}")
+	public List <Ingrediente> buscarIngrediente(@PathVariable("descripcion") String descripcion) {
+		return idao.buscarPorDescripcion(descripcion);
 	}
 	
-	@PostMapping("/buscadorReceta")
-	public String buscarReceta(@RequestParam("titulo") String titulo, RedirectAttributes attr ) {
-		List <Receta> recetaBuscada=rdao.buscarXNombre(titulo);
-		attr.addFlashAttribute("recetaBuscada", recetaBuscada);
-		return "redirect:/administrador/index";
+	@PostMapping("/buscadorReceta/{titulo}")
+	public List <Receta> buscarReceta(@PathVariable("titulo") String titulo) {
+		return rdao.buscarXNombre(titulo);
 	}
 	
 	/*Boton que lleva a un formulario para dar de alta un ingrediente.
 	 *Solo puede dar de alta un nuevo ingrediente el rol de administrador.
 	 */
-	@GetMapping("/altaIngrediente")
-	public String crearIngrediente() {
-		return "PruebasPaula";
-	}
-	
 	@PostMapping("/altaIngrediente")
-	public String formIngrediente (Ingrediente ingrediente, RedirectAttributes attr, HttpSession session) {
-		if (ingrediente == null) {
-			attr.addFlashAttribute("mensaje", "Error en el alta");
-			return "redirect:/administrador/altaIngrediente ";
-
-		}else {
-			idao.altaIngrediente(ingrediente);
-			attr.addFlashAttribute("mensaje", "Nuevo ingrediente creado");
-			return "redirect:/administrador/verIngredientes";
-		}
+	public String registrarIngrediente(@RequestBody Ingrediente ingrediente) {
+			return (idao.altaIngrediente(ingrediente)==1)?"Alta realizada":"ERROR en alta";
 	}
 	
 	
-	/*Boton que lleva a un formulario para dar de alta una receta COMPLETA (Ingrediente_Receta)
-	 *  !!!: Para los usuarios, es necesario que el formulario tenga un campo PUNTUACIÓN
+	/*
+	 * Es necesario métodos que muestren las categorias, los niveles de dificultad 
+	 * y los tipos de dieta para poder mostrarlos en el formulario "alta receta"
 	 */
-	@GetMapping("/altaRecetaCompleta")
-	public String crearRecetaCompleta(Model model) {
-		List<Categoria> listaCategoria=cint.verCategorias();
-		List<NivelCocina> listaNivel=nint.findAll();
-		List<TiposDieta> listaTipo=tint.findAll();
-		model.addAttribute("listaCategoria", listaCategoria);
-		model.addAttribute("listaNivel", listaNivel);
-		model.addAttribute("listaTipo", listaTipo);
-		return "PruebasPaula";
+	@GetMapping("/verNiveles")
+	public List<NivelCocina> verDificultad() {
+		return nint.findAll();
+	}
+	
+	@GetMapping("/verCategorias")
+	public List<Categoria> verCateg() {
+		return cint.verCategorias();
+	}
+	
+	@GetMapping("/verTiposDieta")
+	public List<TiposDieta> verTipos() {
+		return tint.findAll();
 	}
 	
 	@PostMapping("/altaRecetaCompleta")
-	public String formRecetaCompleta(IngredienteEnReceta inreceta, RedirectAttributes attr, HttpSession session) {
-		
-		/* 1. Recuperamos la receta del objeto IngredienteEnReceta.
-		 * 2. Después, obtenemos el usuario de la sesión y lo establecemos como autor de la receta.
-		 * 3. Damos de alta un nuevo objeto Receta
-		 * 4. Damos de alta la receta completa (objeto IngredienteEnReceta)
-		 */
-		if(inreceta!=null) {
+	public String formRecetaCompleta(@RequestBody Receta receta, HttpSession session) {
 			Receta rec= inreceta.getReceta();
 			Usuario usu=(Usuario)session.getAttribute("usuario");
 			rec.setUsuario(usu);
@@ -160,11 +129,7 @@ public class AdminController {
 		
 			irdao.nuevaReceta(inreceta);
 			return "redirect:/administrador/verRecetasCompletas";
-		}else {
-			return "redirect:/administrador/altaRecetaCompleta";
-		}
 	}
-	
 	
 
 }
