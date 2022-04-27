@@ -13,6 +13,9 @@ public interface IngredienteRecetaRepo extends JpaRepository<IngredienteEnReceta
 	@Query("select r from IngredienteEnReceta r where r.ingrediente.descripcion like %?1%") 
 	public List<IngredienteEnReceta> buscarXIngrediente(String descripcion);
 	
+	@Query("select r from IngredienteEnReceta r where r.receta.idReceta=?1")
+	public List<IngredienteEnReceta> buscarXIdReceta (int idReceta);
+	
 	//ERROR: La Query no es correcta porque no encuentra en BD la columna IdIngredientereceta
 	
 //	@Query (value = "select descripcion from Ingredientes i" + 
