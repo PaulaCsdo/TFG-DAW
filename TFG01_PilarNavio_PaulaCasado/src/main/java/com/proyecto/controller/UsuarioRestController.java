@@ -26,9 +26,6 @@ public class UsuarioRestController {
 	//ERROR
 	@GetMapping("/verUna/{idReceta}")
 	public Receta verReceta(@PathVariable ("idReceta") int idReceta) {
-		//¿VER INGREDIENTE EN RECETA?
-		//List<IngredienteEnReceta> ingredientesEnRecetas = irdao.buscarXIdReceta(idReceta);
-		
 		return rdao.findById(idReceta);
 	}
 	
