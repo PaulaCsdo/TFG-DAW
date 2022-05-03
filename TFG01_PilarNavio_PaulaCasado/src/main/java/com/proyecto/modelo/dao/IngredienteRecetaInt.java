@@ -8,7 +8,7 @@ public interface IngredienteRecetaInt {
 	int nuevaReceta (IngredienteEnReceta inrec);
 	IngredienteEnReceta findById(int idIngredientereceta);
 	List<IngredienteEnReceta> buscarXIngrediente(String descripcion);
-	//List<IngredienteEnReceta> buscarXIdReceta (int idReceta);
-	//String buscarNombreIngrediente(int IdIngredientereceta);
-	List<IngredienteEnReceta> buscarIngredientesEnReceta(int idIngredientereceta);
+	List<IngredienteEnReceta> buscarXReceta(int idReceta);
+
+
 }

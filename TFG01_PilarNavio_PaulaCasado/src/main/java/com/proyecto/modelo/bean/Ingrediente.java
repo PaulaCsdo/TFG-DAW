@@ -28,8 +28,8 @@ public class Ingrediente implements Serializable {
 	private byte[] imagen;
 
 	//bi-directional many-to-one association to IngredienteEnReceta
-	@OneToMany(mappedBy="ingrediente")
-	private List<IngredienteEnReceta> ingredienteEnRecetas;
+//	@OneToMany(mappedBy="ingrediente")
+//	private List<IngredienteEnReceta> ingredienteEnRecetas;
 
 	//bi-directional many-to-one association to LineasCompra
 	@OneToMany(mappedBy="ingrediente")
@@ -62,27 +62,27 @@ public class Ingrediente implements Serializable {
 		this.imagen = imagen;
 	}
 
-	public List<IngredienteEnReceta> getIngredienteEnRecetas() {
-		return this.ingredienteEnRecetas;
-	}
+//	public List<IngredienteEnReceta> getIngredienteEnRecetas() {
+//		return this.ingredienteEnRecetas;
+//	}
+//
+//	public void setIngredienteEnRecetas(List<IngredienteEnReceta> ingredienteEnRecetas) {
+//		this.ingredienteEnRecetas = ingredienteEnRecetas;
+//	}
 
-	public void setIngredienteEnRecetas(List<IngredienteEnReceta> ingredienteEnRecetas) {
-		this.ingredienteEnRecetas = ingredienteEnRecetas;
-	}
-
-	public IngredienteEnReceta addIngredienteEnReceta(IngredienteEnReceta ingredienteEnReceta) {
-		getIngredienteEnRecetas().add(ingredienteEnReceta);
-		ingredienteEnReceta.setIngrediente(this);
-
-		return ingredienteEnReceta;
-	}
-
-	public IngredienteEnReceta removeIngredienteEnReceta(IngredienteEnReceta ingredienteEnReceta) {
-		getIngredienteEnRecetas().remove(ingredienteEnReceta);
-		ingredienteEnReceta.setIngrediente(null);
-
-		return ingredienteEnReceta;
-	}
+//	public IngredienteEnReceta addIngredienteEnReceta(IngredienteEnReceta ingredienteEnReceta) {
+//		getIngredienteEnRecetas().add(ingredienteEnReceta);
+//		ingredienteEnReceta.setIngrediente(this);
+//
+//		return ingredienteEnReceta;
+//	}
+//
+//	public IngredienteEnReceta removeIngredienteEnReceta(IngredienteEnReceta ingredienteEnReceta) {
+//		getIngredienteEnRecetas().remove(ingredienteEnReceta);
+//		ingredienteEnReceta.setIngrediente(null);
+//
+//		return ingredienteEnReceta;
+//	}
 
 	public List<LineasCompra> getLineasCompras() {
 		return this.lineasCompras;

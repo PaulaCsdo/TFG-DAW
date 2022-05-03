@@ -43,8 +43,8 @@ public class Receta implements Serializable {
 	private String titulo;
 
 	//bi-directional many-to-one association to IngredienteEnReceta
-	@OneToMany(mappedBy="receta")
-	private List<IngredienteEnReceta> ingredienteEnRecetas;
+//	@OneToMany(mappedBy="receta")
+//	private List<IngredienteEnReceta> ingredienteEnRecetas;
 
 	//bi-directional many-to-one association to RecetaEnUsuario
 	@OneToMany(mappedBy="receta")
@@ -152,27 +152,27 @@ public class Receta implements Serializable {
 		this.titulo = titulo;
 	}
 
-	public List<IngredienteEnReceta> getIngredienteEnRecetas() {
-		return this.ingredienteEnRecetas;
-	}
+//	public List<IngredienteEnReceta> getIngredienteEnRecetas() {
+//		return this.ingredienteEnRecetas;
+//	}
+//
+//	public void setIngredienteEnRecetas(List<IngredienteEnReceta> ingredienteEnRecetas) {
+//		this.ingredienteEnRecetas = ingredienteEnRecetas;
+//	}
 
-	public void setIngredienteEnRecetas(List<IngredienteEnReceta> ingredienteEnRecetas) {
-		this.ingredienteEnRecetas = ingredienteEnRecetas;
-	}
-
-	public IngredienteEnReceta addIngredienteEnReceta(IngredienteEnReceta ingredienteEnReceta) {
-		getIngredienteEnRecetas().add(ingredienteEnReceta);
-		ingredienteEnReceta.setReceta(this);
-
-		return ingredienteEnReceta;
-	}
-
-	public IngredienteEnReceta removeIngredienteEnReceta(IngredienteEnReceta ingredienteEnReceta) {
-		getIngredienteEnRecetas().remove(ingredienteEnReceta);
-		ingredienteEnReceta.setReceta(null);
-
-		return ingredienteEnReceta;
-	}
+//	public IngredienteEnReceta addIngredienteEnReceta(IngredienteEnReceta ingredienteEnReceta) {
+//		getIngredienteEnRecetas().add(ingredienteEnReceta);
+//		ingredienteEnReceta.setReceta(this);
+//
+//		return ingredienteEnReceta;
+//	}
+//
+//	public IngredienteEnReceta removeIngredienteEnReceta(IngredienteEnReceta ingredienteEnReceta) {
+//		getIngredienteEnRecetas().remove(ingredienteEnReceta);
+//		ingredienteEnReceta.setReceta(null);
+//
+//		return ingredienteEnReceta;
+//	}
 
 	public List<RecetaEnUsuario> getRecetaEnUsuarios() {
 		return this.recetaEnUsuarios;
