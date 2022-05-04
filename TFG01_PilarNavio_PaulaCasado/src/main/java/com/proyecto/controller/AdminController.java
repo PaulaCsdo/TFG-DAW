@@ -120,16 +120,16 @@ public class AdminController {
 		return tint.findAll();
 	}
 	
-	@PostMapping("/altaRecetaCompleta")
-	public String formRecetaCompleta(@RequestBody Receta receta, HttpSession session) {
-			Receta rec= inreceta.getReceta();
-			Usuario usu=(Usuario)session.getAttribute("usuario");
-			rec.setUsuario(usu);
-			rdao.altaReceta(rec);
-		
-			irdao.nuevaReceta(inreceta);
-			return "redirect:/administrador/verRecetasCompletas";
-	}
+//	@PostMapping("/altaRecetaCompleta")
+//	public String formRecetaCompleta(@RequestBody Receta receta, HttpSession session) {
+//			Receta rec= inreceta.getReceta();
+//			Usuario usu=(Usuario)session.getAttribute("usuario");
+//			rec.setUsuario(usu);
+//			rdao.altaReceta(rec);
+//		
+//			irdao.nuevaReceta(inreceta);
+//			return "redirect:/administrador/verRecetasCompletas";
+//	}
 	
 
 }
