@@ -43,8 +43,8 @@ public class Receta implements Serializable {
 	private String titulo;
 
 	//bi-directional many-to-one association to IngredienteEnReceta
-//	@OneToMany(mappedBy="receta")
-//	private List<IngredienteEnReceta> ingredienteEnRecetas;
+	@OneToMany(mappedBy="receta")
+	private List<IngredienteEnReceta> ingredienteEnRecetas;
 
 	//bi-directional many-to-one association to RecetaEnUsuario
 	@OneToMany(mappedBy="receta")
