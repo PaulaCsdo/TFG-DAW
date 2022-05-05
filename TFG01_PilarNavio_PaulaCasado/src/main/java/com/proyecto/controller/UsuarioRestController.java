@@ -28,11 +28,15 @@ public class UsuarioRestController {
 		return rdao.findById(idReceta);
 	}
 	
-	//Los ingredientes en receta no salen bien, solo sale el primero y repetidas veces
+	
 	@GetMapping("/buscarIngredientesEnReceta/{idReceta}")
 	public List<IngredienteEnReceta> buscarIngredientesEnReceta(@PathVariable ("idReceta") int idReceta) {
 		 return irdao.buscarXReceta(idReceta);
 	}
 	
+	@GetMapping("/verRecetas")
+	public List<Receta> listarRecetas(){
+		return rdao.verRecetas();
+	}
 	
 }
