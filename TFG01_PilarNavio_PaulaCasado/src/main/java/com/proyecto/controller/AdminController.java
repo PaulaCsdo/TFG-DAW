@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ import com.proyecto.modelo.dao.RecetaInt;
 import com.proyecto.modelo.dao.TipoDietaInt;
 import com.proyecto.modelo.dao.UsuarioInt;
 
+@CrossOrigin(origins = "http://localhost:8088")
 @RestController
 @RequestMapping("/administrador")
 public class AdminController {
@@ -56,7 +58,7 @@ public class AdminController {
 	private TipoDietaInt tint;
 	
 	@GetMapping("/index")
-	public String inicioAdmin(Model model) {
+	public String inicioAdmin() {
 		return "PruebasPaula";
 	}
 	
@@ -65,6 +67,7 @@ public class AdminController {
 	public List <Usuario> verUsuarios() {
 		return udao.findAll();
 	}
+	
 	
 	//Boton que lleva a vista con la lista de ingredientes
 	@GetMapping("/verIngredientes")

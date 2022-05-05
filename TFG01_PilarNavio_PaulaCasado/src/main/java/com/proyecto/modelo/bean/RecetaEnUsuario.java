@@ -3,6 +3,8 @@ package com.proyecto.modelo.bean;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * The persistent class for the receta_en_usuario database table.
@@ -26,11 +28,14 @@ public class RecetaEnUsuario implements Serializable {
 	//bi-directional many-to-one association to Receta
 	@ManyToOne
 	@JoinColumn(name="ID_RECETA")
+	@JsonIgnoreProperties(value="recetaEnUsuarios")
 	private Receta receta;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="USERNAME")
+	@JsonIgnoreProperties(value={"recetaEnUsuarios","recetas", "perfiles", "nivelCocina", "tiposDieta",
+			"listasCompras"})
 	private Usuario usuario;
 
 	public RecetaEnUsuario() {

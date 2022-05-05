@@ -2,6 +2,9 @@ package com.proyecto.modelo.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class Usuario implements Serializable {
 
 	//bi-directional many-to-one association to Receta
 	@OneToMany(mappedBy="usuario")
+	@JsonIgnoreProperties(value="recetaEnUsuarios")
 	private List<Receta> recetas;
 
 	//bi-directional many-to-many association to Perfile
@@ -61,11 +65,13 @@ public class Usuario implements Serializable {
 	//bi-directional many-to-one association to NivelCocina
 	@ManyToOne
 	@JoinColumn(name="ID_NIVEL")
+	@JsonIgnoreProperties(value="usuarios")
 	private NivelCocina nivelCocina;
 
 	//bi-directional many-to-one association to TiposDieta
 	@ManyToOne
 	@JoinColumn(name="ID_TIPO_DIETA")
+	@JsonIgnoreProperties(value="usuarios")
 	private TiposDieta tiposDieta;
 
 	public Usuario() {

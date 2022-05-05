@@ -2,6 +2,9 @@ package com.proyecto.modelo.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -53,20 +56,25 @@ public class Receta implements Serializable {
 	//bi-directional many-to-one association to Categoria
 	@ManyToOne
 	@JoinColumn(name="ID_CATEGORIA")
+	@JsonIgnoreProperties(value="recetas")
 	private Categoria categoria;
 
 	//bi-directional many-to-one association to NivelCocina
 	@ManyToOne
 	@JoinColumn(name="ID_NIVEL")
+	@JsonIgnoreProperties(value={"usuarios","recetas"})
 	private NivelCocina nivelCocina;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="Autor")
+	@JsonIgnoreProperties(value={"listasCompras","recetas", "recetaEnUsuarios", "perfiles", "nivelCocina",
+			"tiposDieta"})
 	private Usuario usuario;
 
 	//bi-directional many-to-many association to TiposDieta
 	@ManyToMany(mappedBy="recetas")
+	@JsonIgnoreProperties(value={"usuarios","recetas"})
 	private List<TiposDieta> tiposDietas;
 
 	public Receta() {

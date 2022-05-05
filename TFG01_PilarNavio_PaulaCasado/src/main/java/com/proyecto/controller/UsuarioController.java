@@ -81,11 +81,11 @@ public class UsuarioController {
 	}
 	
 	
-	@GetMapping("/receta/{idReceta}")
-	public String verReceta(Model model, @PathVariable ("idReceta") int idReceta) {
-		Receta receta = recint.findById(idReceta);
-		
-		int num_ingredientes = (receta.getIngredienteEnRecetas()).size();
+//	@GetMapping("/receta/{idReceta}")
+//	public String verReceta(Model model, @PathVariable ("idReceta") int idReceta) {
+//		Receta receta = recint.findById(idReceta);
+//		
+//		int num_ingredientes = (receta.getIngredienteEnRecetas()).size();
 		
 		//NO LO UTILIZO pq saco los datos con los atributos en la jsp
 //		List<IngredienteEnReceta> ingredienteEnReceta = receta.getIngredienteEnRecetas();
@@ -96,20 +96,20 @@ public class UsuarioController {
 //		}
 		
 		
-		String pasos= receta.getPasos();
-		String[] pasosSegmentados= pasos.split("- ");
-//		for (int i = 1; i < pasosSegmentados.length; i++){
-//			System.out.println("paso de la receta segmentados: " + pasosSegmentados[i]);
-//		}
-		
-		
-		model.addAttribute("pasosSegmentados", pasosSegmentados);
-		model.addAttribute("num_ingredientes", num_ingredientes);
-		model.addAttribute("receta", receta);
-		
-		return "receta";
-	}
-	
+//		String pasos= receta.getPasos();
+//		String[] pasosSegmentados= pasos.split("- ");
+////		for (int i = 1; i < pasosSegmentados.length; i++){
+////			System.out.println("paso de la receta segmentados: " + pasosSegmentados[i]);
+////		}
+//		
+//		
+//		model.addAttribute("pasosSegmentados", pasosSegmentados);
+//		model.addAttribute("num_ingredientes", num_ingredientes);
+//		model.addAttribute("receta", receta);
+//		
+//		return "receta";
+//	}
+//	
 	
 	
 	@PostMapping("/altaReceta")
