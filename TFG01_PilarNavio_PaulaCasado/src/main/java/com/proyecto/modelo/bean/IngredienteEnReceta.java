@@ -3,6 +3,8 @@ package com.proyecto.modelo.bean;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * The persistent class for the ingrediente_en_receta database table.
@@ -31,6 +33,7 @@ public class IngredienteEnReceta implements Serializable {
 	//bi-directional many-to-one association to Receta
 	@ManyToOne
 	@JoinColumn(name="ID_RECETA")
+	@JsonIgnoreProperties(value= {"imagen", "kcal", "momento", "novedad", "pasos", "puntuacion", "tiempo", "titulo", "recetaEnUsuarios", "categoria", "nivelCocina", "usuario", "tiposDietas" })
 	private Receta receta;
 
 	public IngredienteEnReceta() {

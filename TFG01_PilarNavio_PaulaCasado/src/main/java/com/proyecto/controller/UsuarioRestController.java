@@ -23,20 +23,16 @@ public class UsuarioRestController {
 	@Autowired
 	private IngredienteRecetaInt irdao;
 	
-	//ERROR
 	@GetMapping("/verUna/{idReceta}")
 	public Receta verReceta(@PathVariable ("idReceta") int idReceta) {
 		return rdao.findById(idReceta);
 	}
 	
 	//Los ingredientes en receta no salen bien, solo sale el primero y repetidas veces
-//	@GetMapping("/buscarIngredientesEnReceta/{idReceta}")
-//	public List<IngredienteEnReceta> buscarIngredientesEnReceta(@PathVariable ("idReceta") int idReceta) {
-//		 return irdao.buscarXReceta(idReceta);
-//	}
-	
 	@GetMapping("/buscarIngredientesEnReceta/{idReceta}")
-	public List<Integer> buscarIngredientesEnReceta(@PathVariable ("idReceta") int idReceta) {
+	public List<IngredienteEnReceta> buscarIngredientesEnReceta(@PathVariable ("idReceta") int idReceta) {
 		 return irdao.buscarXReceta(idReceta);
 	}
+	
+	
 }
