@@ -2,6 +2,9 @@ package com.proyecto.modelo.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -24,6 +27,7 @@ public class Perfile implements Serializable {
 
 	//bi-directional many-to-many association to Usuario
 	@ManyToMany(mappedBy="perfiles")
+	@JsonIgnore
 	private List<Usuario> usuarios;
 
 	public Perfile() {
