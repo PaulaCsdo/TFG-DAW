@@ -52,6 +52,7 @@ public class UsuarioRestController {
 //		return rudao.verRecetasGuardadas();
 //	}
 	
+	//ME RESPONDE CON ALTA NO REALIZADA PORQUE NO PERSISTE
 	@PostMapping("/altaReceta")
 	public String procesarAlta (@RequestBody Receta receta) {
 		return (rdao.altaReceta(receta)==1)?"Alta realizada":"Alta no realizada";
