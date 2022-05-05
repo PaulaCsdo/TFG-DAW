@@ -44,10 +44,7 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 
 	}
 
-
-
 	
-
 
 
 }

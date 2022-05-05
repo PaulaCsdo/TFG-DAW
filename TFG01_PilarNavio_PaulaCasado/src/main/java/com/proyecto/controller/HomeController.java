@@ -62,7 +62,9 @@ public class HomeController {
 		}
 	}
 	
-
+	/*
+	 * Para el alta es necesario: username, password, nombre, apellidos, email, nivel cocina, tipo dieta
+	 */
 	@PostMapping("/alta")
 	public String registrarUsuario(@RequestBody Usuario usuario) {
 		Date fecha= new Date();
