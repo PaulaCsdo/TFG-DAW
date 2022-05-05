@@ -79,13 +79,7 @@ public class UsuarioController {
 		session.setAttribute("listaCategorias", listaCategorias);
 		return "formAltaReceta";
 	}
-	
-	
-//	@GetMapping("/receta/{idReceta}")
-//	public String verReceta(Model model, @PathVariable ("idReceta") int idReceta) {
-//		Receta receta = recint.findById(idReceta);
-//		
-//		int num_ingredientes = (receta.getIngredienteEnRecetas()).size();
+
 		
 		//NO LO UTILIZO pq saco los datos con los atributos en la jsp
 //		List<IngredienteEnReceta> ingredienteEnReceta = receta.getIngredienteEnRecetas();

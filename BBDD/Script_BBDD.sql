@@ -64,7 +64,7 @@ CREATE TABLE `recetas` (
   `PUNTUACION` decimal(9,2) DEFAULT NULL,
   `PASOS` mediumtext,
   `NOVEDAD` char(1) DEFAULT NULL,
-  `IMAGEN` blob,
+  `IMAGEN` varchar(50),
   `Autor` varchar(50) DEFAULT NULL,
   FOREIGN KEY (`Autor`) REFERENCES `usuarios` (`USERNAME`),
   FOREIGN KEY (`ID_CATEGORIA`) REFERENCES `categorias` (`ID_CATEGORIA`),
@@ -201,26 +201,8 @@ INSERT INTO recetas_db.tipo_dieta_receta VALUES (2,3);
 INSERT INTO recetas_db.tipo_dieta_receta VALUES (3,1);
 INSERT INTO recetas_db.tipo_dieta_receta VALUES (3,2);
 INSERT INTO recetas_db.tipo_dieta_receta VALUES (3,3);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (1,1);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (1,2);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (1,3);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (2,1);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (2,2);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (2,3);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (3,1);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (3,2);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (3,3);
 INSERT INTO recetas_db.tipo_dieta_receta VALUES (4,5);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (1,1);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (1,2);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (1,3);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (2,1);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (2,2);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (2,3);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (3,1);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (3,2);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (3,3);
-INSERT INTO recetas_db.tipo_dieta_receta VALUES (4,5);
+
 
 -- CREATE USER 'ureceta'@'localhost' IDENTIFIED BY 'ureceta';
 -- GRANT ALL PRIVILEGES ON RECETAS_DB.* TO  'ureceta'@'localhost';
