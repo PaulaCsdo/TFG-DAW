@@ -12,14 +12,14 @@ import com.proyecto.modelo.repository.RecetaUsuarioRepo;
 public class RecetaUsuarioImpl implements RecetaUsuarioInt{
 
 	@Autowired
-	private RecetaUsuarioRepo rrepo;
+	private RecetaUsuarioRepo rurepo;
 	@Override
 	public List<RecetaEnUsuario> findAll() {
-		return rrepo.findAll();
+		return rurepo.findAll();
 	}
 	@Override
 	public RecetaEnUsuario findById(int idRecetausuario) {
-		return rrepo.findById(idRecetausuario).orElse(null);
+		return rurepo.findById(idRecetausuario).orElse(null);
 	}
 	
 	/*Para guardar una receta, en el Controller: 
@@ -31,7 +31,7 @@ public class RecetaUsuarioImpl implements RecetaUsuarioInt{
 		int filas = 0;
 		try {
 			recusu.setGuardada("G");
-			rrepo.save(recusu);
+			rurepo.save(recusu);
 			filas = 1;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -41,7 +41,7 @@ public class RecetaUsuarioImpl implements RecetaUsuarioInt{
 	
 	@Override
 	public List<RecetaEnUsuario> verRecetasGuardadas() {
-		return rrepo.verRecetasGuardadas();
+		return rurepo.verRecetasGuardadas();
 	}
 	
 
