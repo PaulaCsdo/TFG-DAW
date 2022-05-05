@@ -30,8 +30,13 @@ public class UsuarioRestController {
 	}
 	
 	//Los ingredientes en receta no salen bien, solo sale el primero y repetidas veces
+//	@GetMapping("/buscarIngredientesEnReceta/{idReceta}")
+//	public List<IngredienteEnReceta> buscarIngredientesEnReceta(@PathVariable ("idReceta") int idReceta) {
+//		 return irdao.buscarXReceta(idReceta);
+//	}
+	
 	@GetMapping("/buscarIngredientesEnReceta/{idReceta}")
-	public List<IngredienteEnReceta> buscarIngredientesEnReceta(@PathVariable ("idReceta") int idReceta) {
+	public List<Integer> buscarIngredientesEnReceta(@PathVariable ("idReceta") int idReceta) {
 		 return irdao.buscarXReceta(idReceta);
 	}
 }
