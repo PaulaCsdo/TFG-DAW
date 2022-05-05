@@ -2,6 +2,10 @@ package com.proyecto.modelo.bean;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 
@@ -35,10 +39,12 @@ public class TiposDieta implements Serializable {
 			@JoinColumn(name="ID_RECETA")
 			}
 		)
+	@JsonIgnoreProperties(value="usuarios")
 	private List<Receta> recetas;
 
 	//bi-directional many-to-one association to Usuario
 	@OneToMany(mappedBy="tiposDieta")
+	@JsonIgnore
 	private List<Usuario> usuarios;
 
 	public TiposDieta() {

@@ -28,8 +28,8 @@ public class Ingrediente implements Serializable {
 	private byte[] imagen;
 
 	//bi-directional many-to-one association to IngredienteEnReceta
-//	@OneToMany(mappedBy="ingrediente")
-//	private List<IngredienteEnReceta> ingredienteEnRecetas;
+	@OneToMany(mappedBy="ingrediente")
+	private List<IngredienteEnReceta> ingredienteEnRecetas;
 
 	//bi-directional many-to-one association to LineasCompra
 	@OneToMany(mappedBy="ingrediente")
