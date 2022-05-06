@@ -11,12 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.modelo.bean.Perfile;
@@ -26,7 +22,7 @@ import com.proyecto.modelo.dao.UsuarioInt;
 
 @CrossOrigin(origins = "http://localhost:8088")
 @RestController
-public class HomeController {
+public class HomeRestController {
 	
 	@Autowired
 	private UsuarioInt usuint;
@@ -43,15 +39,20 @@ public class HomeController {
 	}
 	
 	/*
-	 * Login: devuelve un usuario. Front-end:
+	 * Login: devuelve un usuario. 
+	 * Front-end:
 	 * 	- null: no se realiza el inicio de sesión
-	 * 	- usuario: se guarda en sesión
+	 * 	- usuario: se devuelve la vista asociada al perfil del usuario (administrador o usuario)
 	 */
 	@PostMapping ("/login")
 	public Usuario formLogin (HttpSession session, Usuario usuario) {
 		Usuario usu=usuint.login(usuario.getUsername(), usuario.getPassword());
-		System.out.println(usu);
-		return usu;
+		if (usu!=null) {
+			session.setAttribute("usuario", usu);
+			return usu;
+		}else {
+			return null;
+		}
 		
 	}
 	

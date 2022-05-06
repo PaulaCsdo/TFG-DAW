@@ -37,8 +37,23 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 	}
 
 	@Override
-	public List<IngredienteEnReceta> buscarXReceta(int idReceta) {
-		return irrepo.buscarXReceta(idReceta);
+	public List<IngredienteEnReceta> buscarXReceta(String titulo) {
+		return irrepo.buscarXReceta(titulo);
+	}
+
+	@Override
+	public List<IngredienteEnReceta> buscarXCategoria(int idCategoria) {
+		return irrepo.buscarXCategoria(idCategoria);
+	}
+
+	@Override
+	public List<IngredienteEnReceta> buscarXNivel(int idNivel) {
+		return irrepo.buscarXNivel(idNivel);
+	}
+
+	@Override
+	public List<IngredienteEnReceta> buscarXTipo(int idTipoDieta) {
+		return irrepo.buscarXTipo(idTipoDieta);
 	}
 
 	

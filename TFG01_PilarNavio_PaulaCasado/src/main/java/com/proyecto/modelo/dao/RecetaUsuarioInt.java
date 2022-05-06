@@ -8,5 +8,5 @@ public interface RecetaUsuarioInt {
 	List<RecetaEnUsuario> findAll();
 	RecetaEnUsuario findById(int idRecetausuario);
 	int guardarReceta(RecetaEnUsuario recusu);
-	List<RecetaEnUsuario> verRecetasGuardadas();
+	List<RecetaEnUsuario> verRecetasGuardadas(String username);
 }

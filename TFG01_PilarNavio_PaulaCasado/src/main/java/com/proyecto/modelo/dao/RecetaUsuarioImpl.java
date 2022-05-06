@@ -13,19 +13,17 @@ public class RecetaUsuarioImpl implements RecetaUsuarioInt{
 
 	@Autowired
 	private RecetaUsuarioRepo rurepo;
+	
 	@Override
 	public List<RecetaEnUsuario> findAll() {
 		return rurepo.findAll();
 	}
+	
 	@Override
 	public RecetaEnUsuario findById(int idRecetausuario) {
 		return rurepo.findById(idRecetausuario).orElse(null);
 	}
 	
-	/*Para guardar una receta, en el Controller: 
-	 * 	- setUsuario(session.getUsername)
-	 * 	- setReceta
-	 */
 	@Override
 	public int guardarReceta(RecetaEnUsuario recusu) {
 		int filas = 0;
@@ -40,8 +38,8 @@ public class RecetaUsuarioImpl implements RecetaUsuarioInt{
 	}
 	
 	@Override
-	public List<RecetaEnUsuario> verRecetasGuardadas() {
-		return rurepo.verRecetasGuardadas();
+	public List<RecetaEnUsuario> verRecetasGuardadas(String username) {
+		return rurepo.verRecetasGuardadas(username);
 	}
 	
 
