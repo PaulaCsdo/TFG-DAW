@@ -39,6 +39,7 @@ public class UsuarioImpl implements UsuarioInt{
 			if ((ele.getUsername().equals(username))&& ele.getPassword().equals(password)){
 				flag=true;
 				usuario=ele;
+				
 			}
 		}
 		if (flag!=true){

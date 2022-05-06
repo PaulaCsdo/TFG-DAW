@@ -54,9 +54,10 @@ public class AdminController {
 	@Autowired
 	private TipoDietaInt tint;
 	
-	@GetMapping("/index")
-	public String inicioAdmin() {
-		return "PruebasPaula";
+	@GetMapping ("/logout")
+	public String logout (HttpSession session) {
+		session.invalidate();
+		return "Logout";
 	}
 	
 	//Boton que lleva a vista con la lista de usuarios
@@ -105,11 +106,6 @@ public class AdminController {
 			return (idao.altaIngrediente(ingrediente)==1)?"Alta realizada":"ERROR en alta";
 	}
 	
-	
-	/*
-	 * Es necesario métodos que muestren las categorias, los niveles de dificultad 
-	 * y los tipos de dieta para poder mostrarlos en el formulario "alta receta"
-	 */
 	@GetMapping("/verNiveles")
 	public List<NivelCocina> verDificultad() {
 		return nint.findAll();

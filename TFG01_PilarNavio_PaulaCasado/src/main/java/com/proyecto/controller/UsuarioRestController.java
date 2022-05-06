@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto.modelo.bean.IngredienteEnReceta;
 import com.proyecto.modelo.bean.Receta;
 import com.proyecto.modelo.bean.RecetaEnUsuario;
+import com.proyecto.modelo.bean.Usuario;
 import com.proyecto.modelo.dao.IngredienteRecetaInt;
 import com.proyecto.modelo.dao.RecetaInt;
 import com.proyecto.modelo.dao.RecetaUsuarioInt;
@@ -52,7 +53,20 @@ public class UsuarioRestController {
 //		return rudao.verRecetasGuardadas();
 //	}
 	
+	/*
+	 * Para /guardadas tienes que recuperar el username con Usuario findById(String username);
+	 * después, hay que crear un método repository que sea buscarRecetaXusername (igual que buscar receta
+	 * por categoria o tipo dieta). En el controller unes esos dos métodos
+	 */
+	
 	//ME RESPONDE CON ALTA NO REALIZADA PORQUE NO PERSISTE
+	
+	/*
+	 * Creo que le tienes que quitar el @RequestBody, y meter simplemente un objeto Receta
+	 * (como hemos hecho normalmente). Asi no necesitas meter TODOS los atributos de receta.
+	 * Igualmente, habria que crear otro metodo RecetaCompleta, para poder recibir ingredientes,
+	 * cantidad, etc
+	 */
 	@PostMapping("/altaReceta")
 	public String procesarAlta (@RequestBody Receta receta) {
 		return (rdao.altaReceta(receta)==1)?"Alta realizada":"Alta no realizada";
