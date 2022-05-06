@@ -24,8 +24,7 @@ public class Receta implements Serializable {
 	@Column(name="ID_RECETA")
 	private int idReceta;
 
-	@Lob
-	private byte[] imagen;
+	private String imagen;
 
 	private int kcal;
 
@@ -88,11 +87,11 @@ public class Receta implements Serializable {
 		this.idReceta = idReceta;
 	}
 
-	public byte[] getImagen() {
+	public String getImagen() {
 		return this.imagen;
 	}
 
-	public void setImagen(byte[] imagen) {
+	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
 

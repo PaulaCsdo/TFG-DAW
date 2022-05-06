@@ -46,9 +46,6 @@ public class AdminController {
 	private IngredienteInt idao;
 	
 	@Autowired
-	private IngredienteRecetaInt irdao;
-	
-	@Autowired
 	private CategoriaInt cint;
 	
 	@Autowired
