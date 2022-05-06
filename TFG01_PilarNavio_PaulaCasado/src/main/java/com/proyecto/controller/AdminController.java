@@ -81,6 +81,11 @@ public class AdminController {
 		return rdao.verRecetas();
 	}
 	
+	@PostMapping("/buscadorCat/{idCategoria}")
+	public List <Receta> buscarcat(@PathVariable("idCategoria") int idCategoria) {
+		return rdao.buscarXCategoria(idCategoria);
+	}
+	
 	
 	/*Barra de navegación para buscar: ingredientes, recetas
 	 * El resultado de la búsqueda aparecerá en la misma vista (index)
