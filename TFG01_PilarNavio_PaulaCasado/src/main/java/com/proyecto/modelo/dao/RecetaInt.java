@@ -11,9 +11,6 @@ public interface RecetaInt {
 	int altaReceta (Receta receta);
 	Receta findById (int idReceta);
 	List<Receta> buscarXNombre(String titulo);
-	List<Receta> buscarXCategoria(int idCategoria);
 	List<Receta> buscarXMomento(String momento);
-	List<Receta> verMisRecetas(String username);
-//	int guardarReceta(Receta receta);
 	int valorarReceta(Receta receta, BigDecimal valoracion);
 }

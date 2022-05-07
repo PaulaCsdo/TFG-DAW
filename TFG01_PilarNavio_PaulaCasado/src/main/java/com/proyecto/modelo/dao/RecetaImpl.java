@@ -52,10 +52,6 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.findById(idReceta).orElse(null);
 	}
 
-//	@Override
-//	public List<Receta> buscarXIngrediente(int idIngrediente) {
-//		return rrepo.buscarXIngrediente(idIngrediente);
-//	}
 
 	@Override
 	public List<Receta> buscarXNombre(String titulo) {
@@ -63,34 +59,10 @@ public class RecetaImpl implements RecetaInt{
 	}
 
 	@Override
-	public List<Receta> buscarXCategoria(int idCategoria) {
-		return rrepo.buscarXCategoria(idCategoria);
-	}
-
-	@Override
 	public List<Receta> buscarXMomento(String momento) {
 		return rrepo.buscarXMomento(momento);
 	}
 
-	@Override
-	public List<Receta> verMisRecetas(String username) {
-		return rrepo.verMisRecetas(username);
-	}
-
-//	@Override
-//	public List<Receta> verRecetasGuardadas() {
-//		return rrepo.verRecetasGuardadas();
-//	}
-//
-//	@Override
-//	public int guardarReceta(Receta receta) {
-//		if(findById(receta.getIdReceta())!=null) {
-//			List<Receta> guardadas = rrepo.verRecetasGuardadas();
-//			guardadas.add(receta);
-//			return 1;
-//		}
-//		return 0;
-//	}
 
 	//DUDA: ¿Creamos una tabla renacida con las puntuaciones de cada receta para recuperar el arraylist?
 	@Override

@@ -42,6 +42,7 @@ public class Usuario implements Serializable {
 
 	//bi-directional many-to-one association to RecetaEnUsuario
 	@OneToMany(mappedBy="usuario")
+	@JsonIgnoreProperties(value="usuarios")
 	private List<RecetaEnUsuario> recetaEnUsuarios;
 
 	//bi-directional many-to-one association to Receta
@@ -65,13 +66,13 @@ public class Usuario implements Serializable {
 	//bi-directional many-to-one association to NivelCocina
 	@ManyToOne
 	@JoinColumn(name="ID_NIVEL")
-	@JsonIgnoreProperties(value="usuarios")
+	@JsonIgnoreProperties(value={"usuarios","recetas"})
 	private NivelCocina nivelCocina;
 
 	//bi-directional many-to-one association to TiposDieta
 	@ManyToOne
 	@JoinColumn(name="ID_TIPO_DIETA")
-	@JsonIgnoreProperties(value="usuarios")
+	@JsonIgnoreProperties(value={"usuarios", "recetas"})
 	private TiposDieta tiposDieta;
 
 	public Usuario() {

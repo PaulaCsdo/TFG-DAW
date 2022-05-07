@@ -6,15 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.modelo.bean.Categoria;
 import com.proyecto.modelo.bean.Ingrediente;
@@ -34,13 +32,16 @@ import com.proyecto.modelo.dao.UsuarioInt;
 @CrossOrigin(origins = "http://localhost:8088")
 @RestController
 @RequestMapping("/administrador")
-public class AdminController {
+public class AdminRestController {
 
 	@Autowired
 	private UsuarioInt udao;
 	
 	@Autowired
 	private RecetaInt rdao;
+	
+	@Autowired
+	private IngredienteRecetaInt irdao;
 	
 	@Autowired
 	private IngredienteInt idao;
@@ -54,9 +55,10 @@ public class AdminController {
 	@Autowired
 	private TipoDietaInt tint;
 	
-	@GetMapping("/index")
-	public String inicioAdmin() {
-		return "PruebasPaula";
+	@GetMapping ("/logout")
+	public String logout (HttpSession session) {
+		session.invalidate();
+		return "Logout";
 	}
 	
 	//Boton que lleva a vista con la lista de usuarios
@@ -79,31 +81,29 @@ public class AdminController {
 	}
 	
 	
-	/*Barra de navegación para buscar: ingredientes, recetas
+	/* Input para buscar: ingredientes, recetas
 	 * El resultado de la búsqueda aparecerá en la misma vista (index)
 	 */
-	@PostMapping("/buscadorIngrediente/{descripcion}")
+	@GetMapping("/buscadorIngrediente/{descripcion}")
 	public List <Ingrediente> buscarIngrediente(@PathVariable("descripcion") String descripcion) {
 		return idao.buscarPorDescripcion(descripcion);
 	}
 	
-	@PostMapping("/buscadorReceta/{titulo}")
-	public List <Receta> buscarReceta(@PathVariable("titulo") String titulo) {
-		return rdao.buscarXNombre(titulo);
+	@GetMapping("/buscadorReceta/{titulo}")
+	public List<IngredienteEnReceta> buscarIngredientesEnReceta(@RequestParam ("titulo") String titulo) {
+		 return irdao.buscarXReceta(titulo);
 	}
 	
-	/*Boton que lleva a un formulario para dar de alta un ingrediente.
-	 *Solo puede dar de alta un nuevo ingrediente el rol de administrador.
-	 */
+	//Formulario para dar de alta un ingrediente
 	@PostMapping("/altaIngrediente")
-	public String registrarIngrediente(@RequestBody Ingrediente ingrediente) {
+	public String registrarIngrediente(Ingrediente ingrediente) {
 			return (idao.altaIngrediente(ingrediente)==1)?"Alta realizada":"ERROR en alta";
 	}
 	
-	
-	/*
-	 * Es necesario métodos que muestren las categorias, los niveles de dificultad 
-	 * y los tipos de dieta para poder mostrarlos en el formulario "alta receta"
+	/*Botones que llevan a una lista de:
+	 * 	- Niveles de cocina
+	 * 	- Categorias de receta
+	 * 	- Tipos de dieta
 	 */
 	@GetMapping("/verNiveles")
 	public List<NivelCocina> verDificultad() {

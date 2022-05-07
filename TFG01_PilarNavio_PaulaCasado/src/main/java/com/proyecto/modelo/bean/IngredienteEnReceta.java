@@ -28,12 +28,13 @@ public class IngredienteEnReceta implements Serializable {
 	//bi-directional many-to-one association to Ingrediente
 	@ManyToOne
 	@JoinColumn(name="ID_INGREDIENTE")
+	@JsonIgnoreProperties(value={"lineasCompras", "ingredienteEnRecetas"})
 	private Ingrediente ingrediente;
 
 	//bi-directional many-to-one association to Receta
 	@ManyToOne
 	@JoinColumn(name="ID_RECETA")
-	@JsonIgnoreProperties(value= {"imagen", "kcal", "momento", "novedad", "pasos", "puntuacion", "tiempo", "titulo", "recetaEnUsuarios", "categoria", "nivelCocina", "usuario", "tiposDietas" })
+	@JsonIgnoreProperties(value={"recetaEnUsuarios", "ingredienteEnRecetas"})
 	private Receta receta;
 
 	public IngredienteEnReceta() {
