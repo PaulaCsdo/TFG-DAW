@@ -109,9 +109,53 @@ public class UsuarioRestController {
 	 * y .setIngrediente, .setReceta recibida.
 	 * Finalmente: IngredRecetaDAO.altareceta(objeto ingredienteReceta creado)
 	 */
-	@PostMapping("/altaReceta")
-	public String procesarAlta (@RequestBody Receta receta) {
-		return (rdao.altaReceta(receta)==1)?"Alta realizada":"Alta no realizada";
-	}
-	
+//	@PostMapping("/altaReceta")
+//	public String procesarAlta (@RequestBody Receta receta,
+//			List<IngredienteEnReceta> listaIngredientesEnReceta, HttpSession session) {
+//		try {
+//			Receta receta2 = new Receta();
+//			Usuario usuario = (Usuario) session.getAttribute("usuario");
+//			
+//			receta2.setImagen(receta.getImagen());
+//			receta2.setKcal(receta.getKcal());
+//			receta2.setMomento(receta.getMomento());
+//			receta2.setNovedad(receta.getNovedad());
+//			receta2.setNumPorciones(receta.getNumPorciones());
+//			receta2.setPasos(receta.getPasos());
+//			receta2.setPuntuacion(receta.getPuntuacion());
+//			receta2.setTiempo(receta.getTiempo());
+//			receta2.setTitulo(receta.getTitulo());
+//			receta2.setCategoria(receta.getCategoria());
+//			receta2.setNivelCocina(receta.getNivelCocina());
+//			receta2.setUsuario(usuario);
+//			
+//			for(IngredienteEnReceta ele: listaIngredientesEnReceta) {
+//				ele.setIngrediente(receta.getIngredienteEnRecetas());
+//				System.out.println(ele.getIngrediente());
+//				receta2.setIngredienteEnRecetas(ele.getIngrediente());
+//
+//			}
+//
+//			RecetaEnUsuario reu = new RecetaEnUsuario();
+//			List<RecetaEnUsuario> listaRecetaEnUsuario = rudao.findAll();
+//			reu.setGuardada("G");
+//			reu.setUsuario(usuario);
+//			reu.setAgendada(null);
+//			reu.setReceta(receta2);
+//			receta2.setRecetaEnUsuarios(null);
+//			
+//			System.out.println(listaRecetaEnUsuario);
+//			System.out.println(reu);
+//			
+//			listaRecetaEnUsuario.add(reu);
+//			
+			
+//			return (rdao.altaReceta(receta2)==1)?"Alta realizada":"Alta no realizada";
+//		}
+//		catch (Exception e) {
+//			return e.getMessage();
+//		}
+//		
+//	}
+//	
 }
