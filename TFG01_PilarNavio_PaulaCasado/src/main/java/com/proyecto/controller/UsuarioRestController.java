@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,6 +38,12 @@ public class UsuarioRestController {
 	
 	@Autowired
 	private RecetaUsuarioInt rudao;
+	
+	@GetMapping ("/logout")
+	public String logout (HttpSession session) {
+		session.invalidate();
+		return "Logout";
+	}
 	
 	@GetMapping("/verUna/{idReceta}")
 	public Receta verReceta(@PathVariable ("idReceta") int idReceta) {
@@ -78,7 +83,7 @@ public class UsuarioRestController {
 	
 	//Guardar una receta
 	@GetMapping("/guardarReceta/{idReceta}")
-	public String guardaReceta (@PathVariable ("idReceta") int idReceta, HttpSession session) {
+	public int guardaReceta (@PathVariable ("idReceta") int idReceta, HttpSession session) {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		Receta receta=rdao.findById(idReceta);
 		
@@ -86,7 +91,11 @@ public class UsuarioRestController {
 		recusuario.setReceta(receta);
 		recusuario.setUsuario(usuario);
 		
-		return (rudao.guardarReceta(recusuario)==1)?"Receta guardada":"Receta NOOOOO guardada";
+		if (rudao.guardarReceta(recusuario)==1) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	
 	//Ver recetas guardadas por el usuario que ha iniciado sesión
@@ -131,7 +140,7 @@ public class UsuarioRestController {
 //		return receta;
 //	}
 	
-	@PostMapping("/altaIngredienteReceta")
+	@PostMapping("/altaReceta")
 	public String altaIngredienteReceta(Receta receta, List<IngredienteEnReceta> listaIngredientes, 
 			HttpSession session) {
 		session.setAttribute("receta", null);
