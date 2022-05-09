@@ -11,7 +11,10 @@ import java.util.List;
 
 /**
  * The persistent class for the usuarios database table.
- * 
+ * Esta clase define objetos que contienen los atributos que definen a cada usuario registrado.
+ * @see RecetaEnUsuario
+ * @see ListasCompra
+ * @see Perfile
  */
 @Entity
 @Table(name="usuarios")

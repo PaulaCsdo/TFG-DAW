@@ -6,7 +6,8 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the lineas_compra database table.
- * 
+ * Esta clase define objetos que contienen los atributos necesarios para crear
+ * las lineas de la compra con la cantidad de ingredientes de todas las recetas agendadas.
  */
 @Entity
 @Table(name="lineas_compra")

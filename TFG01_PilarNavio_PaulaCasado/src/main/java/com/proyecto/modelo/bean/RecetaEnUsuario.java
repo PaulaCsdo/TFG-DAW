@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The persistent class for the receta_en_usuario database table.
- * 
+ * Esta clase define objetos que contienen los atributos que definen cada receta que guarda o agenda un usuario.
+ * @see Receta
+ * @see Usuario
  */
 @Entity
 @Table(name="receta_en_usuario")

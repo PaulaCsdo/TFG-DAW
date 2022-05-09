@@ -11,6 +11,13 @@ import java.util.List;
 
 /**
  * The persistent class for the recetas database table.
+ * Esta clase define objetos que contienen los atributos que definen cada receta.
+ * @see IngredienteEnRecetas
+ * @see NivelCocina
+ * @see Categoria
+ * @see Usuario
+ * @see TiposDietas
+ * see RecetaEnUsuario
  * 
  */
 @Entity
@@ -254,6 +261,15 @@ public class Receta implements Serializable {
 		if (idReceta != other.idReceta)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Receta [idReceta=" + idReceta + ", imagen=" + imagen + ", kcal=" + kcal + ", momento=" + momento
+				+ ", novedad=" + novedad + ", numPorciones=" + numPorciones + ", pasos=" + pasos + ", puntuacion="
+				+ puntuacion + ", tiempo=" + tiempo + ", titulo=" + titulo + ", ingredienteEnRecetas="
+				+ ingredienteEnRecetas + ", recetaEnUsuarios=" + recetaEnUsuarios + ", categoria=" + categoria
+				+ ", nivelCocina=" + nivelCocina + ", usuario=" + usuario + ", tiposDietas=" + tiposDietas + "]";
 	}
 
 }

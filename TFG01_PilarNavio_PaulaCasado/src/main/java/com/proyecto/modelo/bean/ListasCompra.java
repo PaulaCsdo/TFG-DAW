@@ -7,7 +7,8 @@ import java.util.List;
 
 /**
  * The persistent class for the listas_compra database table.
- * 
+ * Esta clase define objetos que contienen las listas de la compra con las lineas de la compra de cada usuario
+ * @see LineasCompra
  */
 @Entity
 @Table(name="listas_compra")

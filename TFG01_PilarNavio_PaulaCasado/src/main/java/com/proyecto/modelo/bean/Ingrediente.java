@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * The persistent class for the ingredientes database table.
- * 
+ * Esta clase define objetos que contienen los atributos que definen un ingrediente
  */
 @Entity
 @Table(name="ingredientes")

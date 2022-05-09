@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.modelo.bean.Ingrediente;
@@ -141,21 +144,32 @@ public class UsuarioRestController {
 //	}
 	
 	@PostMapping("/altaReceta")
-	public String altaIngredienteReceta(Receta receta, List<IngredienteEnReceta> listaIngredientes, 
-			HttpSession session) {
-		session.setAttribute("receta", null);
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		receta.setUsuario(usuario);
-		session.setAttribute("receta", receta);
-		rdao.altaReceta(receta);
+	@ResponseBody
+	public String altaRecetaPrueba(@RequestParam (required = false) String novedad){
+		System.out.println("novedad: " + novedad);
+		Receta receta2 = new Receta();
+		receta2.setNovedad(novedad);
+		System.out.println("receta2: " + receta2.toString());
 		
-		Receta recetaCreada=(Receta) session.getAttribute("receta");
-		for(IngredienteEnReceta ele: listaIngredientes) {
-			ele.setReceta(recetaCreada);
-		}
-
-		return (irdao.nuevaReceta(listaIngredientes)==1)?"Alta realizada":"Alta NOOOO realizada";
+		return (rdao.altaReceta(receta2)==1)?"Alta realizada":"Alta no realizada";
 	}
+	
+//	@PostMapping("/altaReceta")
+//	public String altaIngredienteReceta(@RequestBody Receta receta, List<IngredienteEnReceta> listaIngredientes, 
+//			HttpSession session) {
+//		session.setAttribute("receta", null);
+//		Usuario usuario = (Usuario) session.getAttribute("usuario");
+//		receta.setUsuario(usuario);
+//		session.setAttribute("receta", receta);
+//		rdao.altaReceta(receta);
+//		
+//		Receta recetaCreada=(Receta) session.getAttribute("receta");
+//		for(IngredienteEnReceta ele: listaIngredientes) {
+//			ele.setReceta(recetaCreada);
+//		}
+//
+//		return (irdao.nuevaReceta(listaIngredientes)==1)?"Alta realizada":"Alta NOOOO realizada";
+//	}
 	
 	
 	//ME RESPONDE CON ALTA NO REALIZADA PORQUE NO PERSISTE

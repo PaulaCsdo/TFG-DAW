@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * The persistent class for the perfiles database table.
- * 
+ * Esta clase define objetos que contienen los atributos del perfil de cada usuario
  */
 @Entity
 @Table(name="perfiles")
