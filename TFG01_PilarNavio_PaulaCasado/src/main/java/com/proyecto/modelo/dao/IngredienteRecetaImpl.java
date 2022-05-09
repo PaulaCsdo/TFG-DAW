@@ -21,8 +21,10 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 	//Con este método, creamos una nueva receta incluyendo los ingredientes
 	
 	@Override
-	public int nuevaReceta(IngredienteEnReceta inrec) {
-		irrepo.save(inrec);
+	public int nuevaReceta(List<IngredienteEnReceta> lista) {
+		for(IngredienteEnReceta ele: lista) {
+			irrepo.save(ele);
+		}
 		return 1;
 	}
 
@@ -54,6 +56,11 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 	@Override
 	public List<IngredienteEnReceta> buscarXTipo(int idTipoDieta) {
 		return irrepo.buscarXTipo(idTipoDieta);
+	}
+
+	@Override
+	public List<IngredienteEnReceta> misRecetas(String username) {
+		return irrepo.misRecetas(username);
 	}
 
 	

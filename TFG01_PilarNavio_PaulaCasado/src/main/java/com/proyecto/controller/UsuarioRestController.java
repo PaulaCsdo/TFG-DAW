@@ -69,6 +69,7 @@ public class UsuarioRestController {
 		 return irdao.buscarXTipo(idTipoDieta);
 	}
 	
+	
 	//Ver todas las recetas (vista principal)
 	@GetMapping("/verRecetas")
 	public List<Receta> listarRecetas(){
@@ -94,21 +95,62 @@ public class UsuarioRestController {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		return rudao.verRecetasGuardadas(usuario.getUsername());
 	}
+	
+	//Ver las recetas creadas por el usuario
+	@GetMapping("/verMisRecetas")
+	public List <IngredienteEnReceta> verCreadas(HttpSession session) {
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		return irdao.misRecetas(usuario.getUsername());
+	}
+	
+	/*Buscar ingredientes: necesario para dar de alta una nueva receta.
+	 * El rol de usuario puede buscar recetas por ingrediente, pero NO buscar ingredientes.
+	 * El método es necesario para que pueda buscar los ingredientes en el formulario al
+	 * crear una nueva receta.
+	 */
+	
+	@GetMapping("/buscadorIngrediente/{descripcion}")
+	public List <Ingrediente> buscarIngrediente(@PathVariable("descripcion") String descripcion) {
+		return idao.buscarPorDescripcion(descripcion);
+	}
+	
+	
+//	//Alta receta. Botón submit: dar de alta
+//	@PostMapping("/altaReceta")
+//	public String altaReceta(Receta receta, HttpSession session) {
+//		Usuario usuario = (Usuario) session.getAttribute("usuario");
+//		receta.setUsuario(usuario);
+//		session.setAttribute("receta", receta);
+//		return (rdao.altaReceta(receta)==1)?"Alta realizada":"Alta no realizada";
+//	}
+//	
+//	//Este método es un botón que lleva al siguiente paso: incluir los ingredientes
+//	@GetMapping("/recuperarReceta")
+//	public Receta recuperarReceta (HttpSession session) {
+//		Receta receta = (Receta) session.getAttribute("receta");
+//		return receta;
+//	}
+	
+	@PostMapping("/altaIngredienteReceta")
+	public String altaIngredienteReceta(Receta receta, List<IngredienteEnReceta> listaIngredientes, 
+			HttpSession session) {
+		session.setAttribute("receta", null);
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		receta.setUsuario(usuario);
+		session.setAttribute("receta", receta);
+		rdao.altaReceta(receta);
+		
+		Receta recetaCreada=(Receta) session.getAttribute("receta");
+		for(IngredienteEnReceta ele: listaIngredientes) {
+			ele.setReceta(recetaCreada);
+		}
 
+		return (irdao.nuevaReceta(listaIngredientes)==1)?"Alta realizada":"Alta NOOOO realizada";
+	}
+	
 	
 	//ME RESPONDE CON ALTA NO REALIZADA PORQUE NO PERSISTE
 	
-	/*
-	 * Creo que le tienes que quitar el @RequestBody, y meter simplemente un objeto Receta
-	 * (como hemos hecho normalmente). Asi no necesitas meter TODOS los atributos de receta.
-	 * Igualmente, habria que crear otro metodo RecetaCompleta, para poder recibir ingredientes,
-	 * cantidad, etc
-	 * 
-	 * Recibe una lista de Ingredientes + un objeto receta. Para crear los registros en la tabla, 
-	 * hay que hacer un bucle for: por cada listaIngrediente(i), crear un objeto Ingrediente en receta,
-	 * y .setIngrediente, .setReceta recibida.
-	 * Finalmente: IngredRecetaDAO.altareceta(objeto ingredienteReceta creado)
-	 */
 //	@PostMapping("/altaReceta")
 //	public String procesarAlta (@RequestBody Receta receta,
 //			List<IngredienteEnReceta> listaIngredientesEnReceta, HttpSession session) {

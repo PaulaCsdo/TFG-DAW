@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.proyecto.modelo.bean.IngredienteEnReceta;
-import com.proyecto.modelo.bean.Receta;
 
 public interface IngredienteRecetaRepo extends JpaRepository<IngredienteEnReceta, Integer>{
 	
@@ -22,7 +21,9 @@ public interface IngredienteRecetaRepo extends JpaRepository<IngredienteEnReceta
 	@Query("select ir from IngredienteEnReceta ir where ir.receta.nivelCocina.idNivel=?1")
 	public List<IngredienteEnReceta> buscarXNivel(int idNivel);
 	
-	//@Query("select ir from IngredienteEnReceta ir where ir.receta.tiposDietas.idTipoDieta=?1")
+	@Query("select ir from IngredienteEnReceta ir where ir.receta.usuario.username=?1")
+	public List<IngredienteEnReceta> misRecetas(String username);
+	
 	@Query (value = "select * from ingrediente_en_receta ir " + 
 			"inner join tipo_dieta_receta tdr on ir.id_receta = tdr.id_receta " +
 			"inner join tipos_dietas td on tdr.id_tipo_dieta = td.id_tipo_dieta " +
