@@ -96,8 +96,12 @@ public class AdminRestController {
 	
 	//Formulario para dar de alta un ingrediente
 	@PostMapping("/altaIngrediente")
-	public String registrarIngrediente(Ingrediente ingrediente) {
-			return (idao.altaIngrediente(ingrediente)==1)?"Alta realizada":"ERROR en alta";
+	public int registrarIngrediente(Ingrediente ingrediente) {
+		if(idao.altaIngrediente(ingrediente)==1) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	
 	/*Botones que llevan a una lista de:
@@ -119,17 +123,6 @@ public class AdminRestController {
 	public List<TiposDieta> verTipos() {
 		return tint.findAll();
 	}
-	
-//	@PostMapping("/altaRecetaCompleta")
-//	public String formRecetaCompleta(@RequestBody Receta receta, HttpSession session) {
-//			Receta rec= inreceta.getReceta();
-//			Usuario usu=(Usuario)session.getAttribute("usuario");
-//			rec.setUsuario(usu);
-//			rdao.altaReceta(rec);
-//		
-//			irdao.nuevaReceta(inreceta);
-//			return "redirect:/administrador/verRecetasCompletas";
-//	}
 	
 
 }
