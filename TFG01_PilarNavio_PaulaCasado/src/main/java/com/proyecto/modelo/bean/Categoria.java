@@ -10,8 +10,7 @@ import java.util.List;
 
 /**
  * The persistent class for the categorias database table.
- * Esta clase define objetos que contienen los atributos que definen una categoria de receta
-
+ * Esta clase define objetos que contienen los atributos que definen una categoria de receta.
  */
 @Entity
 @Table(name="categorias")

@@ -54,26 +54,46 @@ public class AdminRestController {
 	
 	@Autowired
 	private TipoDietaInt tint;
-	
+	/**
+	 * Invalida los atributos de sesion asociados al objeto session,
+	 * y redirige a la vista llamada "Logout"
+	 * 
+	 * @param session 
+	 * @return DUDA: ¿Nombre de la vista a la que se dirige el método?
+	 */
 	@GetMapping ("/logout")
 	public String logout (HttpSession session) {
 		session.invalidate();
 		return "Logout";
 	}
 	
-	//Boton que lleva a vista con la lista de usuarios
+	/**
+	 * Método para ver los usuarios
+	 * 
+	 * @return json de la lista con todos los usuarios registrados
+	 */
 	@GetMapping("/verUsuarios")
 	public List <Usuario> verUsuarios() {
 		return udao.findAll();
 	}
 	
-	
-	//Boton que lleva a vista con la lista de ingredientes
+	/**
+	 * Método para ver la lista de ingredientes
+	 * @return json de la lista de los igredientes registrados
+	 */
 	@GetMapping("/verIngredientes")
 	public List<Ingrediente> listarIngredientes(){
 		return idao.findAll();
 	}	
 	
+	/**
+	 * Método para ver la lista de todas las recetas con los atributos:
+	 * idReceta, imagen, kcal, momento, novedad, numero de porciones, pasos,
+	 * puntuacion, tiempo, titulo, receta en usuario, ingredientes de la receta,
+	 * categoria, nivel de cocina, usuario propietario, tipos de dietas.
+	 * 
+	 * @return json de la lista de recetas
+	 */
 	//Boton que lleva a vista con la lista de recetas: incluye ingredientes + unidad/cantidades
 	@GetMapping("/verRecetas")
 	public List<Receta> listarRecetas(){
@@ -81,20 +101,36 @@ public class AdminRestController {
 	}
 	
 	
-	/* Input para buscar: ingredientes, recetas
-	 * El resultado de la búsqueda aparecerá en la misma vista (index)
+
+	/**
+	 * Método para buscar la lista de ingredientes que contengan la cadena que se introduce en el parámetro
+	 * 
+	 * @param descripcion Cadena de caracteres que contiene total o parcialmente la descripción del ingrediente.
+	 * @return Lista de ingredientes en la que coincide el nombre del ingrediente con la cadena del parametro.
 	 */
 	@GetMapping("/buscadorIngrediente/{descripcion}")
 	public List <Ingrediente> buscarIngrediente(@PathVariable("descripcion") String descripcion) {
 		return idao.buscarPorDescripcion(descripcion);
 	}
 	
+	/**
+	 * Método para buscar las recetas cuyo título contenga la cadena introducida en el parámetro
+	 * 
+	 * @param titulo Cadena de caracteres que contiene total o parcialmente el título de la receta.
+	 * @return Lista de recetas en la que coincide el título de la receta con la cadena del parametro.
+	 */
 	@GetMapping("/buscadorReceta/{titulo}")
 	public List<IngredienteEnReceta> buscarIngredientesEnReceta(@RequestParam ("titulo") String titulo) {
 		 return irdao.buscarXReceta(titulo);
 	}
 	
-	//Formulario para dar de alta un ingrediente
+	/**
+	 * Método para dar de alta un nuevo ingrediente procedente de un formulario.
+	 * Se deben incluir todos los atributos de la clase @see Ingrediente
+	 * 
+	 * @param ingrediente 
+	 * @return 1 si se ha dado de alta correctamente, o 0 si no.
+	 */
 	@PostMapping("/altaIngrediente")
 	public int registrarIngrediente(Ingrediente ingrediente) {
 		if(idao.altaIngrediente(ingrediente)==1) {
@@ -109,16 +145,29 @@ public class AdminRestController {
 	 * 	- Categorias de receta
 	 * 	- Tipos de dieta
 	 */
+	/**
+	 * Método para ver todos atributos de la clase NivelCocina @see NivelCocina
+	 * 
+	 * @return Lista de objetos NivelCocina
+	 */
 	@GetMapping("/verNiveles")
 	public List<NivelCocina> verDificultad() {
 		return nint.findAll();
 	}
 	
+	/**
+	 * Método para ver todos los atributos de la clase Categoria @see Categoria
+	 * @return Lista de objetos Categoria
+	 */
 	@GetMapping("/verCategorias")
 	public List<Categoria> verCateg() {
 		return cint.verCategorias();
 	}
 	
+	/**
+	 * Método para ver los tipos de dieta
+	 * @return Lista de objetos TiposDieta
+	 */
 	@GetMapping("/verTiposDieta")
 	public List<TiposDieta> verTipos() {
 		return tint.findAll();

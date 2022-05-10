@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.modelo.bean.Categoria;
 import com.proyecto.modelo.bean.Ingrediente;
 import com.proyecto.modelo.bean.IngredienteEnReceta;
 import com.proyecto.modelo.bean.Receta;
 import com.proyecto.modelo.bean.RecetaEnUsuario;
 import com.proyecto.modelo.bean.Usuario;
+import com.proyecto.modelo.dao.CategoriaInt;
 import com.proyecto.modelo.dao.IngredienteInt;
 import com.proyecto.modelo.dao.IngredienteRecetaInt;
 import com.proyecto.modelo.dao.RecetaInt;
@@ -41,6 +43,9 @@ public class UsuarioRestController {
 	
 	@Autowired
 	private RecetaUsuarioInt rudao;
+	
+	@Autowired
+	private CategoriaInt cadao;
 	
 	@GetMapping ("/logout")
 	public String logout (HttpSession session) {
@@ -145,10 +150,12 @@ public class UsuarioRestController {
 	
 	@PostMapping("/altaReceta")
 	@ResponseBody
-	public String altaRecetaPrueba(@RequestParam (required = false) String novedad){
-		System.out.println("novedad: " + novedad);
+	public String altaRecetaPrueba(@RequestParam (name="id_categoria", required = false) Integer idCategoria){
+		System.out.println("idCategoria: " + idCategoria);
 		Receta receta2 = new Receta();
-		receta2.setNovedad(novedad);
+		Categoria categoria = cadao.findById(idCategoria);
+		receta2.setCategoria(cadao.findById(idCategoria));
+		System.out.println("Categoria: " + categoria);
 		System.out.println("receta2: " + receta2.toString());
 		
 		return (rdao.altaReceta(receta2)==1)?"Alta realizada":"Alta no realizada";
