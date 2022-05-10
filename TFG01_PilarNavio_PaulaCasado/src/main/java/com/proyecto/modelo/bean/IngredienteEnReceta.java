@@ -8,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The persistent class for the ingrediente_en_receta database table.
- * 
+ * Esta clase define objetos que contienen los atributos que definen la cantidad y unidad
+ * del ingrediente incluido en una receta.
  */
 @Entity
 @Table(name="ingrediente_en_receta")

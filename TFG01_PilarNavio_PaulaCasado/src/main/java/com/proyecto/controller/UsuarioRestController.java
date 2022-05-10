@@ -9,14 +9,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.modelo.bean.Categoria;
 import com.proyecto.modelo.bean.Ingrediente;
 import com.proyecto.modelo.bean.IngredienteEnReceta;
 import com.proyecto.modelo.bean.Receta;
 import com.proyecto.modelo.bean.RecetaEnUsuario;
 import com.proyecto.modelo.bean.Usuario;
+import com.proyecto.modelo.dao.CategoriaInt;
 import com.proyecto.modelo.dao.IngredienteInt;
 import com.proyecto.modelo.dao.IngredienteRecetaInt;
 import com.proyecto.modelo.dao.RecetaInt;
@@ -38,6 +43,9 @@ public class UsuarioRestController {
 	
 	@Autowired
 	private RecetaUsuarioInt rudao;
+	
+	@Autowired
+	private CategoriaInt cadao;
 	
 	@GetMapping ("/logout")
 	public String logout (HttpSession session) {
@@ -141,21 +149,34 @@ public class UsuarioRestController {
 //	}
 	
 	@PostMapping("/altaReceta")
-	public String altaIngredienteReceta(Receta receta, List<IngredienteEnReceta> listaIngredientes, 
-			HttpSession session) {
-		session.setAttribute("receta", null);
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		receta.setUsuario(usuario);
-		session.setAttribute("receta", receta);
-		rdao.altaReceta(receta);
+	@ResponseBody
+	public String altaRecetaPrueba(@RequestParam (name="id_categoria", required = false) Integer idCategoria){
+		System.out.println("idCategoria: " + idCategoria);
+		Receta receta2 = new Receta();
+		Categoria categoria = cadao.findById(idCategoria);
+		receta2.setCategoria(cadao.findById(idCategoria));
+		System.out.println("Categoria: " + categoria);
+		System.out.println("receta2: " + receta2.toString());
 		
-		Receta recetaCreada=(Receta) session.getAttribute("receta");
-		for(IngredienteEnReceta ele: listaIngredientes) {
-			ele.setReceta(recetaCreada);
-		}
-
-		return (irdao.nuevaReceta(listaIngredientes)==1)?"Alta realizada":"Alta NOOOO realizada";
+		return (rdao.altaReceta(receta2)==1)?"Alta realizada":"Alta no realizada";
 	}
+	
+//	@PostMapping("/altaReceta")
+//	public String altaIngredienteReceta(@RequestBody Receta receta, List<IngredienteEnReceta> listaIngredientes, 
+//			HttpSession session) {
+//		session.setAttribute("receta", null);
+//		Usuario usuario = (Usuario) session.getAttribute("usuario");
+//		receta.setUsuario(usuario);
+//		session.setAttribute("receta", receta);
+//		rdao.altaReceta(receta);
+//		
+//		Receta recetaCreada=(Receta) session.getAttribute("receta");
+//		for(IngredienteEnReceta ele: listaIngredientes) {
+//			ele.setReceta(recetaCreada);
+//		}
+//
+//		return (irdao.nuevaReceta(listaIngredientes)==1)?"Alta realizada":"Alta NOOOO realizada";
+//	}
 	
 	
 	//ME RESPONDE CON ALTA NO REALIZADA PORQUE NO PERSISTE

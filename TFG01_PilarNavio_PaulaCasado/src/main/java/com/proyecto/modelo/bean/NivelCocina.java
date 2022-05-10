@@ -11,7 +11,8 @@ import java.util.List;
 
 /**
  * The persistent class for the nivel_cocina database table.
- * 
+ * Esta clase define objetos que contienen los atributos que definen el nivel de dificultad
+ * de una receta
  */
 @Entity
 @Table(name="nivel_cocina")

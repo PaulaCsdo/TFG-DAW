@@ -11,7 +11,10 @@ import java.util.List;
 
 /**
  * The persistent class for the tipos_dietas database table.
- * 
+ * Esta clase define objetos que contienen los atributos que definen los tipos de dieta
+ * a la que se corresponde cada receta.
+ * @see Receta
+ * @see Usuario
  */
 @Entity
 @Table(name="tipos_dietas")
