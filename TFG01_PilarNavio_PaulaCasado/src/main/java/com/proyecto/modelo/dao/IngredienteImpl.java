@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.modelo.bean.Ingrediente;
+import com.proyecto.modelo.bean.Usuario;
 import com.proyecto.modelo.repository.IngredienteRepo;
 
 @Service
@@ -19,15 +20,15 @@ public class IngredienteImpl implements IngredienteInt{
 	}
 
 	@Override
-	public int altaIngrediente(Ingrediente ingrediente) {
-		int filas = 0;
-		try {
+	public int altaIngrediente (Ingrediente ingrediente) {
+		
+		if(findById(ingrediente.getIdIngrediente())==null) {
 			irepo.save(ingrediente);
-			filas = 1;
-		}catch(Exception e) {
-			e.printStackTrace();
+			return 1;
 		}
-		return filas;
+		else {
+			return 0;
+		}
 	}
 
 

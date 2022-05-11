@@ -3,6 +3,7 @@ package com.proyecto.modelo.bean;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.math.BigDecimal;
@@ -20,7 +21,6 @@ public class Receta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID_RECETA")
 	private int idReceta;
 
@@ -38,6 +38,7 @@ public class Receta implements Serializable {
 	@Lob
 	private String pasos;
 
+	@JsonIgnore
 	private BigDecimal puntuacion;
 
 	private int tiempo;

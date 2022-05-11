@@ -20,4 +20,10 @@ public class CategoriaImpl implements CategoriaInt{
 		return crepo.findAll();
 	}
 
+
+	@Override
+	public Categoria findById(int idCategoria) {
+		return crepo.findById(idCategoria).orElse(null);	
+	}
+
 }

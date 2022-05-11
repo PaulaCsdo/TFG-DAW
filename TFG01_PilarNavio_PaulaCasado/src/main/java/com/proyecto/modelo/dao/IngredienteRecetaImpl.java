@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.proyecto.modelo.bean.IngredienteEnReceta;
+import com.proyecto.modelo.dto.IngredienteEnRecetaDTO;
 import com.proyecto.modelo.repository.IngredienteRecetaRepo;
+
 
 @Service
 public class IngredienteRecetaImpl implements IngredienteRecetaInt{
@@ -17,15 +20,17 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 	public List<IngredienteEnReceta> findAll() {
 		return irrepo.findAll();
 	}
-
-	//Con este método, creamos una nueva receta incluyendo los ingredientes
 	
+	//Con este método, se crea una nueva receta incluyendo los ingredientes, cantidad y unidad
 	@Override
-	public int nuevaReceta(List<IngredienteEnReceta> lista) {
-		for(IngredienteEnReceta ele: lista) {
-			irrepo.save(ele);
+	public int nuevaReceta (IngredienteEnReceta nuevaReceta) {		
+		try {
+			irrepo.save(nuevaReceta);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		return 1;
+
 	}
 
 	@Override

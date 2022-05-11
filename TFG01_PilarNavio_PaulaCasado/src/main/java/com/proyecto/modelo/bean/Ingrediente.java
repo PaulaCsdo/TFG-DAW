@@ -3,6 +3,7 @@ package com.proyecto.modelo.bean;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public class Ingrediente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID_INGREDIENTE")
 	private int idIngrediente;
 
 	private String descripcion;
 
 	@Lob
+	@JsonIgnore
 	private byte[] imagen;
 
 	//bi-directional many-to-one association to IngredienteEnReceta

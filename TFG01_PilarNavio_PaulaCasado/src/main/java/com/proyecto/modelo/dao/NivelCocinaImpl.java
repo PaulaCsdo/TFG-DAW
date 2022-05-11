@@ -19,4 +19,9 @@ public class NivelCocinaImpl implements NivelCocinaInt{
 		return nrepo.findAll();
 	}
 
+	@Override
+	public NivelCocina findById(int idNivel) {
+		return nrepo.findById(idNivel).orElse(null);
+	}
+
 }
