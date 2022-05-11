@@ -1,7 +1,6 @@
 package com.proyecto.modelo.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,5 +24,6 @@ public class CategoriaImpl implements CategoriaInt{
 	public Categoria findById(int idCategoria) {
 		return crepo.findById(idCategoria).orElse(null);
 	}
+
 
 }

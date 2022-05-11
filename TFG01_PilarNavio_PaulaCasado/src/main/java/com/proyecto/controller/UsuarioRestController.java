@@ -1,5 +1,7 @@
 package com.proyecto.controller;
 
+import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,14 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto.modelo.bean.Categoria;
 import com.proyecto.modelo.bean.Ingrediente;
 import com.proyecto.modelo.bean.IngredienteEnReceta;
+import com.proyecto.modelo.bean.NivelCocina;
 import com.proyecto.modelo.bean.Receta;
 import com.proyecto.modelo.bean.RecetaEnUsuario;
 import com.proyecto.modelo.bean.Usuario;
 import com.proyecto.modelo.dao.CategoriaInt;
 import com.proyecto.modelo.dao.IngredienteInt;
 import com.proyecto.modelo.dao.IngredienteRecetaInt;
+import com.proyecto.modelo.dao.NivelCocinaInt;
 import com.proyecto.modelo.dao.RecetaInt;
 import com.proyecto.modelo.dao.RecetaUsuarioInt;
+import com.proyecto.modelo.dto.IngredienteEnRecetaDTO;
+import com.proyecto.modelo.dto.RecetaDTO;
+import com.proyecto.modelo.repository.IngredienteRecetaRepo;
 
 @CrossOrigin(origins = "http://localhost:8088")
 @RestController
@@ -45,7 +52,10 @@ public class UsuarioRestController {
 	private RecetaUsuarioInt rudao;
 	
 	@Autowired
-	private CategoriaInt cadao;
+	private CategoriaInt ctint;
+	
+	@Autowired
+	private NivelCocinaInt nint;
 	
 	@GetMapping ("/logout")
 	public String logout (HttpSession session) {
@@ -132,102 +142,57 @@ public class UsuarioRestController {
 	}
 	
 	
-//	//Alta receta. Botón submit: dar de alta
-//	@PostMapping("/altaReceta")
-//	public String altaReceta(Receta receta, HttpSession session) {
-//		Usuario usuario = (Usuario) session.getAttribute("usuario");
-//		receta.setUsuario(usuario);
-//		session.setAttribute("receta", receta);
-//		return (rdao.altaReceta(receta)==1)?"Alta realizada":"Alta no realizada";
-//	}
-//	
-//	//Este método es un botón que lleva al siguiente paso: incluir los ingredientes
-//	@GetMapping("/recuperarReceta")
-//	public Receta recuperarReceta (HttpSession session) {
-//		Receta receta = (Receta) session.getAttribute("receta");
-//		return receta;
-//	}
-	
+	//ALTA RECETA
 	@PostMapping("/altaReceta")
-	@ResponseBody
-	public String altaRecetaPrueba(@RequestParam (name="id_categoria", required = false) Integer idCategoria){
-		System.out.println("idCategoria: " + idCategoria);
-		Receta receta2 = new Receta();
-		Categoria categoria = cadao.findById(idCategoria);
-		receta2.setCategoria(cadao.findById(idCategoria));
-		System.out.println("Categoria: " + categoria);
-		System.out.println("receta2: " + receta2.toString());
+	public String altaReceta(@RequestBody RecetaDTO receta, HttpSession session) {
 		
-		return (rdao.altaReceta(receta2)==1)?"Alta realizada":"Alta no realizada";
+		session.setAttribute("receta", null);
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		
+		receta.setUsuario(usuario);
+		receta.setIdReceta(23);
+		
+		//Crea un objeto receta y la guarda en sesion
+		Receta recetaSesion=new Receta();
+		recetaSesion.setCategoria(receta.getCategoria());
+		recetaSesion.setIdReceta(receta.getIdReceta());
+		recetaSesion.setKcal(receta.getKcal());
+		recetaSesion.setMomento(receta.getMomento());
+		recetaSesion.setNivelCocina(receta.getNivelCocina());
+		recetaSesion.setNovedad("S");
+		recetaSesion.setNumPorciones(receta.getNumPorciones());
+		recetaSesion.setPasos(receta.getPasos());
+		recetaSesion.setTiempo(receta.getTiempo());
+		recetaSesion.setUsuario(usuario);
+		recetaSesion.setTitulo(receta.getTitulo());
+		
+		session.setAttribute("receta", recetaSesion);
+		return(rdao.altaReceta(receta)==1)?"Si":"No";
 	}
 	
-//	@PostMapping("/altaReceta")
-//	public String altaIngredienteReceta(@RequestBody Receta receta, List<IngredienteEnReceta> listaIngredientes, 
-//			HttpSession session) {
-//		session.setAttribute("receta", null);
-//		Usuario usuario = (Usuario) session.getAttribute("usuario");
-//		receta.setUsuario(usuario);
-//		session.setAttribute("receta", receta);
-//		rdao.altaReceta(receta);
-//		
-//		Receta recetaCreada=(Receta) session.getAttribute("receta");
-//		for(IngredienteEnReceta ele: listaIngredientes) {
-//			ele.setReceta(recetaCreada);
-//		}
-//
-//		return (irdao.nuevaReceta(listaIngredientes)==1)?"Alta realizada":"Alta NOOOO realizada";
-//	}
+	@GetMapping("/busca/{idIngrediente}")
+	public Ingrediente aBuscar(@PathVariable("idIngrediente")int idIngrediente) {
+		return idao.findById(idIngrediente);
+	}
 	
+	@PostMapping("/altaIngrediente")
+	public String altaIngredientes(@RequestBody IngredienteEnRecetaDTO nuevaReceta, HttpSession session) {
+		
+		IngredienteEnReceta recetaCreada=new IngredienteEnReceta();
+		
+		Ingrediente ingSeleccionado=idao.findById(nuevaReceta.getIdIngrediente());
+
+		Receta buscada=(Receta)session.getAttribute("receta");
+
+		recetaCreada.setCantidad(nuevaReceta.getCantidad());
+		recetaCreada.setUnidad(nuevaReceta.getUnidad());
+		recetaCreada.setIngrediente(ingSeleccionado);
+		recetaCreada.setReceta(buscada);
+		System.out.println(recetaCreada);
+		
+		return (irdao.nuevaReceta(recetaCreada)==1)?"Alta realizada":"Alta no realizada";
+	}
+
 	
-	//ME RESPONDE CON ALTA NO REALIZADA PORQUE NO PERSISTE
-	
-//	@PostMapping("/altaReceta")
-//	public String procesarAlta (@RequestBody Receta receta,
-//			List<IngredienteEnReceta> listaIngredientesEnReceta, HttpSession session) {
-//		try {
-//			Receta receta2 = new Receta();
-//			Usuario usuario = (Usuario) session.getAttribute("usuario");
-//			
-//			receta2.setImagen(receta.getImagen());
-//			receta2.setKcal(receta.getKcal());
-//			receta2.setMomento(receta.getMomento());
-//			receta2.setNovedad(receta.getNovedad());
-//			receta2.setNumPorciones(receta.getNumPorciones());
-//			receta2.setPasos(receta.getPasos());
-//			receta2.setPuntuacion(receta.getPuntuacion());
-//			receta2.setTiempo(receta.getTiempo());
-//			receta2.setTitulo(receta.getTitulo());
-//			receta2.setCategoria(receta.getCategoria());
-//			receta2.setNivelCocina(receta.getNivelCocina());
-//			receta2.setUsuario(usuario);
-//			
-//			for(IngredienteEnReceta ele: listaIngredientesEnReceta) {
-//				ele.setIngrediente(receta.getIngredienteEnRecetas());
-//				System.out.println(ele.getIngrediente());
-//				receta2.setIngredienteEnRecetas(ele.getIngrediente());
-//
-//			}
-//
-//			RecetaEnUsuario reu = new RecetaEnUsuario();
-//			List<RecetaEnUsuario> listaRecetaEnUsuario = rudao.findAll();
-//			reu.setGuardada("G");
-//			reu.setUsuario(usuario);
-//			reu.setAgendada(null);
-//			reu.setReceta(receta2);
-//			receta2.setRecetaEnUsuarios(null);
-//			
-//			System.out.println(listaRecetaEnUsuario);
-//			System.out.println(reu);
-//			
-//			listaRecetaEnUsuario.add(reu);
-//			
-			
-//			return (rdao.altaReceta(receta2)==1)?"Alta realizada":"Alta no realizada";
-//		}
-//		catch (Exception e) {
-//			return e.getMessage();
-//		}
-//		
-//	}
-//	
+
 }

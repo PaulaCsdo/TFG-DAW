@@ -132,7 +132,11 @@ public class AdminRestController {
 	 * @return 1 si se ha dado de alta correctamente, o 0 si no.
 	 */
 	@PostMapping("/altaIngrediente")
-	public int registrarIngrediente(Ingrediente ingrediente) {
+	public int registrarIngrediente(@RequestParam("descripcion") String descripcion) {
+		System.out.println(descripcion);
+		Ingrediente ingrediente=new Ingrediente();
+		ingrediente.setDescripcion(descripcion);
+		ingrediente.setIdIngrediente(3);
 		if(idao.altaIngrediente(ingrediente)==1) {
 			return 1;
 		}else {

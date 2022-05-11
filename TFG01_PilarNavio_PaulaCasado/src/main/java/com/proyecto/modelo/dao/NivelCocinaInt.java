@@ -6,5 +6,5 @@ import com.proyecto.modelo.bean.NivelCocina;
 
 public interface NivelCocinaInt {
 	List<NivelCocina> findAll();
-
+	NivelCocina findById(int idNivel);
 }

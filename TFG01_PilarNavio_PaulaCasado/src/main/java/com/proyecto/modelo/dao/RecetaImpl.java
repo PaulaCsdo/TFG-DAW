@@ -2,11 +2,13 @@ package com.proyecto.modelo.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.modelo.bean.Receta;
+import com.proyecto.modelo.dto.RecetaDTO;
 import com.proyecto.modelo.repository.RecetaRepo;
 
 @Service
@@ -36,16 +38,33 @@ public class RecetaImpl implements RecetaInt{
 	}
 
 	@Override
-	public int altaReceta(Receta receta) {
+	public int altaReceta(RecetaDTO receta) {
+		
+		Receta rec=new Receta();
+		
+		rec.setCategoria(receta.getCategoria());
+		rec.setNivelCocina(receta.getNivelCocina());
+		rec.setMomento(receta.getMomento());
+		rec.setTitulo(receta.getTitulo());
+		rec.setNovedad("S");
+		rec.setKcal(receta.getKcal());
+		rec.setPasos(receta.getPasos());
+		rec.setTiempo(receta.getTiempo());
+		rec.setNumPorciones(receta.getNumPorciones());
+		rec.setUsuario(receta.getUsuario());
+		rec.setIdReceta(receta.getIdReceta());
+		
 		int filas = 0;
 		try {
-			rrepo.save(receta);
+			rrepo.save(rec);
 			filas = 1;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return filas;
 	}
+	
+	
 
 	@Override
 	public Receta findById(int idReceta) {
@@ -64,25 +83,5 @@ public class RecetaImpl implements RecetaInt{
 	}
 
 
-	//DUDA: ¿Creamos una tabla renacida con las puntuaciones de cada receta para recuperar el arraylist?
-	@Override
-	public int valorarReceta(Receta receta, BigDecimal valoracion) {
-		if(rrepo.findById(receta.getIdReceta()) != null) {
-			//Leer el ArrayList con todas las valoraciones
-			
-			//Si el tamaño del ArrayList es 0 --> crear arraylist valoraciones;
-			
-			//Si el tamaño del ArrayList es >0 --> valoraciones.add(valoracion);
-			//int suma=0;
-			//int valoracion =0;
-			//for (int i=0; i<valoraciones.length; i++){
-			//	suma += valoraciones[i+]
-			//}
-			//BigDecimal puntuacion = suma/valoraciones.length();
-			//receta.setPuntuacion(puntuacion);
-			//return 1;
-		}
-		return 0;
-	}
 
 }
