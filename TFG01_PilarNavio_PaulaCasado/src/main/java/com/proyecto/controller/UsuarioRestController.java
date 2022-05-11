@@ -192,6 +192,7 @@ public class UsuarioRestController {
 		
 		return (irdao.nuevaReceta(recetaCreada)==1)?"Alta realizada":"Alta no realizada";
 	}
+
 	
 
 }

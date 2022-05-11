@@ -19,11 +19,11 @@ public class CategoriaImpl implements CategoriaInt{
 	public List<Categoria> verCategorias() {
 		return crepo.findAll();
 	}
-
-
+	
 	@Override
 	public Categoria findById(int idCategoria) {
-		return crepo.findById(idCategoria).orElse(null);	
+		return crepo.findById(idCategoria).orElse(null);
 	}
+
 
 }
