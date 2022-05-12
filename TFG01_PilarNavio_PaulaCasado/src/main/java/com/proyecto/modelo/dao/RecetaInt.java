@@ -10,6 +10,7 @@ public interface RecetaInt {
 	int eliminarReceta (int idReceta);
 	int altaReceta (RecetaDTO receta);
 	Receta findById (int idReceta);
+	Receta recuperarSesion(RecetaDTO receta);
 	List<Receta> buscarXNombre(String titulo);
 	List<Receta> buscarXMomento(String momento);
 }

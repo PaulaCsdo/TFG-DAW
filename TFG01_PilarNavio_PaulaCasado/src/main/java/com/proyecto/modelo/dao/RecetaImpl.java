@@ -82,6 +82,26 @@ public class RecetaImpl implements RecetaInt{
 		return rrepo.buscarXMomento(momento);
 	}
 
+	@Override
+	public Receta recuperarSesion(RecetaDTO receta) {
+		
+		Receta recetaSesion=new Receta();
+		
+		recetaSesion.setCategoria(receta.getCategoria());
+		recetaSesion.setIdReceta(receta.getIdReceta());
+		recetaSesion.setKcal(receta.getKcal());
+		recetaSesion.setMomento(receta.getMomento());
+		recetaSesion.setNivelCocina(receta.getNivelCocina());
+		recetaSesion.setNovedad("S");
+		recetaSesion.setNumPorciones(receta.getNumPorciones());
+		recetaSesion.setPasos(receta.getPasos());
+		recetaSesion.setTiempo(receta.getTiempo());
+		recetaSesion.setUsuario(receta.getUsuario());
+		recetaSesion.setTitulo(receta.getTitulo());
+		
+		return recetaSesion;
+	}
+
 
 
 }

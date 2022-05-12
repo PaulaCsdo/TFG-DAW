@@ -143,6 +143,7 @@ public class UsuarioRestController {
 	
 	
 	//ALTA RECETA
+	
 	@PostMapping("/altaReceta")
 	public String altaReceta(@RequestBody RecetaDTO receta, HttpSession session) {
 		
@@ -150,22 +151,10 @@ public class UsuarioRestController {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		
 		receta.setUsuario(usuario);
-		receta.setIdReceta(23);
+		receta.setIdReceta(56);
 		
 		//Crea un objeto receta y la guarda en sesion
-		Receta recetaSesion=new Receta();
-		recetaSesion.setCategoria(receta.getCategoria());
-		recetaSesion.setIdReceta(receta.getIdReceta());
-		recetaSesion.setKcal(receta.getKcal());
-		recetaSesion.setMomento(receta.getMomento());
-		recetaSesion.setNivelCocina(receta.getNivelCocina());
-		recetaSesion.setNovedad("S");
-		recetaSesion.setNumPorciones(receta.getNumPorciones());
-		recetaSesion.setPasos(receta.getPasos());
-		recetaSesion.setTiempo(receta.getTiempo());
-		recetaSesion.setUsuario(usuario);
-		recetaSesion.setTitulo(receta.getTitulo());
-		
+		Receta recetaSesion=rdao.recuperarSesion(receta);
 		session.setAttribute("receta", recetaSesion);
 		return(rdao.altaReceta(receta)==1)?"Si":"No";
 	}
@@ -175,7 +164,7 @@ public class UsuarioRestController {
 		return idao.findById(idIngrediente);
 	}
 	
-	@PostMapping("/altaIngrediente")
+	@PostMapping("/añadirIngrediente")
 	public String altaIngredientes(@RequestBody IngredienteEnRecetaDTO nuevaReceta, HttpSession session) {
 		
 		IngredienteEnReceta recetaCreada=new IngredienteEnReceta();
