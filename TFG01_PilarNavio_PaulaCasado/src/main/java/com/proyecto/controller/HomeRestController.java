@@ -19,7 +19,13 @@ import com.proyecto.modelo.bean.Perfile;
 import com.proyecto.modelo.bean.Usuario;
 import com.proyecto.modelo.dao.PerfilInt;
 import com.proyecto.modelo.dao.UsuarioInt;
-
+/**
+ * Controlador que recopila los métodos relacionados con el login/logout de la aplicacion
+ * y registro de usuarios en la aplicacion
+ * 
+ * @version 1.0
+ *
+ */
 @CrossOrigin(origins = "http://localhost:8088")
 @RestController
 public class HomeRestController {
