@@ -22,6 +22,7 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 	}
 	
 	//Con este método, se crea una nueva receta incluyendo los ingredientes, cantidad y unidad
+	
 	@Override
 	public int nuevaReceta (IngredienteEnReceta nuevaReceta) {		
 		try {
