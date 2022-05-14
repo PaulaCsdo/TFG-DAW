@@ -42,7 +42,7 @@ public class TiposDieta implements Serializable {
 			@JoinColumn(name="ID_RECETA")
 			}
 		)
-	@JsonIgnoreProperties(value="usuarios")
+	@JsonIgnore
 	private List<Receta> recetas;
 
 	//bi-directional many-to-one association to Usuario

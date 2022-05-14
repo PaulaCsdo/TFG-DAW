@@ -1,26 +1,23 @@
 package com.proyecto.controller;
 
-import java.util.ArrayList;
 
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.modelo.bean.Categoria;
 import com.proyecto.modelo.bean.Ingrediente;
 import com.proyecto.modelo.bean.IngredienteEnReceta;
-import com.proyecto.modelo.bean.NivelCocina;
 import com.proyecto.modelo.bean.Receta;
 import com.proyecto.modelo.bean.RecetaEnUsuario;
 import com.proyecto.modelo.bean.Usuario;
@@ -32,7 +29,6 @@ import com.proyecto.modelo.dao.RecetaInt;
 import com.proyecto.modelo.dao.RecetaUsuarioInt;
 import com.proyecto.modelo.dto.IngredienteEnRecetaDTO;
 import com.proyecto.modelo.dto.RecetaDTO;
-import com.proyecto.modelo.repository.IngredienteRecetaRepo;
 
 @CrossOrigin(origins = "http://localhost:8088")
 @RestController
@@ -136,12 +132,6 @@ public class UsuarioRestController {
 	 * crear una nueva receta.
 	 */
 	
-	@GetMapping("/buscadorIngrediente/{descripcion}")
-	public List <Ingrediente> buscarIngrediente(@PathVariable("descripcion") String descripcion) {
-		return idao.buscarPorDescripcion(descripcion);
-	}
-	
-	
 	//ALTA RECETA
 	
 	@PostMapping("/altaReceta")
@@ -159,9 +149,16 @@ public class UsuarioRestController {
 		return(rdao.altaReceta(receta)==1)?"Si":"No";
 	}
 	
-	@GetMapping("/busca/{idIngrediente}")
-	public Ingrediente aBuscar(@PathVariable("idIngrediente")int idIngrediente) {
-		return idao.findById(idIngrediente);
+	/**
+	 * Método para buscar la lista de ingredientes que contengan la cadena que se introduce en el parámetro
+	 * 
+	 * @param descripcion Cadena de caracteres que contiene total o parcialmente la descripción del ingrediente.
+	 * @return Lista de ingredientes en la que coincide el nombre del ingrediente con la cadena del parametro.
+	 */
+	@GetMapping("/buscadorIngrediente/{descripcion}")
+	@ResponseStatus(HttpStatus.OK)
+	public List <Ingrediente> buscarIngrediente(@PathVariable("descripcion") String descripcion) {
+		return idao.buscarPorDescripcion(descripcion);
 	}
 	
 	@PostMapping("/añadirIngrediente")

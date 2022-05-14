@@ -3,6 +3,7 @@ package com.proyecto.modelo.bean;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class Categoria implements Serializable {
 
 	//bi-directional many-to-one association to Receta
 	@OneToMany(mappedBy="categoria")
-	@JsonIgnoreProperties(value="recetaEnUsuarios")
+	@JsonIgnore
 	private List<Receta> recetas;
 
 	public Categoria() {

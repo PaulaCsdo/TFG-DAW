@@ -31,7 +31,7 @@ public class NivelCocina implements Serializable {
 
 	//bi-directional many-to-one association to Receta
 	@OneToMany(mappedBy="nivelCocina")
-	@JsonIgnoreProperties(value="recetaEnUsuarios")
+	@JsonIgnore
 	private List<Receta> recetas;
 
 	//bi-directional many-to-one association to Usuario

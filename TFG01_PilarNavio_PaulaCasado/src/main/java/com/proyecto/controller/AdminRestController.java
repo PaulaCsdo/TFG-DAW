@@ -6,12 +6,15 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.modelo.bean.Categoria;
@@ -62,6 +65,7 @@ public class AdminRestController {
 	 * @return DUDA: ¿Nombre de la vista a la que se dirige el método?
 	 */
 	@GetMapping ("/logout")
+	@ResponseStatus(HttpStatus.OK)
 	public String logout (HttpSession session) {
 		session.invalidate();
 		return "Logout";
@@ -73,6 +77,7 @@ public class AdminRestController {
 	 * @return json de la lista con todos los usuarios registrados
 	 */
 	@GetMapping("/verUsuarios")
+	@ResponseStatus(HttpStatus.OK)
 	public List <Usuario> verUsuarios() {
 		return udao.findAll();
 	}
@@ -82,6 +87,7 @@ public class AdminRestController {
 	 * @return json de la lista de los igredientes registrados
 	 */
 	@GetMapping("/verIngredientes")
+	@ResponseStatus(HttpStatus.OK)
 	public List<Ingrediente> listarIngredientes(){
 		return idao.findAll();
 	}	
@@ -94,8 +100,9 @@ public class AdminRestController {
 	 * 
 	 * @return json de la lista de recetas
 	 */
-	//Boton que lleva a vista con la lista de recetas: incluye ingredientes + unidad/cantidades
+	
 	@GetMapping("/verRecetas")
+	@ResponseStatus(HttpStatus.OK)
 	public List<Receta> listarRecetas(){
 		return rdao.verRecetas();
 	}
@@ -109,6 +116,7 @@ public class AdminRestController {
 	 * @return Lista de ingredientes en la que coincide el nombre del ingrediente con la cadena del parametro.
 	 */
 	@GetMapping("/buscadorIngrediente/{descripcion}")
+	@ResponseStatus(HttpStatus.OK)
 	public List <Ingrediente> buscarIngrediente(@PathVariable("descripcion") String descripcion) {
 		return idao.buscarPorDescripcion(descripcion);
 	}
@@ -120,6 +128,7 @@ public class AdminRestController {
 	 * @return Lista de recetas en la que coincide el título de la receta con la cadena del parametro.
 	 */
 	@GetMapping("/buscadorReceta/{titulo}")
+	@ResponseStatus(HttpStatus.OK)
 	public List<IngredienteEnReceta> buscarIngredientesEnReceta(@RequestParam ("titulo") String titulo) {
 		 return irdao.buscarXReceta(titulo);
 	}
@@ -132,29 +141,25 @@ public class AdminRestController {
 	 * @return 1 si se ha dado de alta correctamente, o 0 si no.
 	 */
 	@PostMapping("/altaIngrediente")
-	public int registrarIngrediente(@RequestParam("descripcion") String descripcion) {
+	public ResponseEntity<Ingrediente> registrarIngrediente(@RequestParam("descripcion") String descripcion) {
 		System.out.println(descripcion);
 		Ingrediente ingrediente=new Ingrediente();
 		ingrediente.setDescripcion(descripcion);
 		ingrediente.setIdIngrediente(3);
 		if(idao.altaIngrediente(ingrediente)==1) {
-			return 1;
+			return new ResponseEntity<Ingrediente>(ingrediente, HttpStatus.OK);
 		}else {
-			return 0;
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
 	}
 	
-	/*Botones que llevan a una lista de:
-	 * 	- Niveles de cocina
-	 * 	- Categorias de receta
-	 * 	- Tipos de dieta
-	 */
 	/**
 	 * Método para ver todos atributos de la clase NivelCocina @see NivelCocina
 	 * 
 	 * @return Lista de objetos NivelCocina
 	 */
 	@GetMapping("/verNiveles")
+	@ResponseStatus(HttpStatus.OK)
 	public List<NivelCocina> verDificultad() {
 		return nint.findAll();
 	}
@@ -164,6 +169,7 @@ public class AdminRestController {
 	 * @return Lista de objetos Categoria
 	 */
 	@GetMapping("/verCategorias")
+	@ResponseStatus(HttpStatus.OK)
 	public List<Categoria> verCateg() {
 		return cint.verCategorias();
 	}
@@ -173,6 +179,7 @@ public class AdminRestController {
 	 * @return Lista de objetos TiposDieta
 	 */
 	@GetMapping("/verTiposDieta")
+	@ResponseStatus(HttpStatus.OK)
 	public List<TiposDieta> verTipos() {
 		return tint.findAll();
 	}

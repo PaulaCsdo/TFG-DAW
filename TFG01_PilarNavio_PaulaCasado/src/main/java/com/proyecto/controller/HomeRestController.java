@@ -9,10 +9,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.modelo.bean.Perfile;
@@ -38,12 +41,6 @@ public class HomeRestController {
 		
 	}
 	
-	/*
-	 * Login: devuelve un usuario. 
-	 * Front-end:
-	 * 	- null: no se realiza el inicio de sesión
-	 * 	- usuario: se devuelve la vista asociada al perfil del usuario (administrador o usuario)
-	 */
 	/**
 	 * Método para hacer login en la aplicacion. El usuario se guarda como atributo de sesion del objeto session.
 	 * 
@@ -53,28 +50,24 @@ public class HomeRestController {
 	 * @return Si existe el usuario devuelve el objeto usu de la clase Usuario. Si no, se devuelve un null.
 	 */
 	@PostMapping ("/login")
-	public Usuario formLogin (HttpSession session, Usuario usuario) {
+	public ResponseEntity<Usuario> formLogin (HttpSession session, Usuario usuario) {
 		Usuario usu=usuint.login(usuario.getUsername(), usuario.getPassword());
 		if (usu!=null) {
 			session.setAttribute("usuario", usu);
-			return usu;
 		}else {
-			return null;
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
-		
+		return new ResponseEntity<Usuario>(usu, HttpStatus.OK);
 	}
 	
 	
-	/*
-	 * Para el alta es necesario: username, password, nombre, apellidos, email, nivel cocina, tipo dieta
-	 */
 	/**
 	 * Método para dar de alta un usuario. Se registra la fecha, se le da perfil de usuario y se añade a la lista de usuarios
 	 * @param usuario @see Usuario
 	 * @return Si se da de alta correctamente, devuelve un String que lo indica. En caso contrario, devuelve otro String con un error.
 	 */
 	@PostMapping("/alta")
-	public String registrarUsuario(Usuario usuario) {
+	public ResponseEntity<Usuario> registrarUsuario(Usuario usuario) {
 		Date fecha= new Date();
 		usuario.setEnabled(1);
 		usuario.setFechaAlta(fecha);
@@ -83,8 +76,11 @@ public class HomeRestController {
 		List<Perfile> lista = new ArrayList<Perfile>();
 		lista.add(per);
 		usuario.setPerfiles(lista);
-			
-		return (usuint.altaUsuario(usuario)==1)?"Alta realizada":"ERROR en alta";
+		if(usuint.altaUsuario(usuario)==1) {
+			return new ResponseEntity<Usuario>(usuario, HttpStatus.CREATED);
+		}else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
 
 	}
 	
