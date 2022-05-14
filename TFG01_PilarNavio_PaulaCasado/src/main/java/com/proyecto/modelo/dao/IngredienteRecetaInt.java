@@ -2,7 +2,6 @@ package com.proyecto.modelo.dao;
 import java.util.List;
 
 import com.proyecto.modelo.bean.IngredienteEnReceta;
-import com.proyecto.modelo.dto.IngredienteEnRecetaDTO;
 
 public interface IngredienteRecetaInt {
 	List <IngredienteEnReceta> findAll();
