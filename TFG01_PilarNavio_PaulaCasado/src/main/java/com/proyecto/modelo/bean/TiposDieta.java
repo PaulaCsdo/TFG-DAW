@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class TiposDieta implements Serializable {
 			@JoinColumn(name="ID_RECETA")
 			}
 		)
-	@JsonIgnoreProperties(value="usuarios")
+	@JsonIgnore
 	private List<Receta> recetas;
 
 	//bi-directional many-to-one association to Usuario

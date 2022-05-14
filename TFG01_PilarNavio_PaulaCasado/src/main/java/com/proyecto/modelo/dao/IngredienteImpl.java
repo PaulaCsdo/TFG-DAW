@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.modelo.bean.Ingrediente;
-import com.proyecto.modelo.bean.Usuario;
 import com.proyecto.modelo.repository.IngredienteRepo;
 
 @Service
