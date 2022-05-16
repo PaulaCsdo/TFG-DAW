@@ -30,6 +30,11 @@ import com.proyecto.modelo.dao.RecetaUsuarioInt;
 import com.proyecto.modelo.dto.IngredienteEnRecetaDTO;
 import com.proyecto.modelo.dto.RecetaDTO;
 
+/**
+ * Controller con los métodos que ejecutan los usuarios cuando navegn por la aplicacion
+ * @version 1.0
+ *
+ */
 @CrossOrigin(origins = "http://localhost:8088")
 @RestController
 @RequestMapping("rest/usuario")
@@ -47,6 +52,19 @@ public class UsuarioRestController {
 	@Autowired
 	private RecetaUsuarioInt rudao;
 	
+//	@Autowired
+//	private CategoriaInt ctint;
+//	
+//	@Autowired
+//	private NivelCocinaInt nint;
+	
+	/**
+	 * Invalida los atributos de sesion asociados al objeto session,
+	 * y devuelve el String "Logout"
+	 * 
+	 * @param session 
+	 * @return String "Logout"
+	 */
 	@GetMapping ("/logout")
 	@ResponseStatus(HttpStatus.OK)
 	public String logout (HttpSession session) {
@@ -54,27 +72,60 @@ public class UsuarioRestController {
 		return "Logout";
 	}
 	
+	/**
+	 * Método que muestra los atributos que definen una receta concreta
+	 * pasándole el id de la receta como argumento de Path Variable
+	 * 
+	 * @param idReceta Atributo de tipo int que identifica una receta.
+	 * @return Objeto de tipo Receta @see Receta
+	 */
 	@GetMapping("/verUna/{idReceta}")
 	@ResponseStatus(HttpStatus.OK)
 	public Receta verReceta(@PathVariable ("idReceta") int idReceta) {
 		return rdao.findById(idReceta);
 	}
 	
+	
 	//Buscar receta completa por NOMBRE	
+	/**
+	 * Método que busca el listado de recetas cuyo título coincide con
+	 * el parámetro que viaja por path variable.
+	 * 
+	 * @param titulo Atributo de tipo String con el nombre descriptivo de la receta
+	 * @return Lista de objetos IngredienteEnReceta de aquellas recetas cuyo atributo
+	 * título contenga la cadena titulo del path variable
+	 */
 	@GetMapping("/buscadorReceta/{titulo}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<IngredienteEnReceta> buscarIngredientesEnReceta(@PathVariable ("titulo") String titulo) {
 		 return irdao.buscarXReceta(titulo);
 	}
 	
+	
 	//Buscar receta por categoría
+	/**
+	 * Método que busca el listado de recetas cuya categoría coincide con
+	 * el parámetro que viaja por path variable.
+	 * 
+	 * @param idCategoria Atributo de tipo int que identifica la categoría de la receta
+	 * @return Lista de objetos IngredienteEnReceta de aquellas recetas cuyo atributo
+	 * idCategoria sea igual que el que viaja por path variable
+	 */
 	@GetMapping("/buscadorCategoria/{idCategoria}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<IngredienteEnReceta> buscarRecetaCategoria(@PathVariable ("idCategoria") int idCategoria) {
 		 return irdao.buscarXCategoria(idCategoria);
 	}
 	
+	
 	//Buscar receta por nivel de cocina
+	/**
+	 * Método que busca las recetas filtradas por un nivel de dificultad
+	 * 
+	 * @param idNivel Atributo de tipo int que identifica el nivel de dificultad de la receta
+	 * @return Lista de objetos IngredienteEnReceta de aquellas recetas cuyo atributo idNivel
+	 * coincide con el que viaja por path variable.
+	 */
 	@GetMapping("/buscadorNivel/{idNivel}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<IngredienteEnReceta> buscarRecetaNivel(@PathVariable ("idNivel") int idNivel) {
@@ -82,6 +133,13 @@ public class UsuarioRestController {
 	}
 	
 	//Buscar por tipo de dieta
+	/**
+	 * Método que busca las recetas que corresponden a un determinado tipo de dieta
+	 * 
+	 * @param idTipoDieta Atributo de tipo int que identifica el tipo de dieta de la receta
+	 * @return Lista de objetos IngredienteEnReceta de aquellas recetas cuyo atributo idTipoDieta
+	 * coincide con el que viaja por path variable.
+	 */
 	@GetMapping("/buscadorTipo/{idTipoDieta}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<IngredienteEnReceta> buscarRecetaTipo(@PathVariable ("idTipoDieta") int idTipoDieta) {
@@ -90,13 +148,25 @@ public class UsuarioRestController {
 	
 	
 	//Ver todas las recetas (vista principal)
+	/**
+	 * Método que busca el listado de todas las recetas registradas
+	 * @return Lista de objetos de tipo Receta
+	 */
 	@GetMapping("/verRecetas")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Receta> listarRecetas(){
 		return rdao.verRecetas();
 	}
 	
+	
 	//Guardar una receta
+	/**
+	 * Método para que el usuario pueda guardar una receta como favorita
+	 * 
+	 * @param idReceta Atributo de tipo int que identifica una receta
+	 * @param session Objeto que se almacena en la sesion.
+	 * @return 1 si se ha almacenado, 0 si el cambio no ha persistido en BD 
+	 */
 	@GetMapping("/guardarReceta/{idReceta}")
 	public ResponseEntity<String> guardaReceta (@PathVariable ("idReceta") int idReceta, HttpSession session) {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
@@ -114,6 +184,13 @@ public class UsuarioRestController {
 	}
 	
 	//Ver recetas guardadas por el usuario que ha iniciado sesión
+	/**
+	 * Método para ver las recetas que el usuario almacenado en sesion
+	 * ha guardado como favoritas.
+	 * 
+	 * @param session Objeto que se almacena en la sesion.
+	 * @return Lista de Recetas guardadas como favoritas
+	 */
 	@GetMapping("/verGuardadas")
 	@ResponseStatus(HttpStatus.OK)
 	public List<RecetaEnUsuario> meGustan(HttpSession session){
@@ -121,7 +198,15 @@ public class UsuarioRestController {
 		return rudao.verRecetasGuardadas(usuario.getUsername());
 	}
 	
+	
 	//Ver las recetas creadas por el usuario
+	/**
+	 * Método para ver las recetas que el usuario almacenado en sesion ha creado él mismo,
+	 * es decir, las que el usuario ha dado de alta introduciendo los atributos.
+	 * 
+	 * @param session Objeto que se almacena en la sesion.
+	 * @return Lista de Recetas
+	 */
 	@GetMapping("/verMisRecetas")
 	@ResponseStatus(HttpStatus.OK)
 	public List <IngredienteEnReceta> verCreadas(HttpSession session) {
@@ -129,14 +214,14 @@ public class UsuarioRestController {
 		return irdao.misRecetas(usuario.getUsername());
 	}
 	
-	/*Buscar ingredientes: necesario para dar de alta una nueva receta.
-	 * El rol de usuario puede buscar recetas por ingrediente, pero NO buscar ingredientes.
-	 * El método es necesario para que pueda buscar los ingredientes en el formulario al
-	 * crear una nueva receta.
+
+	/**
+	 * Método para dar de alta una receta desde un formulario.
+	 * 
+	 * @param receta Objeto de tipo RecetaDTO
+	 * @param session Objeto que se almacena en la sesion
+	 * @return 1 si el alta se ha realizado o 0 si no  persiste en base de datos
 	 */
-	
-	//ALTA RECETA
-	
 	@PostMapping("/altaReceta")
 	public ResponseEntity<Receta> altaReceta(@RequestBody RecetaDTO receta, HttpSession session) {
 		
@@ -159,17 +244,41 @@ public class UsuarioRestController {
 	}
 	
 	/**
+	 * Método para buscar un ingrediente por su id
+	 * @param idIngrediente Atributo de tipo int que identifica un ingrediente
+	 * @return Objeto de tipo Ingrediente
+	 */
+	@GetMapping("/busca/{idIngrediente}")
+	public Ingrediente aBuscar(@PathVariable("idIngrediente")int idIngrediente) {
+		return idao.findById(idIngrediente);
+	}
+	
+		
+	/**
 	 * Método para buscar la lista de ingredientes que contengan la cadena que se introduce en el parámetro
+	 * El método para buscar ingredientes es necesario para dar de alta una nueva receta.
+	 *
+	 * El rol de usuario puede buscar recetas por ingrediente, pero NO buscar ingredientes.
+	 * El método es necesario para que pueda buscar los ingredientes en el formulario al
+	 * crear una nueva receta.
 	 * 
 	 * @param descripcion Cadena de caracteres que contiene total o parcialmente la descripción del ingrediente.
 	 * @return Lista de ingredientes en la que coincide el nombre del ingrediente con la cadena del parametro.
 	 */
+
 	@GetMapping("/buscadorIngrediente/{descripcion}")
 	@ResponseStatus(HttpStatus.OK)
 	public List <Ingrediente> buscarIngrediente(@PathVariable("descripcion") String descripcion) {
 		return idao.buscarPorDescripcion(descripcion);
 	}
 	
+	/**
+	 * Método para añadir ingredientes a partir de un formulario
+	 * 
+	 * @param nuevaReceta DTO de IngredienteEnReceta en el que se almacenan todos los atributos de la receta
+	 * @param session Objeto que se almacena en la sesion
+	 * @return String informativo sobre si el ala se ha realizado correcta o incorrectamente.
+	 */
 	@PostMapping("/añadirIngrediente")
 	public ResponseEntity<IngredienteEnReceta> altaIngredientes(@RequestBody IngredienteEnRecetaDTO nuevaReceta, HttpSession session) {
 		

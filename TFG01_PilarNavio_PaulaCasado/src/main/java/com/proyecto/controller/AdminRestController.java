@@ -36,6 +36,13 @@ import com.proyecto.modelo.dao.UsuarioInt;
 import com.proyecto.modelo.dto.IngredienteEnRecetaDTO;
 import com.proyecto.modelo.dto.RecetaDTO;
 
+/**
+ * Controlador que recopila los métodos del usuario administrador
+ * 
+ * @version 1.0
+ *
+ */
+
 @CrossOrigin(origins = "http://localhost:8088")
 @RestController
 @RequestMapping("/administrador")
@@ -63,10 +70,10 @@ public class AdminRestController {
 	private TipoDietaInt tint;
 	/**
 	 * Invalida los atributos de sesion asociados al objeto session,
-	 * y redirige a la vista llamada "Logout"
+	 * y devuelve el String "Logout"
 	 * 
 	 * @param session 
-	 * @return DUDA: ¿Nombre de la vista a la que se dirige el método?
+	 * @return String "Logout"
 	 */
 	@GetMapping ("/logout")
 	@ResponseStatus(HttpStatus.OK)

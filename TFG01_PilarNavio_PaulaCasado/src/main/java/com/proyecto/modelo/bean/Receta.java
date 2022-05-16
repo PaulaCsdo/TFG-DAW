@@ -18,7 +18,7 @@ import java.util.List;
  * @see Categoria
  * @see Usuario
  * @see TiposDietas
- * see RecetaEnUsuario
+ * @see RecetaEnUsuario
  * 
  */
 @Entity
