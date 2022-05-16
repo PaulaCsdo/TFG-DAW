@@ -1,8 +1,6 @@
 package com.proyecto.modelo.dao;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
