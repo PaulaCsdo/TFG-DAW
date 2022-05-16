@@ -13,21 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.modelo.bean.Categoria;
-import com.proyecto.modelo.bean.NivelCocina;
 import com.proyecto.modelo.bean.Perfile;
-import com.proyecto.modelo.bean.TiposDieta;
 import com.proyecto.modelo.bean.Usuario;
-import com.proyecto.modelo.dao.CategoriaInt;
-import com.proyecto.modelo.dao.NivelCocinaInt;
 import com.proyecto.modelo.dao.PerfilInt;
-import com.proyecto.modelo.dao.TipoDietaInt;
 import com.proyecto.modelo.dao.UsuarioInt;
 /**
  * Controlador que recopila los métodos relacionados con el login/logout de la aplicacion
