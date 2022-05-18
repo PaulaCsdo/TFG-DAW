@@ -15,6 +15,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.modelo.bean.Perfile;
@@ -56,7 +57,7 @@ public class HomeRestController {
 	 * @return Si existe el usuario devuelve el objeto usu de la clase Usuario. Si no, se devuelve un null.
 	 */
 	@PostMapping ("/login")
-	public ResponseEntity<Usuario> formLogin (HttpSession session, Usuario usuario) {
+	public ResponseEntity<Usuario> formLogin (HttpSession session, @RequestBody Usuario usuario) {
 		Usuario usu=usuint.login(usuario.getUsername(), usuario.getPassword());
 		if (usu!=null) {
 			session.setAttribute("usuario", usu);
