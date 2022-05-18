@@ -1,4 +1,7 @@
 # TFG-DAW
+
+Proyecto Fin de Grado del Grado Superior Desarrollo de Aplicaciones Web (curso académico 2020-2022) realizado por María del Pilar Navío Colón y Paula Casado García.
+
 <h3>Información sobre este proyecto</h3>
 
 Este proyecto consta de:
