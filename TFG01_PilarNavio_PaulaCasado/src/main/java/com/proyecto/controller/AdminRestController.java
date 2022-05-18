@@ -43,7 +43,7 @@ import com.proyecto.modelo.dto.RecetaDTO;
  *
  */
 
-@CrossOrigin(origins = "http://localhost:8088")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/administrador")
 public class AdminRestController {

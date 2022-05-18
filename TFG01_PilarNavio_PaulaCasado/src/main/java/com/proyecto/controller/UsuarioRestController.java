@@ -39,7 +39,7 @@ import com.proyecto.modelo.dto.RecetaDTO;
  * @version 1.0
  *
  */
-@CrossOrigin(origins = "http://localhost:8088")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("rest/usuario")
 public class UsuarioRestController {
