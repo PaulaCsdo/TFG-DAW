@@ -61,7 +61,7 @@ public class AdminRestController {
 	private IngredienteInt idao;
 	
 	@Autowired
-	private CategoriaInt cint;
+	private CategoriaInt ctint;
 	
 	@Autowired
 	private NivelCocinaInt nint;
@@ -182,7 +182,7 @@ public class AdminRestController {
 	@GetMapping("/verCategorias")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Categoria> verCateg() {
-		return cint.verCategorias();
+		return ctint.verCategorias();
 	}
 	
 	/**
@@ -202,6 +202,12 @@ public class AdminRestController {
 		
 		session.setAttribute("receta", null);
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		
+		Categoria cat=ctint.findById(receta.getCategoria().getIdCategoria());
+		receta.setCategoria(cat);
+		
+		NivelCocina nivelco=nint.findById(receta.getNivelCocina().getIdNivel());
+		receta.setNivelCocina(nivelco);
 		
 		receta.setUsuario(usuario);
 		int id = ThreadLocalRandom.current().nextInt(10, 200) + 10;
