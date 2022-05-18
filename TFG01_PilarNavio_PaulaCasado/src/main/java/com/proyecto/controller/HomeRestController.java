@@ -29,7 +29,7 @@ import com.proyecto.modelo.dao.UsuarioInt;
  * @version 1.0
  *
  */
-@CrossOrigin(origins = "http://localhost:8088")
+@CrossOrigin(origins = "*")
 @RestController
 public class HomeRestController {
 	
