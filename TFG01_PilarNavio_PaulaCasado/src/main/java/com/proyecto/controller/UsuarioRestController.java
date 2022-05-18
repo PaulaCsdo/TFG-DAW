@@ -272,6 +272,12 @@ public class UsuarioRestController {
 		session.setAttribute("receta", null);
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		
+		Categoria cat=ctint.findById(receta.getCategoria().getIdCategoria());
+		receta.setCategoria(cat);
+		
+		NivelCocina nivelco=nint.findById(receta.getNivelCocina().getIdNivel());
+		receta.setNivelCocina(nivelco);
+		
 		receta.setUsuario(usuario);
 		int id = ThreadLocalRandom.current().nextInt(10, 200) + 10;
 		receta.setIdReceta(id);
