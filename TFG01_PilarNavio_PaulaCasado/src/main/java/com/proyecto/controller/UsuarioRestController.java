@@ -13,21 +13,23 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.modelo.bean.Categoria;
 import com.proyecto.modelo.bean.Ingrediente;
 import com.proyecto.modelo.bean.IngredienteEnReceta;
+import com.proyecto.modelo.bean.NivelCocina;
 import com.proyecto.modelo.bean.Receta;
 import com.proyecto.modelo.bean.RecetaEnUsuario;
 import com.proyecto.modelo.bean.Usuario;
+import com.proyecto.modelo.dao.CategoriaInt;
 import com.proyecto.modelo.dao.IngredienteInt;
 import com.proyecto.modelo.dao.IngredienteRecetaInt;
+import com.proyecto.modelo.dao.NivelCocinaInt;
 import com.proyecto.modelo.dao.RecetaInt;
 import com.proyecto.modelo.dao.RecetaUsuarioInt;
-import com.proyecto.modelo.dto.IngredienteEnRecetaDTO;
 import com.proyecto.modelo.dto.RecetaDTO;
 
 /**
@@ -52,11 +54,11 @@ public class UsuarioRestController {
 	@Autowired
 	private RecetaUsuarioInt rudao;
 	
-//	@Autowired
-//	private CategoriaInt ctint;
-//	
-//	@Autowired
-//	private NivelCocinaInt nint;
+	@Autowired
+	private CategoriaInt ctint;
+	
+	@Autowired
+	private NivelCocinaInt nint;
 	
 	/**
 	 * Invalida los atributos de sesion asociados al objeto session,
@@ -147,7 +149,6 @@ public class UsuarioRestController {
 	}
 	
 	
-	//Ver todas las recetas (vista principal)
 	/**
 	 * Método que busca el listado de todas las recetas registradas
 	 * @return Lista de objetos de tipo Receta
@@ -158,6 +159,26 @@ public class UsuarioRestController {
 		return rdao.verRecetas();
 	}
 	
+	/**
+	 * Método para ver todos atributos de la clase NivelCocina @see NivelCocina
+	 * 
+	 * @return Lista de objetos NivelCocina
+	 */
+	@GetMapping("/verNiveles")
+	@ResponseStatus(HttpStatus.OK)
+	public List<NivelCocina> verDificultad() {
+		return nint.findAll();
+	}
+	
+	/**
+	 * Método para ver todos los atributos de la clase Categoria @see Categoria
+	 * @return Lista de objetos Categoria
+	 */
+	@GetMapping("/verCategorias")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Categoria> verCateg() {
+		return ctint.verCategorias();
+	}
 	
 	//Guardar una receta
 	/**
@@ -222,15 +243,46 @@ public class UsuarioRestController {
 	 * @param session Objeto que se almacena en la sesion
 	 * @return 1 si el alta se ha realizado o 0 si no  persiste en base de datos
 	 */
+//	@PostMapping("/altaReceta")
+//	public ResponseEntity<Receta> altaReceta(@RequestBody  RecetaDTO receta, HttpSession session) {
+//		
+//		session.setAttribute("receta", null);
+//		Usuario usuario = (Usuario) session.getAttribute("usuario");
+//		
+//		receta.setUsuario(usuario);
+//		int id = ThreadLocalRandom.current().nextInt(10, 200) + 10;
+//		receta.setIdReceta(id);
+//		
+//		//Crea un objeto receta y la guarda en sesion
+//		Receta recetaSesion=rdao.recuperarSesion(receta);
+//		session.setAttribute("receta", recetaSesion);
+//		if(rdao.altaReceta(receta)==1) {
+//			session.setAttribute("receta", recetaSesion);
+//			return new ResponseEntity<Receta>(recetaSesion, HttpStatus.CREATED);
+//		}else {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+//		}
+//	}
+	
 	@PostMapping("/altaReceta")
-	public ResponseEntity<Receta> altaReceta(@RequestBody RecetaDTO receta, HttpSession session) {
+	public ResponseEntity<Receta> altaReceta(int kcal, String momento, int numPorciones,
+	 String pasos, int tiempo, String titulo, Categoria categoria, NivelCocina nivelCocina, HttpSession session) {
 		
+		RecetaDTO receta= new RecetaDTO();
 		session.setAttribute("receta", null);
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		
 		receta.setUsuario(usuario);
 		int id = ThreadLocalRandom.current().nextInt(10, 200) + 10;
 		receta.setIdReceta(id);
+		receta.setCategoria(categoria);
+		receta.setKcal(kcal);
+		receta.setMomento(momento);
+		receta.setNumPorciones(numPorciones);
+		receta.setPasos(pasos);
+		receta.setTiempo(tiempo);
+		receta.setTitulo(titulo);
+		receta.setNivelCocina(nivelCocina);
 		
 		//Crea un objeto receta y la guarda en sesion
 		Receta recetaSesion=rdao.recuperarSesion(receta);
@@ -279,17 +331,19 @@ public class UsuarioRestController {
 	 * @param session Objeto que se almacena en la sesion
 	 * @return String informativo sobre si el ala se ha realizado correcta o incorrectamente.
 	 */
+
 	@PostMapping("/añadirIngrediente")
-	public ResponseEntity<IngredienteEnReceta> altaIngredientes(@RequestBody IngredienteEnRecetaDTO nuevaReceta, HttpSession session) {
+	public ResponseEntity<IngredienteEnReceta> altaIngredientes(int idIngrediente, 
+			Float cantidad, String unidad, HttpSession session) {
 		
 		IngredienteEnReceta recetaCreada=new IngredienteEnReceta();
 		
-		Ingrediente ingSeleccionado=idao.findById(nuevaReceta.getIdIngrediente());
+		Ingrediente ingSeleccionado=idao.findById(idIngrediente);
 
 		Receta buscada=(Receta)session.getAttribute("receta");
 
-		recetaCreada.setCantidad(nuevaReceta.getCantidad());
-		recetaCreada.setUnidad(nuevaReceta.getUnidad());
+		recetaCreada.setCantidad(cantidad);
+		recetaCreada.setUnidad(unidad);
 		recetaCreada.setIngrediente(ingSeleccionado);
 		recetaCreada.setReceta(buscada);
 		
@@ -299,7 +353,6 @@ public class UsuarioRestController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			}
 		}
-
 	
 
 }
