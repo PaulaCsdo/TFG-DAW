@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,7 @@ import com.proyecto.modelo.dao.IngredienteRecetaInt;
 import com.proyecto.modelo.dao.NivelCocinaInt;
 import com.proyecto.modelo.dao.RecetaInt;
 import com.proyecto.modelo.dao.RecetaUsuarioInt;
+import com.proyecto.modelo.dto.IngredienteEnRecetaDTO;
 import com.proyecto.modelo.dto.RecetaDTO;
 
 /**
@@ -265,24 +267,14 @@ public class UsuarioRestController {
 //	}
 	
 	@PostMapping("/altaReceta")
-	public ResponseEntity<Receta> altaReceta(int kcal, String momento, int numPorciones,
-	 String pasos, int tiempo, String titulo, Categoria categoria, NivelCocina nivelCocina, HttpSession session) {
+	public ResponseEntity<Receta> altaReceta(@RequestBody RecetaDTO receta, HttpSession session) {
 		
-		RecetaDTO receta= new RecetaDTO();
 		session.setAttribute("receta", null);
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		
 		receta.setUsuario(usuario);
 		int id = ThreadLocalRandom.current().nextInt(10, 200) + 10;
 		receta.setIdReceta(id);
-		receta.setCategoria(categoria);
-		receta.setKcal(kcal);
-		receta.setMomento(momento);
-		receta.setNumPorciones(numPorciones);
-		receta.setPasos(pasos);
-		receta.setTiempo(tiempo);
-		receta.setTitulo(titulo);
-		receta.setNivelCocina(nivelCocina);
 		
 		//Crea un objeto receta y la guarda en sesion
 		Receta recetaSesion=rdao.recuperarSesion(receta);
@@ -333,17 +325,16 @@ public class UsuarioRestController {
 	 */
 
 	@PostMapping("/añadirIngrediente")
-	public ResponseEntity<IngredienteEnReceta> altaIngredientes(int idIngrediente, 
-			Float cantidad, String unidad, HttpSession session) {
+	public ResponseEntity<IngredienteEnReceta> altaIngredientes(@RequestBody IngredienteEnRecetaDTO ingredienteAñadido, HttpSession session) {
 		
 		IngredienteEnReceta recetaCreada=new IngredienteEnReceta();
 		
-		Ingrediente ingSeleccionado=idao.findById(idIngrediente);
+		Ingrediente ingSeleccionado=idao.findById(ingredienteAñadido.getIdIngrediente());
 
 		Receta buscada=(Receta)session.getAttribute("receta");
 
-		recetaCreada.setCantidad(cantidad);
-		recetaCreada.setUnidad(unidad);
+		recetaCreada.setCantidad(ingredienteAñadido.getCantidad());
+		recetaCreada.setUnidad(ingredienteAñadido.getUnidad());
 		recetaCreada.setIngrediente(ingSeleccionado);
 		recetaCreada.setReceta(buscada);
 		
