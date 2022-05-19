@@ -54,7 +54,7 @@ public class Receta implements Serializable {
 
 	//bi-directional many-to-one association to IngredienteEnReceta
 	@OneToMany(mappedBy="receta")
-	@JsonIgnoreProperties(value={"ingrediente", "receta"})
+	@JsonIgnoreProperties(value="receta")
 	private List<IngredienteEnReceta> ingredienteEnRecetas;
 
 	//bi-directional many-to-one association to RecetaEnUsuario

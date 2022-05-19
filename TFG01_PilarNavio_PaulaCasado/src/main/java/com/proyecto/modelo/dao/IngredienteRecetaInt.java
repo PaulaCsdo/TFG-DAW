@@ -13,5 +13,6 @@ public interface IngredienteRecetaInt {
 	List<IngredienteEnReceta> buscarXNivel(int idNivel);
 	List<IngredienteEnReceta> buscarXTipo(int idTipoDieta);
 	List<IngredienteEnReceta> misRecetas(String username);
+	List<IngredienteEnReceta> verUna(int idReceta);
 
 }
