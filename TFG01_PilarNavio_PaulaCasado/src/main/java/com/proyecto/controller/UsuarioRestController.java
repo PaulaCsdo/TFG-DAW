@@ -155,6 +155,11 @@ public class UsuarioRestController {
 	 * Método que busca el listado de todas las recetas registradas
 	 * @return Lista de objetos de tipo Receta
 	 */
+//	@GetMapping("/verRecetas")
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<IngredienteEnReceta> listarRecetas(){
+//		return irdao.findAll();
+//	}
 	@GetMapping("/verRecetas")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Receta> listarRecetas(){

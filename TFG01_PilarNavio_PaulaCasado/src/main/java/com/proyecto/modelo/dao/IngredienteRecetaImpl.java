@@ -68,6 +68,11 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 		return irrepo.misRecetas(username);
 	}
 
+	@Override
+	public List<IngredienteEnReceta> verUna(int idReceta) {
+		return irrepo.verUna(idReceta);
+	}
+
 	
 
 

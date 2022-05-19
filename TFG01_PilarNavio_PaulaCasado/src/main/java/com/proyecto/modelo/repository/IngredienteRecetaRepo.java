@@ -15,6 +15,9 @@ public interface IngredienteRecetaRepo extends JpaRepository<IngredienteEnReceta
 	@Query("select ir from IngredienteEnReceta ir where ir.receta.titulo like %?1%") 
 	public List<IngredienteEnReceta> buscarXReceta(String titulo);
 	
+	@Query("select ir from IngredienteEnReceta ir where ir.receta.idReceta=?1")
+	public List<IngredienteEnReceta> verUna(int idReceta);
+	
 	@Query("select ir from IngredienteEnReceta ir where ir.receta.categoria.idCategoria=?1")
 	public List<IngredienteEnReceta> buscarXCategoria(int idCategoria);
 	
