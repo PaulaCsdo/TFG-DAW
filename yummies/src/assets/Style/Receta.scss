@@ -1,0 +1,147 @@
+.receta-image{
+  border-radius: 0px 73px 73px 0px;
+  background-image: url('../images/receta.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 450px;
+  height: 400px;
+}
+.ingredientes-image{
+  border-radius: 0px 73px 73px 0px;
+  background-image: url('../images/ingrediente.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 450px;
+  height: 400px;
+}
+
+@media only screen and (max-width: 1000px){
+  .receta-image{
+    display: none;
+  }
+}
+
+.add-ingrediente-input{
+  width: 90px;
+  margin-right: 8px;
+}
+.add-ingrediente-drop-label{
+  margin: 4px 0px;
+}
+.add-ingrediente-container{
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  button{
+    margin-top: 28px !important;
+  }
+}
+.add-ingrediente-drop-container{
+  display: flex;
+  flex-direction: column;
+  margin-right: 8px;
+}
+.ingrediente-container{
+  .segment{
+    width: 100%;
+    margin-bottom: 16px !important;
+    .ingrediente-segment{
+      display: flex;
+      justify-content: space-between;
+      .cantidad{
+        color: darkgray;
+      }
+    }
+  }
+}
+.receta-container{
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  .receta-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 0 1rem;
+    .login-title{
+      font-size: 56px;
+      margin-bottom: 100px;
+    }
+    .login-form{
+      margin: 0;
+      padding: 30px 60px 0;
+    }
+    .login-container{
+      .field{
+        margin: 16px 0px;
+      }
+    }
+    .actions{
+      margin-top: 32px;
+    }
+  }
+}
+.add-ingrediente-drop.success-input{
+  background-color: #f0fff3 !important;
+  border-color: #b9e2c3  !important;
+  color: #21ba45 !important;
+  box-shadow: none  !important;
+}
+.add-receta-input.errorArea{
+  background-color: #fff6f6 !important;
+  border-color: #e0b4b4 !important;
+  color: #9f3a38 !important; 
+  box-shadow: none !important;
+}
+
+.ver-receta-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .receata-header{
+    align-items: center;
+    display: flex;
+    img{
+      max-width: 500px;
+    }
+  }
+  .receta-nombre{
+    font-size: 20px;
+    font-weight: 700;
+    color: #221847;
+  }
+  .menu{
+    width: 100%;
+  }
+}
+
+.main-filter-container{
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #eeebff;
+  border-radius: 8px;
+  .receta-filter-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    .search-input{
+      width: 350px;
+    }
+    .message{
+      margin: 0;
+      margin-left: 24px;
+    }
+  }
+  .radio.checkbox{
+    margin-right: 24px;
+  }
+}

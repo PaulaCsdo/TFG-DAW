@@ -14,6 +14,9 @@ public class RecetaImpl implements RecetaInt{
 	@Autowired
 	RecetaRepo rrepo;
 	
+	@Autowired
+	UsuarioInt uint;
+	
 	//int num_valoraciones = 0; //DUDA: ¿donde iniciamos esta variable que debe guardarse como atr de aplicacion?
 
 	
@@ -36,9 +39,10 @@ public class RecetaImpl implements RecetaInt{
 	}
 
 	@Override
-	public int altaReceta(RecetaDTO receta) {
-		
+	public Receta altaReceta(RecetaDTO receta) {
 		Receta rec=new Receta();
+		
+		String nombre=receta.getUsername();
 		
 		rec.setCategoria(receta.getCategoria());
 		rec.setNivelCocina(receta.getNivelCocina());
@@ -49,17 +53,16 @@ public class RecetaImpl implements RecetaInt{
 		rec.setPasos(receta.getPasos());
 		rec.setTiempo(receta.getTiempo());
 		rec.setNumPorciones(receta.getNumPorciones());
-		rec.setUsuario(receta.getUsuario());
+		rec.setUsuario(uint.findById(nombre));
 		rec.setIdReceta(receta.getIdReceta());
 		
-		int filas = 0;
 		try {
 			rrepo.save(rec);
-			filas = 1;
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return filas;
+		return rec;
 	}
 	
 	
@@ -81,24 +84,10 @@ public class RecetaImpl implements RecetaInt{
 	}
 
 	@Override
-	public Receta recuperarSesion(RecetaDTO receta) {
-		
-		Receta recetaSesion=new Receta();
-		
-		recetaSesion.setCategoria(receta.getCategoria());
-		recetaSesion.setIdReceta(receta.getIdReceta());
-		recetaSesion.setKcal(receta.getKcal());
-		recetaSesion.setMomento(receta.getMomento());
-		recetaSesion.setNivelCocina(receta.getNivelCocina());
-		recetaSesion.setNovedad("S");
-		recetaSesion.setNumPorciones(receta.getNumPorciones());
-		recetaSesion.setPasos(receta.getPasos());
-		recetaSesion.setTiempo(receta.getTiempo());
-		recetaSesion.setUsuario(receta.getUsuario());
-		recetaSesion.setTitulo(receta.getTitulo());
-		
-		return recetaSesion;
+	public List<Receta> misRecetas(String username) {
+		return rrepo.misRecetas(username);
 	}
+
 
 
 

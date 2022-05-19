@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import com.proyecto.modelo.bean.Categoria;
 import com.proyecto.modelo.bean.NivelCocina;
-import com.proyecto.modelo.bean.Usuario;
 
 
 public class RecetaDTO implements Serializable{
@@ -14,7 +13,7 @@ public class RecetaDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int idReceta;
-	private Usuario usuario;
+	private String username;
 	private int kcal;
 	private String momento;
 	private int numPorciones;
@@ -92,12 +91,13 @@ public class RecetaDTO implements Serializable{
 		this.nivelCocina = nivelCocina;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public int getIdReceta() {

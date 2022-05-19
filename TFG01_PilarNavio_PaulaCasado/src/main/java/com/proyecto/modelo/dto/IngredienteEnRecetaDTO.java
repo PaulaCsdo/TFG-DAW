@@ -12,6 +12,7 @@ public class IngredienteEnRecetaDTO implements Serializable{
 		private int idIngrediente;
 		private float cantidad;
 		private String unidad;
+		private int idReceta;
 		
 		public IngredienteEnRecetaDTO() {
 		}
@@ -44,6 +45,16 @@ public class IngredienteEnRecetaDTO implements Serializable{
 
 		public void setUnidad(String unidad) {
 			this.unidad = unidad;
+		}
+
+
+		public int getIdReceta() {
+			return idReceta;
+		}
+
+
+		public void setIdReceta(int idReceta) {
+			this.idReceta = idReceta;
 		}
 		
 	

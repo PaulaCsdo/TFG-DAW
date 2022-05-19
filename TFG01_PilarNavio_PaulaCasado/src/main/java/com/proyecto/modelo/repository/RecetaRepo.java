@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.proyecto.modelo.bean.IngredienteEnReceta;
 import com.proyecto.modelo.bean.Receta;
 
 public interface RecetaRepo extends JpaRepository<Receta, Integer>{
@@ -14,6 +15,9 @@ public interface RecetaRepo extends JpaRepository<Receta, Integer>{
 	
 	@Query("select r from Receta r where r.momento=?1")
 	public List<Receta> buscarXMomento(String momento);
+	
+	@Query("select r from Receta r where r.usuario.username=?1")
+	public List<Receta> misRecetas(String username);
 	
 
 }
