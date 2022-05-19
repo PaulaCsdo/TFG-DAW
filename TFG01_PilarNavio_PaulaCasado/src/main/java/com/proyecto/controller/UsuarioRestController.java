@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +32,7 @@ import com.proyecto.modelo.dao.IngredienteRecetaInt;
 import com.proyecto.modelo.dao.NivelCocinaInt;
 import com.proyecto.modelo.dao.RecetaInt;
 import com.proyecto.modelo.dao.RecetaUsuarioInt;
+import com.proyecto.modelo.dao.UsuarioInt;
 import com.proyecto.modelo.dto.IngredienteEnRecetaDTO;
 import com.proyecto.modelo.dto.RecetaDTO;
 
@@ -46,6 +48,9 @@ public class UsuarioRestController {
 	
 	@Autowired
 	private RecetaInt rdao;
+	
+	@Autowired
+	private UsuarioInt udao;
 	
 	@Autowired
 	private IngredienteRecetaInt irdao;
@@ -195,11 +200,11 @@ public class UsuarioRestController {
 	 * @param session Objeto que se almacena en la sesion.
 	 * @return 1 si se ha almacenado, 0 si el cambio no ha persistido en BD 
 	 */
-	@GetMapping("/guardarReceta/{idReceta}")
-	public ResponseEntity<String> guardaReceta (@PathVariable ("idReceta") int idReceta, HttpSession session) {
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
+	@GetMapping("/guardarReceta")
+	public ResponseEntity<String> guardaReceta (@RequestParam("username") String username,
+			@RequestParam("idReceta") int idReceta) {
+		Usuario usuario = udao.findById(username);
 		Receta receta=rdao.findById(idReceta);
-		
 		RecetaEnUsuario recusuario=new RecetaEnUsuario();
 		recusuario.setReceta(receta);
 		recusuario.setUsuario(usuario);
@@ -221,9 +226,8 @@ public class UsuarioRestController {
 	 */
 	@GetMapping("/verGuardadas")
 	@ResponseStatus(HttpStatus.OK)
-	public List<RecetaEnUsuario> meGustan(HttpSession session){
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		return rudao.verRecetasGuardadas(usuario.getUsername());
+	public List<RecetaEnUsuario> meGustan(@RequestParam("username") String username){
+		return rudao.verRecetasGuardadas(username);
 	}
 	
 	
@@ -237,9 +241,8 @@ public class UsuarioRestController {
 	 */
 	@GetMapping("/verMisRecetas")
 	@ResponseStatus(HttpStatus.OK)
-	public List <IngredienteEnReceta> verCreadas(HttpSession session) {
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		return irdao.misRecetas(usuario.getUsername());
+	public List <Receta> verCreadas(@RequestParam("username") String username) {
+		return rdao.misRecetas(username);
 	}
 	
 
@@ -250,49 +253,22 @@ public class UsuarioRestController {
 	 * @param session Objeto que se almacena en la sesion
 	 * @return 1 si el alta se ha realizado o 0 si no  persiste en base de datos
 	 */
-//	@PostMapping("/altaReceta")
-//	public ResponseEntity<Receta> altaReceta(@RequestBody  RecetaDTO receta, HttpSession session) {
-//		
-//		session.setAttribute("receta", null);
-//		Usuario usuario = (Usuario) session.getAttribute("usuario");
-//		
-//		receta.setUsuario(usuario);
-//		int id = ThreadLocalRandom.current().nextInt(10, 200) + 10;
-//		receta.setIdReceta(id);
-//		
-//		//Crea un objeto receta y la guarda en sesion
-//		Receta recetaSesion=rdao.recuperarSesion(receta);
-//		session.setAttribute("receta", recetaSesion);
-//		if(rdao.altaReceta(receta)==1) {
-//			session.setAttribute("receta", recetaSesion);
-//			return new ResponseEntity<Receta>(recetaSesion, HttpStatus.CREATED);
-//		}else {
-//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-//		}
-//	}
 	
 	@PostMapping("/altaReceta")
-	public ResponseEntity<Receta> altaReceta(@RequestBody RecetaDTO receta, HttpSession session) {
-		
-		session.setAttribute("receta", null);
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		
+	public ResponseEntity<Receta> altaReceta(@RequestBody RecetaDTO receta) {
+	
 		Categoria cat=ctint.findById(receta.getCategoria().getIdCategoria());
 		receta.setCategoria(cat);
 		
 		NivelCocina nivelco=nint.findById(receta.getNivelCocina().getIdNivel());
 		receta.setNivelCocina(nivelco);
 		
-		receta.setUsuario(usuario);
 		int id = ThreadLocalRandom.current().nextInt(10, 200) + 10;
 		receta.setIdReceta(id);
 		
-		//Crea un objeto receta y la guarda en sesion
-		Receta recetaSesion=rdao.recuperarSesion(receta);
-		session.setAttribute("receta", recetaSesion);
-		if(rdao.altaReceta(receta)==1) {
-			session.setAttribute("receta", recetaSesion);
-			return new ResponseEntity<Receta>(recetaSesion, HttpStatus.CREATED);
+		Receta alta=rdao.altaReceta(receta);
+		if(alta!=null) {
+			return new ResponseEntity<Receta>(alta, HttpStatus.CREATED);
 		}else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
@@ -335,19 +311,19 @@ public class UsuarioRestController {
 	 * @return String informativo sobre si el ala se ha realizado correcta o incorrectamente.
 	 */
 
-	@PostMapping("/añadirIngrediente")
-	public ResponseEntity<IngredienteEnReceta> altaIngredientes(@RequestBody IngredienteEnRecetaDTO ingredienteAñadido, HttpSession session) {
+	@PostMapping("/anadirIngrediente")
+	public ResponseEntity<IngredienteEnReceta> altaIngredientes(@RequestBody IngredienteEnRecetaDTO ingredienteAñadido) {
 		
-		IngredienteEnReceta recetaCreada=new IngredienteEnReceta();
+		IngredienteEnReceta recetaCreada=new IngredienteEnReceta(); 
 		
 		Ingrediente ingSeleccionado=idao.findById(ingredienteAñadido.getIdIngrediente());
 
-		Receta buscada=(Receta)session.getAttribute("receta");
+		Receta recnueva=rdao.findById(ingredienteAñadido.getIdReceta());
 
 		recetaCreada.setCantidad(ingredienteAñadido.getCantidad());
 		recetaCreada.setUnidad(ingredienteAñadido.getUnidad());
 		recetaCreada.setIngrediente(ingSeleccionado);
-		recetaCreada.setReceta(buscada);
+		recetaCreada.setReceta(recnueva);
 		
 		if(irdao.nuevaReceta(recetaCreada)==1) {
 			return new ResponseEntity<IngredienteEnReceta>(recetaCreada, HttpStatus.CREATED);

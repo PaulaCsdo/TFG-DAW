@@ -75,7 +75,7 @@ public class HomeRestController {
 	 * @return Si se da de alta correctamente, devuelve un String que lo indica. En caso contrario, devuelve otro String con un error.
 	 */
 	@PostMapping("/alta")
-	public ResponseEntity<Usuario> registrarUsuario(Usuario usuario) {
+	public ResponseEntity<Usuario> registrarUsuario(@RequestBody Usuario usuario) {
 		Date fecha= new Date();
 		usuario.setEnabled(1);
 		usuario.setFechaAlta(fecha);

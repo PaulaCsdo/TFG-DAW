@@ -55,10 +55,6 @@ public class UsuarioImpl implements UsuarioInt{
 		return urepo.findById(username).orElse(null);
 	}
 
-//	@Override
-//	public Usuario login(String username, String password) {
-//		return urepo.login(username, password);
-//	}
 
 
 }

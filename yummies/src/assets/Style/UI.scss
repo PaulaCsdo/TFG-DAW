@@ -1,0 +1,43 @@
+@import 'variables';
+
+.datepickerContainer .input{
+  width: 100%;    
+}
+.inputField-label{
+  color: black;
+  margin: 4px 0px;
+}
+.inputField-error{
+  font-size: 12px;
+  padding-left: 2px;
+  color: $input-error;
+}
+.success-input{
+  input{
+    background-color: #f0fff3 !important;
+    border-color: #b9e2c3  !important;
+    color: #21ba45 !important;
+    box-shadow: none  !important;
+  }
+}
+
+.add-receta-input.success-input{
+    background-color: #f0fff3 !important;
+    border-color: #b9e2c3  !important;
+    color: #21ba45 !important;
+    box-shadow: none  !important;
+}
+
+.search-input-container{
+  background-color: #ffefc1;
+  margin-bottom: 24px;
+  border-radius: 4px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .search-input{
+    width: 350px;
+  }
+}
+  

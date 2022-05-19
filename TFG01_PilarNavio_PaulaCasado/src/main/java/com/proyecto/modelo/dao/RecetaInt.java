@@ -8,9 +8,9 @@ import com.proyecto.modelo.dto.RecetaDTO;
 public interface RecetaInt {
 	List<Receta> verRecetas();
 	int eliminarReceta (int idReceta);
-	int altaReceta (RecetaDTO receta);
+	Receta altaReceta (RecetaDTO receta);
 	Receta findById (int idReceta);
-	Receta recuperarSesion(RecetaDTO receta);
+	List<Receta> misRecetas(String username);
 	List<Receta> buscarXNombre(String titulo);
 	List<Receta> buscarXMomento(String momento);
 }

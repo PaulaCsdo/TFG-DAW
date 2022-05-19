@@ -197,46 +197,56 @@ public class AdminRestController {
 	
 	//ALTA RECETA
 	
+	/**
+	 * Método para dar de alta una receta desde un formulario.
+	 * 
+	 * @param receta Objeto de tipo RecetaDTO
+	 * @param session Objeto que se almacena en la sesion
+	 * @return 1 si el alta se ha realizado o 0 si no  persiste en base de datos
+	 */
+	
 	@PostMapping("/altaReceta")
-	public ResponseEntity<Receta> altaReceta(@RequestBody RecetaDTO receta, HttpSession session) {
-		
-		session.setAttribute("receta", null);
-		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		
+	public ResponseEntity<Receta> altaReceta(@RequestBody RecetaDTO receta) {
+	
 		Categoria cat=ctint.findById(receta.getCategoria().getIdCategoria());
 		receta.setCategoria(cat);
 		
 		NivelCocina nivelco=nint.findById(receta.getNivelCocina().getIdNivel());
 		receta.setNivelCocina(nivelco);
 		
-		receta.setUsuario(usuario);
 		int id = ThreadLocalRandom.current().nextInt(10, 200) + 10;
 		receta.setIdReceta(id);
 		
-		//Crea un objeto receta y la guarda en sesion
-		Receta recetaSesion=rdao.recuperarSesion(receta);
-		session.setAttribute("receta", recetaSesion);
-		if(rdao.altaReceta(receta)==1) {
-			session.setAttribute("receta", recetaSesion);
-			return new ResponseEntity<Receta>(recetaSesion, HttpStatus.CREATED);
+		Receta alta=rdao.altaReceta(receta);
+		if(alta!=null) {
+			return new ResponseEntity<Receta>(alta, HttpStatus.CREATED);
 		}else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
 	}
 	
-	@PostMapping("/añadirIngrediente")
-	public ResponseEntity<IngredienteEnReceta> altaIngredientes(@RequestBody IngredienteEnRecetaDTO nuevaReceta, HttpSession session) {
-		
-		IngredienteEnReceta recetaCreada=new IngredienteEnReceta();
-		
-		Ingrediente ingSeleccionado=idao.findById(nuevaReceta.getIdIngrediente());
+	
+	/**
+	 * Método para añadir ingredientes a partir de un formulario
+	 * 
+	 * @param nuevaReceta DTO de IngredienteEnReceta en el que se almacenan todos los atributos de la receta
+	 * @param session Objeto que se almacena en la sesion
+	 * @return String informativo sobre si el ala se ha realizado correcta o incorrectamente.
+	 */
 
-		Receta buscada=(Receta)session.getAttribute("receta");
+	@PostMapping("/anadirIngrediente")
+	public ResponseEntity<IngredienteEnReceta> altaIngredientes(@RequestBody IngredienteEnRecetaDTO ingredienteAñadido) {
+		
+		IngredienteEnReceta recetaCreada=new IngredienteEnReceta(); 
+		
+		Ingrediente ingSeleccionado=idao.findById(ingredienteAñadido.getIdIngrediente());
 
-		recetaCreada.setCantidad(nuevaReceta.getCantidad());
-		recetaCreada.setUnidad(nuevaReceta.getUnidad());
+		Receta recnueva=rdao.findById(ingredienteAñadido.getIdReceta());
+
+		recetaCreada.setCantidad(ingredienteAñadido.getCantidad());
+		recetaCreada.setUnidad(ingredienteAñadido.getUnidad());
 		recetaCreada.setIngrediente(ingSeleccionado);
-		recetaCreada.setReceta(buscada);
+		recetaCreada.setReceta(recnueva);
 		
 		if(irdao.nuevaReceta(recetaCreada)==1) {
 			return new ResponseEntity<IngredienteEnReceta>(recetaCreada, HttpStatus.CREATED);
@@ -244,6 +254,7 @@ public class AdminRestController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			}
 		}
+	
 
 }
 

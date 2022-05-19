@@ -63,10 +63,6 @@ public class IngredienteRecetaImpl implements IngredienteRecetaInt{
 		return irrepo.buscarXTipo(idTipoDieta);
 	}
 
-	@Override
-	public List<IngredienteEnReceta> misRecetas(String username) {
-		return irrepo.misRecetas(username);
-	}
 
 	@Override
 	public List<IngredienteEnReceta> verUna(int idReceta) {
