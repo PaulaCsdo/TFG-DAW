@@ -3,6 +3,7 @@ import { Card, Image, Icon, Message} from "semantic-ui-react"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import imgReceta from '../assets/images/receta.png'
 
 export default function RecetasGuardadas () {
   const navigate = useNavigate()
@@ -24,6 +25,15 @@ export default function RecetasGuardadas () {
     getRecetas()
   }, [])
 
+  const getImg = id => {
+    try{
+      const auxImg = require(`../assets/images/${id}.jpg`)
+      return auxImg
+    }
+    catch (e){
+      return imgReceta
+    }
+  }
   return (
   <>
     <Message color='yellow'>En esta seccion podra ver sus recetas guardadas</Message>
@@ -31,7 +41,7 @@ export default function RecetasGuardadas () {
       {recetasResponse.length > 0 && recetasResponse.map(({receta}) => {
         return(
           <Card key={`receta_${receta.idReceta}`} onClick={_=>{navigate(`/recetas/${receta.idReceta}`, { state: { ...receta } })}} >
-            <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+            <Image src={getImg(receta.idReceta)} wrapped ui={false} />
             <Card.Content>
               <Card.Header>{receta.titulo}</Card.Header>
               <Card.Description>

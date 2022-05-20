@@ -5,6 +5,7 @@ import image from '../assets/images/receta.png'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import imgReceta from '../assets/images/receta.png'
 
 export default function Users () {
   const navigate = useNavigate()
@@ -77,6 +78,16 @@ export default function Users () {
       render: () => <Tab.Pane attached={false}>{receta.pasos?.split('- ').map(x=><p key={Math.random()}>{x}</p>)}</Tab.Pane>,
     },
   ]
+
+  const getImg = id => {
+    try{
+      const auxImg = require(`../assets/images/${id}.jpg`)
+      return auxImg
+    }
+    catch (e){
+      return imgReceta
+    }
+  }
   
   return (
   <div className='ver-receta-container'>
@@ -89,7 +100,7 @@ export default function Users () {
         </Button.Content>
       </Button>
       {/* <Button basic className='med-button'  primary onClick={_ =>navigate('/recetas')}>Volver a las Recetas</Button> */}
-      <img alt="" className="" src={image} />
+      <img alt="" className="imagen_receta" src={getImg(receta.idReceta)} />
       <Button animated='vertical' className='med-button'  primary onClick={guardarReceta}>
         <Button.Content visible>Guardar como Favorita</Button.Content>
         <Button.Content hidden>

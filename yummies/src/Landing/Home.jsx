@@ -4,6 +4,7 @@ import { Card, Image, Icon, Accordion, Message, Checkbox} from "semantic-ui-reac
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import imgReceta from '../assets/images/receta.png'
 
 export default function Users () {
   const navigate = useNavigate()
@@ -14,6 +15,7 @@ export default function Users () {
   const [activeFilter, setActiveFilter] = useState('')
   const [currentFilter, setCurrentFilter] = useState('')
   const [recetasFiltradas, setRecetasFiltradas] = useState([])
+
 
   const getMethod = (path, setValue) =>{
     axios.get(`http://localhost:8088/rest/usuario/${path}`)
@@ -83,6 +85,16 @@ export default function Users () {
     )
   }
 
+  const getImg = id => {
+    try{
+      const auxImg = require(`../assets/images/${id}.jpg`)
+      return auxImg
+    }
+    catch (e){
+      return imgReceta
+    }
+  }
+
   return (
   <>
     <div className='main-filter-container'>
@@ -121,7 +133,7 @@ export default function Users () {
       {recetasFiltradas.length > 0 && recetasFiltradas.map(receta => {
         return(
           <Card key={`receta_${receta.idReceta}`} onClick={_=>{navigate(`/recetas/${receta.idReceta}`, { state: { ...receta } })}} >
-            <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+            <Image src={getImg(receta.idReceta)} wrapped ui={false} />
             <Card.Content>
               <Card.Header>{receta.titulo}</Card.Header>
               <Card.Description>

@@ -23,3 +23,7 @@ h1, h2, h3, h4, h5, body{
         color: #231847 !important;
     }
 }
+.ui.card>.image>img, .ui.cards>.card>.image>img{
+    height: 200px !important;
+    background-color: #eeebff;
+}

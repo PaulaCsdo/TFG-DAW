@@ -20,7 +20,7 @@ const Login = _ => {
     })
     .catch(e =>{
       console.log(e)
-      toast.error('Ususario o contraseña incorrectos.')
+      toast.error('Usuario o contraseña incorrectos.')
     })
   }
   return (
@@ -33,8 +33,8 @@ const Login = _ => {
               Yummies
               </div>
               <div className='head-text'>
-              <h2>Bienvenido!</h2>
-              <p>Bienvenido, por favor introduce tus credenciales.</p>
+              <h2>¡Bienvenido!</h2>
+              <p>Introduce tus credenciales.</p>
               </div>
               <div className='login-container'>
                   <div className="field">
