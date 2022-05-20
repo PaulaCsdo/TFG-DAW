@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Checkbox, Icon } from 'semantic-ui-react'
+import { Button, Checkbox, Icon, Message } from 'semantic-ui-react'
 import Input from '../UI/InputField'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -21,7 +21,7 @@ const CreateReceta = ({showIngredientes}) => {
     })
     .catch(e =>{
       console.log(e)
-      toast.error('Ususario o contraseña incorrectos.')
+      toast.error('Error al crear la receta. Revisa los errores del formulario.')
     })
   }
 
@@ -62,7 +62,7 @@ const CreateReceta = ({showIngredientes}) => {
           value={values[target]} 
           onChange={e=>setValue( {...values, [target]: e.target.value } )} 
           className={`add-receta-input ${values[target] !== '' && 'success-input'} ${textarea && (validated && values[target] === '') && 'errorArea'}`} 
-          inputlabel={`${label} Requerido`}
+          inputlabel={`${label} (obligatorio)`}
           textarea = {textarea}
           />
       </div>
@@ -91,7 +91,7 @@ const CreateReceta = ({showIngredientes}) => {
       })
       .catch(e =>{
         console.log(e)
-        toast.error('Ususario o contraseña incorrectos.')
+        toast.error('Error al crear la receta. Revista los errores')
       })
     }
   }
@@ -101,14 +101,14 @@ const CreateReceta = ({showIngredientes}) => {
       <div className='login-body'>
         <div className='login-form'>
             <div className='head-text'>
-            <h2>Nueva receta</h2>
-            <p>instrucciones.</p>
+            <h2>Crear una receta</h2>
+            <Message color='yellow'>Para crear una receta, <b>rellena este formulario</b>. Cuando acabes, haz click en el botón del final de la página para continuar <b>añadiendo los ingredientes</b>. </Message>
             </div>
             <div className='login-container'>
                 {auxInput('titulo', 'Ponle un nombre', 'Ingrese un nombre para la receta')}
                 {auxInput('momento', '¿En qué momento del día se puede comer?', 'Ingrese un momento para comerla')}
                 {auxInput('numPorciones', '¿Cuántos comensales?', 'Ingrese para cuantos comensales es la receta')}
-                {auxInput('kcal', '¿Kcal?', 'Ingrese cuantas kcal tiene la receta')}
+                {auxInput('kcal', '¿Kilocalorias (kcal)?', 'Ingrese cuantas kcal tiene la receta')}
                 {auxInput('tiempo', '¿Cuánto tiempo tarda en hacerse?', 'Ingrese cuanto tiempo tarda en hacerse la receta')}
                 <div className="field-radio">
                   <div className='radio-tittle'>¿Cúal es la categoría de esta receta? Selecciona una </div>

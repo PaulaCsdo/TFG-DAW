@@ -26,7 +26,7 @@ const AddIngredientes = ({idReceta}) => {
     })
     .catch(e =>{
       console.log(e)
-      toast.error('Ususario o contraseña incorrectos.')
+      toast.error('Error al añadir ingredientes. Revisa los errores.')
     })
   }
 
@@ -119,8 +119,8 @@ const AddIngredientes = ({idReceta}) => {
       <div className='receta-body'>
         <div className='login-form'>
             <div className='head-text'>
-            <h2>Nueva receta</h2>
-            <Message color='yellow'>Aqui puedes añadir los ingredientes de la receta. Una vez finalices, puedes ver la receta creada en "Mis Recetas"</Message>
+            <h2>Añade los ingredientes</h2>
+            <Message color='yellow'>Aqui puedes añadir los ingredientes de la receta.</Message>
             </div>
             <div className='login-container'>
                 {addIngredienteForm()}
