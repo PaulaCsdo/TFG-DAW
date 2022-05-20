@@ -9,7 +9,8 @@ Este proyecto consta de:
   - TFG01_PilarNavio_PaulaCasado: back-end desarrollado en Java mediante el framework SpringBoot.
   - Resources: recursos utilizados como imágenes y guía de estilo <i>(look and feel)</i>
   - yummies: front-end desarrollado en React JS.
-  - <b>HAY QUE INCLUIR LA MEMORIA Y EL PPT</B>
+  - ExposicionYummies.pdf: exposicion en pdf de la defensa del proyecto.
+  - memoriatfg.pdf:  memoria del proyecto.
 
 Para poder ejecutar este proyecto, es necesario:
   - El gestor de bases de datos MySQL Workbench
